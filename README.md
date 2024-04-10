@@ -49,7 +49,7 @@ Repository for development of the game project for TC2005B
 
 ### **Summary**
 
-Sum up your game idea in 2 sentences. A kind of elevator pitch. Keep it simple!
+A turn based card game where strategy is important. Each turn three cards are taken from the pile and a dice is rolled defining the player's speed. This speed must be distributed to the cards at play to determine who attacks first between two front facing cards. The player can then use the cards taken from the pile to attack the opponent's cards. This cycle repeats until one of the players has no cards left in play.
 
 ### **Gameplay**
 
