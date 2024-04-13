@@ -49,11 +49,29 @@ Repository for development of the game project for TC2005B
 
 ### **Summary**
 
-A turn based card game where strategy is important. Each turn three cards are taken from the pile and a dice is rolled defining the player's speed. This speed must be distributed to the cards at play to determine who attacks first between two front facing cards. The player can then use the cards taken from the pile to attack the opponent's cards. This cycle repeats until one of the players has no cards left in play.
+A turn based Deckbuilding game where you must choose when and how your cards interact with the opponent's cards one at a time, using strategy to manage each card's speed (energy) which is used with most actions through the cards in your hand.
 
 ### **Gameplay**
 
-What should the gameplay be like? What is the goal of the game, and what kind of obstacles are in the way? What tactics should the player use to overcome them?
+The game's decks are made of 23 cards. 3 of them are the identity cards, which are the ones in play at all times in the match, and the rest are a mix of attack, defense andmiscellaneous cards (such as draw cards and effect cards). Matches are intended to last around 14 turns, 7 from each player.
+
+### - **Card Types**
+
+**Identity Cards:** The cards that are in the board interacting with each other. Three of these cards can be in a deck. They have two stats, the left top of the card shows the available speed of it, and the bottom right shows its health. They also have a description of their passive ability in the middle of the card.
+
+**Attack Cards:** Attack cards can be played for the front card to do an attack. They also have two stats, damage and speed cost. For now, the damages are 3, 4, and 5 damage costing 1, 2, and 3 speed respectively. The damage of the card, however, can be further increased with effect cards.
+
+**Defense Cards:** Similar to attack cards, there are three defense cards available to add to a deck. They absorb 3, 5, and 10 damage, costing 1, 2, and 3 speed respectively. This absorption can be increased or decreased with effect cards as well.
+
+**Miscellaneous Cards:** Two general types exist:
+
+- Draw cards: Allow you to draw 2 cards from your pile. A maximum of 3 of these cards can be in a deck.
+- Effect cards: These cards have caried effects that can apply to identities, attack or defense cards. Some allow you to pierce an opponent's defense card, increase the defense value of a defense card, increase the damage dealt by an attack card, prevent a swap, etc. These cards are used at the beginning of a turn after the swap selection. 
+
+
+### **Match Gameplay**
+
+  
 
 ### **Mindset**
 
