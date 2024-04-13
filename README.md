@@ -59,6 +59,8 @@ The game's decks are made of 23 cards. 3 of them are the identity cards, which a
 
 **Identity Cards:** The cards that are in the board interacting with each other. Three of these cards can be in a deck. They have two stats, the left top of the card shows the available speed of it, and the bottom right shows its health. They also have a description of their passive ability in the middle of the card.
 
+![Picture of an identity card](Images/IdentityCard.jpg)
+
 **Attack Cards:** Attack cards can be played for the front card to do an attack. They also have two stats, damage and speed cost. For now, the damages are 3, 4, and 5 damage costing 1, 2, and 3 speed respectively. The damage of the card, however, can be further increased with effect cards.
 
 **Defense Cards:** Similar to attack cards, there are three defense cards available to add to a deck. They absorb 3, 5, and 10 damage, costing 1, 2, and 3 speed respectively. This absorption can be increased or decreased with effect cards as well.
@@ -70,8 +72,30 @@ The game's decks are made of 23 cards. 3 of them are the identity cards, which a
 
 
 ### **Match Gameplay**
+- Game Start:
+Identity cards are placed on the board.
+![GameExamplePicture1](Images/GameEx1.jpeg)
 
-  
+- Player Turn:
+Player is given the ption to swap the front card for one of the two back cards or leave the front card in combat.
+![GameExamplePicture2](Images/GameEx2.jpeg)
+
+If the player swaps the card the card placement changes, if not, it stays the same.
+
+The player then draws 2 cards. In this case, an attack and a defense card from the pile.
+![GameExamplePicture3](Images/GameEx3.jpeg)
+
+The player can use 1 action card (atk, def) per turn and as many item cards as the conditions allow in the card description.
+In this case, the attack card is played, reducing the front card's speed by 1.
+![GameExamplePicture4](Images/GameEx4.jpeg)
+
+The card performs the action (attack) and the action card gets discarded. The opposing card loses 3 HP
+![GameExamplePicture5](Images/GameEx5.jpeg)
+
+Player turn ends, opponent's turn starts. The opponent uses the same gameloop as the player.
+![Continuation of the game](Images/GameEx6.jpeg)
+
+
 
 ### **Mindset**
 
