@@ -1,7 +1,11 @@
 # TC2005B_Videogame
 Repository for development of the game project for TC2005B
+Developed by Pixel Pioneers
+A01784901 - Fabrizio Barrios Blanco
+A01784217 - Nicole Dávila Hernández
+A01028033 - Miguel Enrique Soria
 
-# **Speed Based TCG (Tentative Limbus Company)**
+# **SUBMIL TCG**
 
 ## _Game Design Document_
 
