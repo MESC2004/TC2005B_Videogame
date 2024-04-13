@@ -80,13 +80,12 @@ Identity cards are placed on the board.
 Player is given the ption to swap the front card for one of the two back cards or leave the front card in combat.
 ![GameExamplePicture2](Images/GameEx2.jpeg)
 
-If the player swaps the card the card placement changes, if not, it stays the same.
+- If the player swaps the card the card placement changes, if not, it stays the same.
 
-The player then draws 2 cards. In this case, an attack and a defense card from the pile.
+- The player then draws 2 cards. In this case, an attack and a defense card from the pile.
 ![GameExamplePicture3](Images/GameEx3.jpeg)
 
-The player can use 1 action card (atk, def) per turn and as many item cards as the conditions allow in the card description.
-In this case, the attack card is played, reducing the front card's speed by 1.
+- The player can use 1 action card (atk, def) per turn and as many item cards as the conditions allow in the card description. In this case, the attack card is played, reducing the front card's speed by 1.
 ![GameExamplePicture4](Images/GameEx4.jpeg)
 
 The card performs the action (attack) and the action card gets discarded. The opposing card loses 3 HP
