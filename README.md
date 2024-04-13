@@ -55,11 +55,11 @@ A turn based Deckbuilding game where you must choose when and how your cards int
 
 The game's decks are made of 23 cards. 3 of them are the identity cards, which are the ones in play at all times in the match, and the rest are a mix of attack, defense andmiscellaneous cards (such as draw cards and effect cards). Matches are intended to last around 14 turns, 7 from each player.
 
-### - **Card Types**
+#### - **Card Types**
 
 **Identity Cards:** The cards that are in the board interacting with each other. Three of these cards can be in a deck. They have two stats, the left top of the card shows the available speed of it, and the bottom right shows its health. They also have a description of their passive ability in the middle of the card.
 
-![Picture of an identity card](Images/IdentityCard.jpg)
+<img src="Images/IdentityCard.jpg" width="500">
 
 **Attack Cards:** Attack cards can be played for the front card to do an attack. They also have two stats, damage and speed cost. For now, the damages are 3, 4, and 5 damage costing 1, 2, and 3 speed respectively. The damage of the card, however, can be further increased with effect cards.
 
@@ -72,33 +72,33 @@ The game's decks are made of 23 cards. 3 of them are the identity cards, which a
 
 
 ### **Match Gameplay**
-- Game Start:
-Identity cards are placed on the board.
-![GameExamplePicture1](Images/GameEx1.jpeg)
+### -Game Start:
+- Identity cards are placed on the board.
+<img src="Images/GameEx1.jpeg" width="500">
 
-- Player Turn:
+### -Player Turn:
 - Player is given the option to swap the front card for one of the two back cards or leave the front card in combat. An effect of swapping cards is regenerating the card's original speed value. If a card that had 3 speed and used 2 goes back to having 3 speed when swapping. This is intended to help avoid defense card spamming.
-![GameExamplePicture2](Images/GameEx2.jpeg)
+<img src="Images/GameEx2.jpeg" width="500">
+
 
 - If the player swaps the card the card placement changes, if not, it stays the same. The player then draws 2 cards. In this case, an attack and a defense card from the pile.
-![GameExamplePicture3](Images/GameEx3.jpeg)
+<img src="Images/GameEx3.jpeg" width="500">
 
 - The player can use 1 action card (atk, def) per turn and as many item cards as the conditions allow in the card description. In this case, the attack card is played, reducing the front card's speed by 1.
-![GameExamplePicture4](Images/GameEx4.jpeg)
+<img src="Images/GameEx4.jpeg" width="500">
 
 - The card performs the action (attack) and the action card gets discarded. The opposing card loses 3 HP
-![GameExamplePicture5](Images/GameEx5.jpeg)
+<img src="Images/GameEx5.jpeg" width="500">
 
 - Player turn ends, opponent's turn starts. The opponent uses the same gameloop as the player.
-![Continuation of the game](Images/GameEx6.jpeg)
+<img src="Images/GameEx6.jpeg" width="600">
 
-**This loop repeats until either the player's or the opponent's cards all reach 0 HP.**
+#### **This loop repeats until either the player's or the opponent's cards all reach 0 HP.**
 
 
 
 ### **Mindset**
 
-What kind of mindset do you want to provoke in the player? Do you want them to feel powerful, or weak? Adventurous, or nervous? Hurried, or calm? How do you intend to provoke those emotions?
 The intention is for the player to have to manage their speed while also considering what the opponent could do to their front facing card, attempting to predict posibilities and choosing the best course of action, wether this is defending, attacking or using effect cards to increase their stats.
 
 ## _Technical_
