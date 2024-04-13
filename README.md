@@ -77,7 +77,7 @@ Identity cards are placed on the board.
 ![GameExamplePicture1](Images/GameEx1.jpeg)
 
 - Player Turn:
-Player is given the ption to swap the front card for one of the two back cards or leave the front card in combat.
+Player is given the option to swap the front card for one of the two back cards or leave the front card in combat. An effect of swapping cards is regenerating the card's original speed value. If a card that had 3 speed and used 2 goes back to having 3 speed when swapping. This is intended to help avoid defense card spamming.
 ![GameExamplePicture2](Images/GameEx2.jpeg)
 
 - If the player swaps the card the card placement changes, if not, it stays the same.
@@ -88,17 +88,20 @@ Player is given the ption to swap the front card for one of the two back cards o
 - The player can use 1 action card (atk, def) per turn and as many item cards as the conditions allow in the card description. In this case, the attack card is played, reducing the front card's speed by 1.
 ![GameExamplePicture4](Images/GameEx4.jpeg)
 
-The card performs the action (attack) and the action card gets discarded. The opposing card loses 3 HP
+- The card performs the action (attack) and the action card gets discarded. The opposing card loses 3 HP
 ![GameExamplePicture5](Images/GameEx5.jpeg)
 
-Player turn ends, opponent's turn starts. The opponent uses the same gameloop as the player.
+- Player turn ends, opponent's turn starts. The opponent uses the same gameloop as the player.
 ![Continuation of the game](Images/GameEx6.jpeg)
+
+**This loop repeats until either the player's or the opponent's cards all reach 0 HP.**
 
 
 
 ### **Mindset**
 
 What kind of mindset do you want to provoke in the player? Do you want them to feel powerful, or weak? Adventurous, or nervous? Hurried, or calm? How do you intend to provoke those emotions?
+The intention is for the player to have to manage his speed while also considering what the opponent could do to their front facing card, attempting to predict posibilities and choose the best course of action.
 
 ## _Technical_
 
