@@ -68,7 +68,7 @@ The game's decks are made of 23 cards. 3 of them are the identity cards, which a
 **Miscellaneous Cards:** Two general types exist:
 
 - Draw cards: Allow you to draw 2 cards from your pile. A maximum of 3 of these cards can be in a deck.
-- Effect cards: These cards have caried effects that can apply to identities, attack or defense cards. Some allow you to pierce an opponent's defense card, increase the defense value of a defense card, increase the damage dealt by an attack card, prevent a swap, etc. These cards are used at the beginning of a turn after the swap selection. 
+- Effect cards: These cards have caried effects that can apply to identities, attack or defense cards. Some allow you to pierce an opponent's defense card, increase the defense value of a defense card, increase the damage dealt by an attack card, prevent a swap, heal an identity, etc. These cards are used at the beginning of a turn after the swap selection. 
 
 
 ### **Match Gameplay**
@@ -101,7 +101,7 @@ Player is given the option to swap the front card for one of the two back cards 
 ### **Mindset**
 
 What kind of mindset do you want to provoke in the player? Do you want them to feel powerful, or weak? Adventurous, or nervous? Hurried, or calm? How do you intend to provoke those emotions?
-The intention is for the player to have to manage his speed while also considering what the opponent could do to their front facing card, attempting to predict posibilities and choose the best course of action.
+The intention is for the player to have to manage their speed while also considering what the opponent could do to their front facing card, attempting to predict posibilities and choosing the best course of action, wether this is defending, attacking or using effect cards to increase their stats.
 
 ## _Technical_
 
