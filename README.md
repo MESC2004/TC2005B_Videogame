@@ -59,39 +59,80 @@ The game's decks are made of 23 cards. 3 of them are the identity cards, which a
 
 **Identity Cards:** The cards that are in the board interacting with each other. Three of these cards can be in a deck. They have two stats, the left top of the card shows the available speed of it, and the bottom right shows its health. They also have a description of their passive ability in the middle of the card.
 
-<img src="Images/IdentityCard.jpg" width="500">
+<p align="center">
+    <img src="Images/IdentityCard.jpg" width="500">
+</p>
 
-**Attack Cards:** Attack cards can be played for the front card to do an attack. They also have two stats, damage and speed cost. For now, the damages are 3, 4, and 5 damage costing 1, 2, and 3 speed respectively. The damage of the card, however, can be further increased with effect cards.
+The card would resemble something similar to this once it is implemented in-game:
 
-**Defense Cards:** Similar to attack cards, there are three defense cards available to add to a deck. They absorb 3, 5, and 10 damage, costing 1, 2, and 3 speed respectively. This absorption can be increased or decreased with effect cards as well.
+<p align="center">
+    <img src="Images/identity_card.png" width="500">
+</p>
+
+**Attack Cards:** Attack cards can be played for the front card to do an attack. They also have two stats, damage and speed cost. For now, the damages are 3, 4, and 5 damage costing 1, 2, and 3 speed respectively. The damage of the card, however, can be further increased with effect cards. In the deck, they will appear as follows:
+
+<p align="center">
+    <img src="Images/attack_card.png" width="500">
+</p>
+
+**Defense Cards:** Similar to attack cards, there are three defense cards available to add to a deck. They absorb 3, 5, and 10 damage, costing 1, 2, and 3 speed respectively. This absorption can be increased or decreased with effect cards as well. In-game, these cards would, tentatively, look as such:
+
+<p align="center">
+    <img src="Images/defense_card.png" width="500">
+</p>
 
 **Miscellaneous Cards:** Two general types exist:
 
 - Draw cards: Allow you to draw 2 cards from your pile. A maximum of 3 of these cards can be in a deck.
-- Effect cards: These cards have caried effects that can apply to identities, attack or defense cards. Some allow you to pierce an opponent's defense card, increase the defense value of a defense card, increase the damage dealt by an attack card, prevent a swap, heal an identity, etc. These cards are used at the beginning of a turn after the swap selection. 
+- Effect cards: These cards have caried effects that can apply to identities, attack or defense cards. Some allow you to pierce an opponent's defense card, increase the defense value of a defense card, increase the damage dealt by an attack card, prevent a swap, heal an identity, etc. These cards are used at the beginning of a turn after the swap selection.
 
+An example of an effect card would be:
+
+<p align="center">
+    <img src="Images/effect_card.png" width="500">
+</p>
+
+Which grants +2 attack damage on the player's next turn.
+
+Additionally, this would be the view of the back of each card on the card deck:
+
+<p align="center">
+    <img src="Images/back_of_card.png" width="500">
+</p>
 
 ### **Match Gameplay**
 ### -Game Start:
 - Identity cards are placed on the board.
-<img src="Images/GameEx1.jpeg" width="500">
+<p align="center">
+    <img src="Images/GameEx1.jpeg" width="500">
+</p>
 
 ### -Player Turn:
 - Player is given the option to swap the front card for one of the two back cards or leave the front card in combat. An effect of swapping cards is regenerating the card's original speed value. If a card that had 3 speed and used 2 goes back to having 3 speed when swapping. This is intended to help avoid defense card spamming.
-<img src="Images/GameEx2.jpeg" width="500">
+<p align="center">
+    <img src="Images/GameEx2.jpeg" width="500">
+</p>
 
 
 - If the player swaps the card the card placement changes, if not, it stays the same. The player then draws 2 cards. In this case, an attack and a defense card from the pile.
-<img src="Images/GameEx3.jpeg" width="500">
+<p align="center">
+    <img src="Images/GameEx3.jpeg" width="500">
+</p>
 
 - The player can use 1 action card (atk, def) per turn and as many item cards as the conditions allow in the card description. In this case, the attack card is played, reducing the front card's speed by 1.
-<img src="Images/GameEx4.jpeg" width="500">
+<p align="center">
+    <img src="Images/GameEx4.jpeg" width="500">
+</p>
 
 - The card performs the action (attack) and the action card gets discarded. The opposing card loses 3 HP
-<img src="Images/GameEx5.jpeg" width="500">
+<p align="center">
+    <img src="Images/GameEx5.jpeg" width="500">
+</p>
 
 - Player turn ends, opponent's turn starts. The opponent uses the same gameloop as the player.
-<img src="Images/GameEx6.jpeg" width="600">
+<p align="center">
+    <img src="Images/GameEx6.jpeg" width="600">
+</p>
 
 #### **This loop repeats until either the player's or the opponent's cards all reach 0 HP.**
 
