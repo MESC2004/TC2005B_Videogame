@@ -23,6 +23,7 @@
 - As a user, I want to be able to hover my mouse over a card and have the card magnify in size to have a visual representation of my choice in cards throughout the game.
 - As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
 - As a user, I want to be able to see the artwork of the back and front of the back when playing to enhance my experience as a player.
+- As a user, I want to be able to see mine and my opponent's score on the screen to keep track of who is winning and by how many points.
 
 ## Login and Saving
 
