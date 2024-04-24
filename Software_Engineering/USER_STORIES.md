@@ -13,9 +13,9 @@
 - As a user, I want to be able to play cards from my hand to the field to interact with the game.
 - As a user, I want to be able to use a mix of attack, defense and effects to beat my opponent.
 
-## Gameplay 
+## Controls and UI
 
-- As a user, I want to be able to interaxct with the cards with mouse inputs.
+- As a user, I want to be able to interact with the cards with mouse inputs.
 - As a user, I want to be able to see the cards in my hand and the cards on the field.
 - As a user, I want to be able to understand the card's values and effects at a glance.
 
