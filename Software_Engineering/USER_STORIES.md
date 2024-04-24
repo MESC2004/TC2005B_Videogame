@@ -15,15 +15,19 @@
 
 ## Controls and UI
 
+- As a user, I want to be able to interact with a menu screen to initiate a game.
 - As a user, I want to be able to interact with the cards with mouse inputs.
 - As a user, I want to be able to see the cards in my hand and the cards on the field.
 - As a user, I want to be able to understand the card's values and effects at a glance.
+- As a user, I want to be able to hover my mouse over a card and have the card magnify in size to have a visual representation of my choice in cards throughout the game.
 
 ## Login and Saving
 
 - As a user, I want to be able to create and login to my account.
 - As a user, I want to be able to save my progress and decks to my account.
 - As a user, I want to be able to load my progress and decks from my account.
+- As a user, I want to be able to consult the leaderboard to see my highest scores.
+- As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
 
 ## Win Condition
 
