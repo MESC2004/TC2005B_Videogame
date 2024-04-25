@@ -21,7 +21,10 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 
 ## Gameplay 
 
-- As a user, I want to be able to use my deck to play against an AI opponent.
+- **Custom Match Against AI ${\texttt{\color{orange}[High]}}$ ${\texttt{\color{magenta}[2-3 sprints]}}$**
+    - **User Story:** As a user, I want to be able to use my deck to play against an AI opponent.
+    - **Acceptance Criteria:** Given that the  user wishes to use their own deck to play, when they  choose to face an artificial inteligence opponent,         the system must allow them to select  their personal deck and start the game.
+      
 - As a user, I want to be able to draw cards in my deck and plan according to the available options using strategy.
 - As a user, I want to be able to play cards from my hand to the field to interact with the game.
 - As a user, I want to be able to use a mix of attack, defense and effects to beat my opponent.
