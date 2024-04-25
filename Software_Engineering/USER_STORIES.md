@@ -2,7 +2,9 @@
 
 ## Deck Creation and Default Decks
 
-- As a user, I want to play a TCG game that involves strategy and deckbuilding to overcome the challenges of the game.
+- **The Game ${\color{red}[High]}$ ${\color{magenta}[5-7 sprints]}$**
+    - **User Story:** As a user, I want to play an interactive card game that involves strategy and deckbuilding to overcome the challenges of the game.
+    - **Acceptance Criteria:** Given the initial game development, when the game development has ended then a finished deckbuilding game is expected.
 - As a user, I want to be able to create and modify a 23 card deck to manage the strategy I want to use in my gameplay.
 - As a user, I want to have the option to use a default deck to play the game without having to create a deck from scratch.
 
