@@ -1,11 +1,20 @@
+# COLOR CODES
+
+${\texttt{\color{red}[High]}}$\
+${\texttt{\color{orange}[Mid]}}$\
+${\texttt{\color{green}[Low]}}$\
+${\texttt{\color{magenta}[All Sprints]}}$
+
 # User Stories
 
 ## Deck Creation and Default Decks
 
-- **The Game ${\color{red}[High]}$ ${\color{magenta}[5-7 sprints]}$**
+- **The Game ${\texttt{\color{red}[High]}}$ ${\texttt{\color{magenta}[5-7 sprints]}}$**
     - **User Story:** As a user, I want to play an interactive card game that involves strategy and deckbuilding to overcome the challenges of the game.
     - **Acceptance Criteria:** Given the initial game development, when the game development has ended then a finished deckbuilding game is expected.
-- As a user, I want to be able to create and modify a 23 card deck to manage the strategy I want to use in my gameplay.
+- **The Deck ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
+    - **User Sotory:** As a user, I want to be able to create and modify a 23 card deck to manage the strategy I want to use in my gameplay.
+    - **Acceptance Criteria:**
 - As a user, I want to have the option to use a default deck to play the game without having to create a deck from scratch.
 
 ## Gameplay 
