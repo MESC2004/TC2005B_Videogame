@@ -15,7 +15,9 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 - **The Deck ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Sotory:** As a user, I want to be able to create and modify a 23 card deck to manage the strategy I want to use in my gameplay.
     - **Acceptance Criteria:**
-- As a user, I want to have the option to use a default deck to play the game without having to create a deck from scratch.
+-**Pre-set Deck Generator ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[2-3 sprints]}}$**
+    - **User Story:** As a user, I want to have the option to use a default deck to play the game without having to create a deck from scratch.
+    - **Acceptance Criteria:** When the user accesses the option to select a pre-set deck, it is expected that they can choose a deck from a list of well-balanced and strategically designed decks, and start playing.
 
 ## Gameplay 
 
