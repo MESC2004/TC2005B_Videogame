@@ -31,7 +31,9 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:** As a user, I want to be able to play cards from my hand to the field to interact with the game.
     - **Acceptance Criteria:** When the user selects a card to play, the system must allow the placement of the card on the playing field and ensure that the         interaction with other cards in play conforms to the established rules.
       
-- As a user, I want to be able to use a mix of attack, defense and effects to beat my opponent.
+- **Game Control through Attack,Defense and Effects ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:** As a user, I want to be able to use a mix of attack, defense and effects to beat my opponent.
+    - **Acceptance Criteria:** The system must allow the user to select and apply strategies of attack, defense, and special effect in such a way that the effectively interact according to the game rules to defeat the opponent.
 - As a user, I want to be able to press a button to confirm my choice when deciding what card to play.
 
 ## Controls and UI
