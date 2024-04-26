@@ -167,7 +167,10 @@ _(example)_
 
 ### **Controls**
 
-How will the player interact with the game? Will they be able to choose the controls? What kind of in-game events are they going to be able to trigger, and how? (e.g. pressing buttons, opening doors, etc.)
+- All interactions will happen through mouse clicks, except for the login section where keyboard inputs will be accepted for credential registration.
+
+-**DECK INTERACTIONS:**
+	- Right clicking a card in either the available cards or deck cards will add/remove the card from the deck respectively.
 
 ### **Mechanics**
 
