@@ -34,8 +34,11 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 - **Game Control through Attack,Defense and Effects ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
     - **User Story:** As a user, I want to be able to use a mix of attack, defense and effects to beat my opponent.
     - **Acceptance Criteria:** The system must allow the user to select and apply strategies of attack, defense, and special effect in such a way that the effectively interact according to the game rules to defeat the opponent.
-- As a user, I want to be able to press a button to confirm my choice when deciding what card to play.
-
+      
+- **Card Selection Confirmation ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:** As a user, I want to be able to press a button to confirm my choice when deciding what card to play.
+    - **Acceptance Criteria:** The user wishes to confirm their card choice when playing, the system must provide a confirmation button that, once pressed, finalizes the selection and proceeds with the play according to the game rules.
+      
 ## Controls and UI
 
 - As a user, I want to be able to interact with a menu screen to initiate a game.
