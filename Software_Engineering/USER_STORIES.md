@@ -21,12 +21,16 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 
 ## Gameplay 
 
-- **Custom Match Against AI ${\texttt{\color{orange}[High]}}$ ${\texttt{\color{magenta}[2-3 sprints]}}$**
+- **Custom Match Against AI ${\texttt{\color{red}[High]}}$ ${\texttt{\color{magenta}[2-3 sprints]}}$**
     - **User Story:** As a user, I want to be able to use my deck to play against an AI opponent.
     - **Acceptance Criteria:** Given that the  user wishes to use their own deck to play, when they  choose to face an artificial inteligence opponent,         the system must allow them to select  their personal deck and start the game.
       
 - As a user, I want to be able to draw cards in my deck and plan according to the available options using strategy.
-- As a user, I want to be able to play cards from my hand to the field to interact with the game.
+
+- **Card Interaction on the field ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:** As a user, I want to be able to play cards from my hand to the field to interact with the game.
+    - **Acceptance Criteria:** When the user selects a card to play, the system must allow the placement of the card on the playing field and ensure that the         interaction with other cards in play conforms to the established rules.
+      
 - As a user, I want to be able to use a mix of attack, defense and effects to beat my opponent.
 - As a user, I want to be able to press a button to confirm my choice when deciding what card to play.
 
