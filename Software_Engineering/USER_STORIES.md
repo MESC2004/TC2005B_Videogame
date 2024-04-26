@@ -45,8 +45,13 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:** As a user, I want to be able to interact with a menu screen to initiate a game.
     - **Acceptance Criteria:** When accessing the menu screen, clear  and  accesible  options must be presented to start a game, including  game, including game mode selection, game settings, and game start.
       
-- As a user, I want to be able to interact with the cards with mouse clicks.
-- As a user, I want to be able to see the cards in my hand and the cards on the field.
+- **Card Interaction via Mouse Clicks ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:** As a user, I want to be able to interact with the cards with mouse clicks.
+    - **Acceptance Criteria:** At the moment a card is clicked, the game must display the details of the card execute the action associated with thw card according to the context of the game.
+- **Card Display in Hand and on the Field ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:** As a user, I want to be able to see the cards in my hand and the cards on the field.
+    - **Acceptance Criteria:** The system must display all the cards that the user has in their hand and those that are played on the field, allowing complete and real-time visibility of both sets of cards.
+      
 - As a user, I want to be able to understand the card's values and effects at a glance.
 - As a user, I want to be able to hover my mouse over a card and have the card magnify in size to have a visual representation of my choice in cards throughout the game.
 - As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
