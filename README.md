@@ -52,7 +52,31 @@ A01028033 - Miguel Enrique Soria
 
 ## _Game Design_
 
----
+### Elevator Pitch / Concept Statement
+
+Step into the strategic battleground of Submil, where your wit is your greatest weapon. In this turn-based deckbuilding game, you’ll dive into a world where every card and every move is a step in a high-stakes dance of strategy. With a deck of 23 unique cards, including three identity cards that define your playstyle, you’ll engage in cerebral combat that lasts an intense 14 turns.
+
+Each character is not just a scientist, but a rebel with a cause. They’re fighting not just for victory, but for their beliefs, challenging society itself. In Submil, managing your card’s energy is as crucial as the attacks you launch. Every action, from drawing a card to unleashing an effect, is a calculated risk that could lead to triumph or defeat.
+
+Are you ready to challenge the status quo? To outthink and outmaneuver your opponent in a game where intellect is mightier than the sword? Submil isn’t just a game; it’s a revolution one turn at a time. Join the rebellion, craft your strategy, and emerge victorious in the world of Submil.
+
+### Characters
+
+Sublim is considered the first and only part of its arc. It is set in a universe where scientific and technological advances have taken a turn for the worst. They ended up in the wrong hands, where only the elites of society have the possibility of acquiring and benefiting from them.
+
+This is how *The Crisis Unit* was born; a group of the most powerful minds whose goal is to decentralize the domain of power that the authorities have taken control over.
+
+*The Crisis Unit* is made up of Faust, Don Quixote, Heathcliff, Gregor, Ismael and Outis; Each of them has unique passive abilities, which will help the player defeat their opponent.
+
+The player, in this case, could be considered a new member of this unit, who has been personally recruited by this group.
+
+### Setting
+
+Similar to the setting of the universe of the *Arcane* series based off of *League of Legends*, the place where the events of this world take place and where the player's games will take place is somewhat murky.
+
+The city, Vreumcaster, where they are located, is in ruins. The population takes drastic measures to survive, while the aristocrats enjoy all the luxuries that are only imaginable for those below.
+
+However, *The Crisis Unit*, despite living in the ruins of Vreumcaster, being pursued by the government, must hide among the rubble to develop their plans and artifacts that they will use to defeat those who have declared themselves their enemies. They work inside a laboratory, camouflaged under a bridge to go unnoticed. They sometimes find it necessary to change their hiding place, although they have never been captured.
 
 ### **Summary**
 
@@ -68,7 +92,9 @@ The intention is for the player to have to manage their speed while also conside
 
 ## _Technical_
 
----
+It was established that for the development of Sublim, the Unity game engine will be mainly used, accompanied by its respective C# scripts to bring the game to life. Likewise, the use of existing assets will be considered to facilitate the development of the final product.
+
+The possibility of using previously made artwork has also been explored to avoid spending time and resources on this part. An artist has been personally contacted and asked for permission in advance to use their art for our game on the condition that it is not distributed for commercial purposes.
 
 ### **Screens**
 
@@ -340,6 +366,47 @@ _(example)_
 
 _(example)_
 
+### Progress Reports
+
+04-24-2024
+
+User stories are finalized and compiled into a .md file in the GitHub repository for review. They include five sections:
+
+Deck Creation and Default Decks
+Gameplay
+Controls and UI
+Login and Saving
+Win condition(a)
+
+Deck Creation and Default Decks breaks down how the player's decks are intended to work.
+
+Gameplay focuses more on the game mechanics, such as who the player will face, which in our case is an AI, when they can take cards to play, etc.
+
+Controls and UI is the part that has been developed the most. The ways in which the player interacts with the video game are specified, what are their options, what are the buttons and the interface with which they can interact. etc Likewise, topics related to the art and aesthetics of the game itself are touched upon once the player is in a real game.
+
+In Login and Saving, only the information that the player will have access to is broken down. In our case it is an account protected by username and password, and access to a leaderboard with the highest scores.
+
+In Win Condition, for the moment, is the only way to win our game. However, if more ideas arise about how to win, they will be implemented into GDD and user stories.
+
+The issues corresponding to each user story remain pending.
+
+Likewise, some JSON files were made to experiment with how these would look once they are implemented in the API that will communicate to the client and the database.
+
+Those were some points we were given to fix for the next review, which will include additional progress relevant to Sprint 0:
+
+- Need an image to show basic game mechanics of the game; summarize the readme
+- Add Sser Stories format, add priorities (1 - non functional, 10 - functional)
+- Remove technicalities (terms like TCG,change to "card came")
+- Add basic user stories, simplify them, don't have to be super specific
+- We can ask teachers for their area-specific user stories
+- Order user stories
+- Add tags to issues: functional / non-functional + etc., issues can be 100% technical, must have a description
+- Issues will be 70% functional / 30% non functional (game speed, music, etc.)
+- Wvery sprint should take care of 5-11 ish issues
+- 3 case of use diagrams (web dev, database, videogames)
+- Don't make a branch per issue
+- Create a branch for each team member
+- Distribute issues evenly (everyone must work on web dev, video game, database, etc)
 
 ## _Schedule_
 
@@ -376,3 +443,5 @@ _(define the main activities and the expected dates when they should be finished
 7. design music
 
 _(example)_
+
+
