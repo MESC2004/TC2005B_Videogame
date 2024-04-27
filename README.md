@@ -168,9 +168,13 @@ _(example)_
 ### **Controls**
 
 - All interactions will happen through mouse clicks, except for the login section where keyboard inputs will be accepted for credential registration.
+- **Menu Interactions:**:
+	- Clicking buttons in the menus will take you to the respective screen. E.G. Clicking login will show the login options, clicking credits will take you to the credits screen.
+- **Deck Interactions:**
+	- Right clicking a card in either the available cards or deck cards will add/remove the card from the deck respectively.
+	- Left clicking will show a card's information by zooming it into view.
+	- The deck can be saved by clicking a button in the menu.
 
--**DECK INTERACTIONS:**
-	-- Right clicking a card in either the available cards or deck cards will add/remove the card from the deck respectively.
 
 ### **Mechanics**
 
