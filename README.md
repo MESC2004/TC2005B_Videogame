@@ -181,7 +181,10 @@ Additionally, this would be the view of the back of each card on the card deck:
 </p>
 
 #### **This loop repeats until either the player's or the opponent's cards all reach 0 HP.**
-## _Level Design_
+
+### **Edge Cases:** 
+- If two of the player's identities have no HP left, other than using effect cards, players can still play by entering a 'panic' mode, where the aactive combat identity will gain a random value of speed, ranging from 1-3.
+- If the deck runs out of cards, the deck is reshuffled and the player can take ards again. This can be made by using an invisible discard pile that keeps track of which cards the player does not have in their hand or in their deck.
 
 ---
 
