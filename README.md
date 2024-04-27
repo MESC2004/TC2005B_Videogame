@@ -226,13 +226,11 @@ _(example)_
 
 ### **Game Flow**
 
-1. Player starts in forest
-2. Pond to the left, must move right
-3. To the right is a hill, player jumps to traverse it (&quot;jump&quot; taught)
-4. Player encounters castle - door&#39;s shut and locked
-5. There&#39;s a window within jump height, and a rock on the ground
-6. Player picks up rock and throws at glass (&quot;throw&quot; taught)
-7. … etc.
+1. From the title screen, the player can login or register new credentials.
+2. From the title screen, can click the 'Play' button to access stage selection (Tutorial, Challenge).
+3. Initially, only the tutorial is available. After clearing it, challenge mode becomes available.
+4. Challenge mode rotates the decks that the AI opponent uses at random from a deck pool.
+5. The user can play challenge mode as many times as they want to increase their winrate.
 
 _(example)_
 
