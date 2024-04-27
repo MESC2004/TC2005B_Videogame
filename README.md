@@ -1,8 +1,11 @@
 # TC2005B_Videogame
 Repository for development of the game project for TC2005B
 Developed by Pixel Pioneers
+
 A01784901 - Fabrizio Barrios Blanco
+
 A01784217 - Nicole Dávila Hernández
+
 A01028033 - Miguel Enrique Soria
 
 # **SUBMIL TCG**
@@ -57,15 +60,58 @@ A turn based Deckbuilding game where you must choose when and how your cards int
 
 ### **Gameplay**
 
-The game's decks are made of 23 cards. 3 of them are the identity cards, which are the ones in play at all times in the match, and the rest are a mix of attack, defense andmiscellaneous cards (such as draw cards and effect cards). Matches are intended to last around 14 turns, 7 from each player.
+The game's decks are made of 23 cards. 3 of them are the identity cards, which are the ones in play at all times in the match, and the rest are a mix of attack, defense and miscellaneous cards (such as draw cards and effect cards). Matches are intended to last around 14 turns, 7 from each player. The main mechanic revolves around switching your active combat card, which is the card directly facing the opponent's card at the top of the card 'triangle', managing your speed and available cards in your hand to win the match.
 
+### **Mindset**
+
+The intention is for the player to have to manage their speed while also considering what the opponent could do to their front facing card, attempting to predict posibilities and choosing the best course of action, wether this is defending, attacking or using effect cards to increase their stats.
+
+## _Technical_
+
+---
+
+### **Screens**
+
+1. Title Screen
+    1. Login
+    2. Play
+    3. Options
+    4. Credits
+
+<p align="center">
+    <img src="Images/Menu Screen.png" width="500">
+</p>
+
+2. Level Select
+   1. Tutorial
+   2. Challenge
+4. Game
+    1. Hand
+    2. Board
+
+_(example)_
+
+### **Controls**
+
+- All interactions will happen through mouse clicks, except for the login section where keyboard inputs will be accepted for credential registration.
+- **Menu Interactions:**
+	- Clicking buttons in the menus will take you to the respective screen. E.G. Clicking login will show the login options, clicking credits will take you to the credits screen.
+- **Deck Interactions:**
+	- Right clicking a card in either the available cards or deck cards will add/remove the card from the deck respectively.
+	- Left clicking will show a card's information by zooming it into view.
+	- The deck can be saved by clicking a button in the menu.
+ - **Game Interactions:**
+   	- At the beginning of the turn, clicking a card other than the current card in combat will swap both cards. You must then click confirm to continue the turn.
+   	- Drawing cards after swap phase will happen automatically.
+   	- Drag clicking a card into the board will play the card and do its respective action or activate its effect.
+
+
+### **Mechanics**
+
+The game's decks are made of 23 cards. 3 of them are the identity cards, which are the ones in play at all times in the match, and the rest are a mix of attack, defense andmiscellaneous cards (such as draw cards and effect cards). Matches are intended to last around 14 turns, 7 from each player.
 #### - **Card Types**
 
 **Identity Cards:** The cards that are in the board interacting with each other. Three of these cards can be in a deck. They have two stats, the left top of the card shows the available speed of it, and the bottom right shows its health. They also have a description of their passive ability in the middle of the card.
-
-<p align="center">
-    <img src="Images/IdentityCard.jpg" width="500">
-</p>
 
 The card would resemble something similar to this once it is implemented in-game:
 
@@ -96,13 +142,14 @@ An example of an effect card would be:
     <img src="Images/effect_card.png" width="500">
 </p>
 
-Which grants +2 attack damage on the player's next turn.
+Which grants +2 attack damage on the player's next attack card this turn. If an attack card is not used, the effect is discarded, and therefore lost.
 
 Additionally, this would be the view of the back of each card on the card deck:
 
 <p align="center">
     <img src="Images/back_of_card.png" width="500">
 </p>
+
 
 ### **Match Gameplay**
 ### -Game Start:
@@ -140,37 +187,9 @@ Additionally, this would be the view of the back of each card on the card deck:
 
 #### **This loop repeats until either the player's or the opponent's cards all reach 0 HP.**
 
-
-
-### **Mindset**
-
-The intention is for the player to have to manage their speed while also considering what the opponent could do to their front facing card, attempting to predict posibilities and choosing the best course of action, wether this is defending, attacking or using effect cards to increase their stats.
-
-## _Technical_
-
----
-
-### **Screens**
-
-1. Title Screen
-    1. Options
-2. Level Select
-3. Game
-    1. Inventory
-    2. Assessment / Next Level
-4. End Credits
-
-_(example)_
-
-### **Controls**
-
-How will the player interact with the game? Will they be able to choose the controls? What kind of in-game events are they going to be able to trigger, and how? (e.g. pressing buttons, opening doors, etc.)
-
-### **Mechanics**
-
-Are there any interesting mechanics? If so, how are you going to accomplish them? Physics, algorithms, etc.
-
-## _Level Design_
+### **Edge Cases:** 
+- If two of the player's identities have no HP left, other than using effect cards, players can still play by entering a 'panic' mode, where the aactive combat identity will gain a random value of speed, ranging from 1-3.
+- If the deck runs out of cards, the deck is reshuffled and the player can take ards again. This can be made by using an invisible discard pile that keeps track of which cards the player does not have in their hand or in their deck.
 
 ---
 
@@ -207,13 +226,11 @@ _(example)_
 
 ### **Game Flow**
 
-1. Player starts in forest
-2. Pond to the left, must move right
-3. To the right is a hill, player jumps to traverse it (&quot;jump&quot; taught)
-4. Player encounters castle - door&#39;s shut and locked
-5. There&#39;s a window within jump height, and a rock on the ground
-6. Player picks up rock and throws at glass (&quot;throw&quot; taught)
-7. … etc.
+1. From the title screen, the player can login or register new credentials.
+2. From the title screen, can click the 'Play' button to access stage selection (Tutorial, Challenge).
+3. Initially, only the tutorial is available. After clearing it, challenge mode becomes available.
+4. Challenge mode rotates the decks that the AI opponent uses at random from a deck pool.
+5. The user can play challenge mode as many times as they want to increase their winrate.
 
 _(example)_
 
@@ -221,41 +238,21 @@ _(example)_
 
 ---
 
-### **Abstract Classes / Components**
 
-1. BasePhysics
-    1. BasePlayer
-    2. BaseEnemy
-    3. BaseObject
-2. BaseObstacle
-3. BaseInteractable
+### **Classes**
 
-_(example)_
-
-### **Derived Classes / Component Compositions**
-
-1. BasePlayer
-    1. PlayerMain
-    2. PlayerUnlockable
-2. BaseEnemy
-    1. EnemyWolf
-    2. EnemyGoblin
-    3. EnemyGuard (may drop key)
-    4. EnemyGiantRat
-    5. EnemyPrisoner
-3. BaseObject
-    1. ObjectRock (pick-up-able, throwable)
-    2. ObjectChest (pick-up-able, throwable, spits gold coins with key)
-    3. ObjectGoldCoin (cha-ching!)
-    4. ObjectKey (pick-up-able, throwable)
-4. BaseObstacle
-    1. ObstacleWindow (destroyed with rock)
-    2. ObstacleWall
-    3. ObstacleGate (watches to see if certain buttons are pressed)
-5. BaseInteractable
-    1. InteractableButton
-
-_(example)_
+1. BaseCard
+    1. IdentityCard
+    2. AttackCard
+    3. DefenseCard
+    4. MiscCard
+2. BasePlayer
+    1. User
+    2. Opponent (AI)
+3. Deck
+    1. UserDeck
+    2. OpponentDeck
+4. GameManager
 
 ## _Graphics_
 
