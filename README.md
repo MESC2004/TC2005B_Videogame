@@ -170,7 +170,7 @@ _(example)_
 - All interactions will happen through mouse clicks, except for the login section where keyboard inputs will be accepted for credential registration.
 
 -**DECK INTERACTIONS:**
-	- Right clicking a card in either the available cards or deck cards will add/remove the card from the deck respectively.
+	-- Right clicking a card in either the available cards or deck cards will add/remove the card from the deck respectively.
 
 ### **Mechanics**
 
