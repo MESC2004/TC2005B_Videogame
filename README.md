@@ -60,7 +60,7 @@ A turn based Deckbuilding game where you must choose when and how your cards int
 
 ### **Gameplay**
 
-The game's decks are made of 23 cards. 3 of them are the identity cards, which are the ones in play at all times in the match, and the rest are a mix of attack, defense and miscellaneous cards (such as draw cards and effect cards). Matches are intended to last around 14 turns, 7 from each player. The main mechanich revolves around switching your active combat card, which is the card directly facing the opponent's card at the top of the card 'triangle', managing your speed and available cards in your hand to win the match.
+The game's decks are made of 23 cards. 3 of them are the identity cards, which are the ones in play at all times in the match, and the rest are a mix of attack, defense and miscellaneous cards (such as draw cards and effect cards). Matches are intended to last around 14 turns, 7 from each player. The main mechanic revolves around switching your active combat card, which is the card directly facing the opponent's card at the top of the card 'triangle', managing your speed and available cards in your hand to win the match.
 
 ### **Mindset**
 
