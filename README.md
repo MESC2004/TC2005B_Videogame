@@ -77,6 +77,11 @@ The intention is for the player to have to manage their speed while also conside
     2. Play
     3. Options
     4. Credits
+
+<p align="center">
+    <img src="Images/Menu Screen.png" width="500">
+</p>
+
 2. Level Select
    1. Tutorial
    2. Challenge
@@ -235,41 +240,21 @@ _(example)_
 
 ---
 
-### **Abstract Classes / Components**
 
-1. BasePhysics
-    1. BasePlayer
-    2. BaseEnemy
-    3. BaseObject
-2. BaseObstacle
-3. BaseInteractable
+### **Classes**
 
-_(example)_
-
-### **Derived Classes / Component Compositions**
-
-1. BasePlayer
-    1. PlayerMain
-    2. PlayerUnlockable
-2. BaseEnemy
-    1. EnemyWolf
-    2. EnemyGoblin
-    3. EnemyGuard (may drop key)
-    4. EnemyGiantRat
-    5. EnemyPrisoner
-3. BaseObject
-    1. ObjectRock (pick-up-able, throwable)
-    2. ObjectChest (pick-up-able, throwable, spits gold coins with key)
-    3. ObjectGoldCoin (cha-ching!)
-    4. ObjectKey (pick-up-able, throwable)
-4. BaseObstacle
-    1. ObstacleWindow (destroyed with rock)
-    2. ObstacleWall
-    3. ObstacleGate (watches to see if certain buttons are pressed)
-5. BaseInteractable
-    1. InteractableButton
-
-_(example)_
+1. BaseCard
+    1. IdentityCard
+    2. AttackCard
+    3. DefenseCard
+    4. MiscCard
+2. BasePlayer
+    1. User
+    2. Opponent (AI)
+3. Deck
+    1. UserDeck
+    2. OpponentDeck
+4. GameManager
 
 ## _Graphics_
 
