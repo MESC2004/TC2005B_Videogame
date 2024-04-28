@@ -26,7 +26,10 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Sotry:** As a user, I want to be able to load my progress and decks from my account.
     - **Acceptance Criteria:** When the user wishes to loan their progress and decks (from their account), the system must allow access to all saved data regarding progress and decks.
       
-- As a user, I want to be able to consult the leaderboard to see my highest scores.
+- **Leaderboard Consultation ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
+    - **User Story:** As a user, I want to be able to consult the leaderboard to see my highest scores.
+    - **Acceptance Criteria:** If the user needs to consult the leaderboarf to inform themselves about the highest scores, the game must have a section in list format that provides updated information on the highest scores.
+      
 - As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
 
 ## Deck Creation and Default Decks
