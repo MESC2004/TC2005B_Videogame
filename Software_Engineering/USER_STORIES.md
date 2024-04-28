@@ -18,7 +18,9 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:** As a user, I want to be able to create and login to my account.
     - **Acceptance Criteria:** Given that the user wishes to create and log into their account, when the user accesses the registration option, a form should be displayed to create a new account, requesting essential information. After registration, id should allow the user to log in automatically.
       
-- As a user, I want to be able to save my progress and decks to my account.
+- **Saving Progress and Decks in Each Account ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
+    - **User Story:** As a user, I want to be able to save my progress and decks to my account.
+    - **Acceptance Criteria:** Whenever the user wants to save their progress and deck configuration, our system must automatically save these changes, ensuring that the information is avadible to resume the game whenever desired.
 - As a user, I want to be able to load my progress and decks from my account.
 - As a user, I want to be able to consult the leaderboard to see my highest scores.
 - As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
