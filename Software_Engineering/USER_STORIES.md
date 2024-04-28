@@ -7,13 +7,24 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 
 # User Stories
 
+## Win Condition
+
+- As a user, I want to be able to beat my opponent by reducing all of the opponent's cards health to 0.
 ## Deck Creation and Default Decks
+
+## Login and Saving
+
+- As a user, I want to be able to create and login to my account.
+- As a user, I want to be able to save my progress and decks to my account.
+- As a user, I want to be able to load my progress and decks from my account.
+- As a user, I want to be able to consult the leaderboard to see my highest scores.
+- As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
 
 - **The Game ${\texttt{\color{red}[High]}}$ ${\texttt{\color{magenta}[5-7 sprints]}}$**
     - **User Story:** As a user, I want to play an interactive card game that involves strategy and deckbuilding to overcome the challenges of the game.
     - **Acceptance Criteria:** Given the initial game development, when the game development has ended then a finished deckbuilding game is expected.
 - **The Deck ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
-    - **User Sotory:** As a user, I want to be able to create and modify a 23 card deck to manage the strategy I want to use in my gameplay.
+    - **User Story:** As a user, I want to be able to create and modify a 23 card deck to manage the strategy I want to use in my gameplay.
     - **Acceptance Criteria:**
 - **Pre-set Deck Generator ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Story:** As a user, I want to have the option to use a default deck to play the game without having to create a deck from scratch.
@@ -57,16 +68,4 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 - As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
 - As a user, I want to be able to see the artwork of the back and front of the back when playing to enhance my experience as a player.
 - As a user, I want to be able to tell how many active cards both sides have to be able to tell who is winning the match.
-
-## Login and Saving
-
-- As a user, I want to be able to create and login to my account.
-- As a user, I want to be able to save my progress and decks to my account.
-- As a user, I want to be able to load my progress and decks from my account.
-- As a user, I want to be able to consult the leaderboard to see my highest scores.
-- As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
-
-## Win Condition
-
-- As a user, I want to be able to beat my opponent by reducing all of the opponent's cards health to 0.
 
