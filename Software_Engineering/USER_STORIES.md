@@ -69,7 +69,10 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:**  As a user, I want to be able to understand the card's values and effects at a glance.
     - **Acceptance Criteria:** When tha user looks at a card, the information about the card´s values and effects should be clearly reflected in a comprehensible manner without the need for additional actions.
       
-- As a user, I want to be able to hover my mouse over a card and have the card magnify in size to have a visual representation of my choice in cards throughout the game.
+- **Detailed Card Information Display ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:** As a user, I want to be able to see detailed information of a card in a match.
+    - **Acceptance Criteria:** At the moment when a card is selected or the mouse hovers over it, the system must clearly display all the relevant details of the card, such as attributes, abilities, an effects, allowing the user to make decisions based on these data.
+        
 - As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
 - As a user, I want to be able to see the artwork of the back and front of the back when playing to enhance my experience as a player.
 - As a user, I want to be able to tell how many active cards both sides have to be able to tell who is winning the match.
