@@ -10,7 +10,7 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 ## Win Condition
 
 - As a user, I want to be able to beat my opponent by reducing all of the opponent's cards health to 0.
-## Deck Creation and Default Decks
+
 
 ## Login and Saving
 
@@ -19,6 +19,8 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 - As a user, I want to be able to load my progress and decks from my account.
 - As a user, I want to be able to consult the leaderboard to see my highest scores.
 - As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
+
+## Deck Creation and Default Decks
 
 - **The Game ${\texttt{\color{red}[High]}}$ ${\texttt{\color{magenta}[5-7 sprints]}}$**
     - **User Story:** As a user, I want to play an interactive card game that involves strategy and deckbuilding to overcome the challenges of the game.
