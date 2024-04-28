@@ -30,7 +30,9 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:** As a user, I want to be able to consult the leaderboard to see my highest scores.
     - **Acceptance Criteria:** If the user needs to consult the leaderboarf to inform themselves about the highest scores, the game must have a section in list format that provides updated information on the highest scores.
       
-- As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
+- **Displaying Statistics on the Video Game Page ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
+    - **User Story:** As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
+    - **Acceptance Criteria:** When the user accesses the statistics section of the page, is must detailedly reflect the user´s personal statistics, including games played, victories, defeats, and other account characteristics.
 
 ## Deck Creation and Default Decks
 
