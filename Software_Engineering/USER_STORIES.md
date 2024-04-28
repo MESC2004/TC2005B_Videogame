@@ -20,8 +20,12 @@ ${\texttt{\color{magenta}[All Sprints]}}$
       
 - **Saving Progress and Decks in Each Account ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Story:** As a user, I want to be able to save my progress and decks to my account.
-    - **Acceptance Criteria:** Whenever the user wants to save their progress and deck configuration, our system must automatically save these changes, ensuring that the information is avadible to resume the game whenever desired.
-- As a user, I want to be able to load my progress and decks from my account.
+    - **Acceptance Criteria:** Whenever the user wants to save their progress and deck configuration, our system must automatically save these changes.
+      
+- **Loading Progress and Decks in Each Account ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
+    - **User Sotry:** As a user, I want to be able to load my progress and decks from my account.
+    - **Acceptance Criteria:** When the user wishes to loan their progress and decks (from their account), the system must allow access to all saved data regarding progress and decks.
+      
 - As a user, I want to be able to consult the leaderboard to see my highest scores.
 - As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
 
