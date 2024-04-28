@@ -73,7 +73,9 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:** As a user, I want to be able to see detailed information of a card in a match.
     - **Acceptance Criteria:** At the moment when a card is selected or the mouse hovers over it, the system must clearly display all the relevant details of the card, such as attributes, abilities, an effects, allowing the user to make decisions based on these data.
         
-- As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
+- **Inmersive Game Board Design ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:** As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
+    - **Acceptance Criteria:** When accessing the game, a game board that reflects the gaming enviroment we are proposing should be displayed, with visual details and elements that contribute to the narrative of the game.
 - As a user, I want to be able to see the artwork of the back and front of the back when playing to enhance my experience as a player.
 - As a user, I want to be able to tell how many active cards both sides have to be able to tell who is winning the match.
 
