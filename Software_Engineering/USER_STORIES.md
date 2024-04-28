@@ -77,5 +77,7 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:** As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
     - **Acceptance Criteria:** When accessing the game, a game board that reflects the gaming enviroment we are proposing should be displayed, with visual details and elements that contribute to the narrative of the game.
 - As a user, I want to be able to see the artwork of the back and front of the back when playing to enhance my experience as a player.
-- As a user, I want to be able to tell how many active cards both sides have to be able to tell who is winning the match.
+- **Active Cards Display in Match ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:** As a user, I want to be able to tell how many active cards both sides have to be able to tell who is winning the match.
+    - **Acceptance Criteria:** When the user wants to see the number of active cards in the game, the system must clearly display the number of active cards both the user and the opponent have, giving the user a clearer overview of how the match is progressing,
 
