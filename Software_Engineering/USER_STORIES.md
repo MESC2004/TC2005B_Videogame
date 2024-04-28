@@ -65,7 +65,10 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:** As a user, I want to be able to see the cards in my hand and the cards on the field.
     - **Acceptance Criteria:** The system must display all the cards that the user has in their hand and those that are played on the field, allowing complete and real-time visibility of both sets of cards.
       
-- As a user, I want to be able to understand the card's values and effects at a glance.
+- **Card Values and Effects Display ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
+    - **User Story:**  As a user, I want to be able to understand the card's values and effects at a glance.
+    - **Acceptance Criteria:** When tha user looks at a card, the information about the card´s values and effects should be clearly reflected in a comprehensible manner without the need for additional actions.
+      
 - As a user, I want to be able to hover my mouse over a card and have the card magnify in size to have a visual representation of my choice in cards throughout the game.
 - As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
 - As a user, I want to be able to see the artwork of the back and front of the back when playing to enhance my experience as a player.
