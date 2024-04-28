@@ -7,10 +7,14 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 
 # User Stories
 
-## Win Condition
+## Winning and Losing
+- **Win Condition ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
+    - **User Sotry:** As a user, I want to be able to beat my opponent and win the match.
+    - **Acceptance Criteria:**  Given how the match starts with all the board cards with full HP, when all of the opponent's board cards have 0 HP left then the match must end.
 
-- As a user, I want to be able to beat my opponent by reducing all of the opponent's cards health to 0.
-
+- **Win Condition ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
+    - **User Sotry:** As a user, I want to be able to lose the match.
+    - **Acceptance Criteria:**  Given how the match starts with all the board cards with full HP, when all of the player's board cards have 0 HP left then the match must end.
 
 ## Login and Saving
 
@@ -50,13 +54,13 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 
 - **Custom Match Against AI ${\texttt{\color{red}[High]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Story:** As a user, I want to be able to use my deck to play against an AI opponent.
-    - **Acceptance Criteria:** Given that the  user wishes to use their own deck to play, when they  choose to face an artificial inteligence opponent,         the system must allow them to select  their personal deck and start the game.
+    - **Acceptance Criteria:** Given that the  user wishes to use their own deck to play, when they choose to face an artificial inteligence opponent, the system must allow them to select  their personal deck and start the game.
       
 - As a user, I want to be able to draw cards in my deck and plan according to the available options using strategy.
 
 - **Card Interaction on the field ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[2-3 sprints]}}$**
     - **User Story:** As a user, I want to be able to play cards from my hand to the field to interact with the game.
-    - **Acceptance Criteria:** When the user selects a card to play, the system must allow the placement of the card on the playing field and ensure that the         interaction with other cards in play conforms to the established rules.
+    - **Acceptance Criteria:** When the user selects a card to play, the system must allow the placement of the card on the playing field and ensure that the interaction with other cards in play conforms to the established rules.
       
 - **Game Control through Attack,Defense and Effects ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
     - **User Story:** As a user, I want to be able to use a mix of attack, defense and effects to beat my opponent.
@@ -90,8 +94,8 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 - **Inmersive Game Board Design ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
     - **User Story:** As a user, I want to see a gameboard following the theme of the game to have a better immersive experience.
     - **Acceptance Criteria:** When accessing the game, a game board that reflects the gaming enviroment we are proposing should be displayed, with visual details and elements that contribute to the narrative of the game.
-- As a user, I want to be able to see the artwork of the back and front of the back when playing to enhance my experience as a player.
+    
 - **Active Cards Display in Match ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
-    - **User Story:** As a user, I want to be able to tell how many active cards both sides have to be able to tell who is winning the match.
-    - **Acceptance Criteria:** When the user wants to see the number of active cards in the game, the system must clearly display the number of active cards both the user and the opponent have, giving the user a clearer overview of how the match is progressing,
+    - **User Story:** As a user, I want to be able to tell who is winning the match.
+    - **Acceptance Criteria:** When the user wants to see the number of active cards in the game, the system must clearly display the number of active cards both the user and the opponent have, giving the user a clearer overview of how the match is progressing.
 
