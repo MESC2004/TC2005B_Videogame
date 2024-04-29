@@ -29,15 +29,10 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 - **Loading Progress and Decks in Each Account ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Sotry:** As a user, I want to be able to load my progress and decks from my account.
     - **Acceptance Criteria:** When the user wishes to loan their progress and decks (from their account), the system must allow access to all saved data regarding progress and decks.
-      
-- **Leaderboard Consultation ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
-    - **User Story:** As a user, I want to be able to consult the leaderboard to see my highest scores.
-    - **Acceptance Criteria:** If the user needs to consult the leaderboarf to inform themselves about the highest scores, the game must have a section in list format that provides updated information on the highest scores.
-      
+            
 - **Displaying Statistics on the Video Game Page ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Story:** As a user, I want to be able to see the stats on the webpage the videogame lives in to keep track of my progress.
-    - **Acceptance Criteria:** When the user accesses the statistics section of the page, is must detailedly reflect the user´s personal statistics, including games played, victories, defeats, and other account characteristics.
-
+    - **Acceptance Criteria:** When the user accesses the statistics section of the page, it must detailedly reflect the user's personal statistics, including games played, victories, defeats, overall score table, and other relevant characteristics.
 ## Deck Creation and Default Decks
 
 - **The Game ${\texttt{\color{red}[High]}}$ ${\texttt{\color{magenta}[5-7 sprints]}}$**
