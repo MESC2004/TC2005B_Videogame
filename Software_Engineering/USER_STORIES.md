@@ -9,7 +9,7 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 
 ## Winning and Losing
 - **Win Condition ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
-    - **User Sotry:** As a user, I want to be able to beat my opponent and win the match.
+    - **User Story:** As a user, I want to be able to beat my opponent and win the match.
     - **Acceptance Criteria:**  Given how the match starts with all the board cards with full HP, when all of the opponent's board cards have 0 HP left then the match must end.
 
 - **Win Condition ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
