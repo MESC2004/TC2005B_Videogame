@@ -13,7 +13,7 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **Acceptance Criteria:**  Given how the match starts with all the board cards with full HP, when all of the opponent's board cards have 0 HP left then the match must end.
 
 - **Win Condition ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
-    - **User Sotry:** As a user, I want to be able to lose the match.
+    - **User Story:** As a user, I want to be able to lose the match.
     - **Acceptance Criteria:**  Given how the match starts with all the board cards with full HP, when all of the player's board cards have 0 HP left then the match must end.
 
 ## Login and Saving
