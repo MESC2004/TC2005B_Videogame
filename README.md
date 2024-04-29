@@ -62,7 +62,7 @@ Are you ready to challenge the status quo? To outthink and outmaneuver your oppo
 
 ### Characters
 
-Sublim is considered the first and only part of its arc. It is set in a universe where scientific and technological advances have taken a turn for the worst. They ended up in the wrong hands, where only the elites of society have the possibility of acquiring and benefiting from them.
+Submil is considered the first and only part of its arc. It is set in a universe where scientific and technological advances have taken a turn for the worst. They ended up in the wrong hands, where only the elites of society have the possibility of acquiring and benefiting from them.
 
 This is how *The Crisis Unit* was born; a group of the most powerful minds whose goal is to decentralize the domain of power that the authorities have taken control over.
 
@@ -92,7 +92,7 @@ The intention is for the player to have to manage their speed while also conside
 
 ## _Technical_
 
-It was established that for the development of Sublim, the Unity game engine will be mainly used, accompanied by its respective C# scripts to bring the game to life. Likewise, the use of existing assets will be considered to facilitate the development of the final product.
+It was established that for the development of Submil, the Unity game engine will be mainly used, accompanied by its respective C# scripts to bring the game to life. Likewise, the use of existing assets will be considered to facilitate the development of the final product.
 
 The possibility of using previously made artwork has also been explored to avoid spending time and resources on this part. An artist has been personally contacted and asked for permission in advance to use their art for our game on the condition that it is not distributed for commercial purposes.
 
