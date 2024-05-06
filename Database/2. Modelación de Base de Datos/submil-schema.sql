@@ -3,21 +3,6 @@ CREATE SCHEMA submil;
 USE submil;
 
 --
--- Table structure for table `Player`
---
-
-CREATE TABLE Player (
-    Player_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    Deck_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    Name VARCHAR(255) NOT NULL,
-    Registration_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    Password VARCHAR(255) NOT NULL,
-    IsNPC BOOLEAN,
-    PRIMARY KEY (Player_ID),
-    FOREIGN KEY (Deck_ID) REFERENCES Deck(Deck_ID)
-);
-
---
 -- Table structure for table `Deck`
 --
 
@@ -29,6 +14,21 @@ CREATE TABLE Deck (
     Type VARCHAR(100) NOT NULL,
     Size INT UNSIGNED NOT NULL,
     PRIMARY KEY (Deck_ID)
+);
+
+--
+-- Table structure for table `Player`
+--
+
+CREATE TABLE Player (
+    Player_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Deck_ID INT UNSIGNED NOT NULL,
+    Name VARCHAR(255) NOT NULL,
+    Registration_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Password VARCHAR(255) NOT NULL,
+    IsNPC BOOLEAN,
+    PRIMARY KEY (Player_ID),
+    FOREIGN KEY (Deck_ID) REFERENCES Deck(Deck_ID)
 );
 
 --
@@ -48,6 +48,16 @@ CREATE TABLE Match_ (
 );
 
 --
+-- Table structure for table `Type`
+--
+
+CREATE TABLE Type_ (
+    Type_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    PRIMARY KEY (Type_ID)
+);
+
+--
 -- Table structure for table `Card`
 --
 
@@ -57,17 +67,7 @@ CREATE TABLE Card (
     Name VARCHAR(255) NOT NULL,
     Description TEXT,
     PRIMARY KEY (Card_ID),
-    FOREIGN KEY (Type_ID) REFERENCES Type(Type_ID)
-);
-
---
--- Table structure for table `Type`
---
-
-CREATE TABLE Type_ (
-    Type_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    Name VARCHAR(100) NOT NULL,
-    PRIMARY KEY (Type_ID)
+    FOREIGN KEY (Type_ID) REFERENCES Type_(Type_ID)
 );
 
 --
