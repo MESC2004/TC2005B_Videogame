@@ -94,29 +94,22 @@ app.delete("/delete_card/:id", (req, res) => {
   }
 });
 
-app.put("/update_card/:id", (req, res) => {
-  const id = req.params.id;
-  // Get the fields to update
-  const updatedFields = req.body;
-
-  const cardIndex = card_list.findIndex((card) => card.id == id);
-  if (!cardIndex) {
-    res.status(200).send("Card not found in the card list.");
-    return;
-  }
-
-  if (updatedFields.id) {
-    // ID protection
-    res.status(200).send("Cannot update card id.");
-    return;
-  }
-
-  const existingCard = card_list[cardIndex];
-  for (const field in updatedFields) {
-    // Update only the fields that are present in the card template
-    existingCard[field] = updatedFields[field];
-  }
-  res.status(200).send("Card updated successfully.");
+app.put('/update/:id', (req, res) => {
+    const card = card_list.find(card => card.id == parseInt(req.params.id));
+    if (!card) {
+        res.status(404).send('card not found');
+    } else {
+        const { name, type_id, type_name, hp, speed, speed_cost, atk, def } = req.body;
+        if (name) card.name = name;
+        if (type_id) card.type_id = type_id;
+        if (type_name) card.type_name = type_name;
+        if (hp) card.hp = hp;
+        if (speed) card.speed = speed;
+        if (speed_cost) card.speed_cost = speed_cost;
+        if (atk) card.atk = atk;
+        if (def) card.def = def;
+        res.status(201).send('card updated');
+    }
 });
 
 
