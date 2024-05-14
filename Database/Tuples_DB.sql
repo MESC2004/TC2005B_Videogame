@@ -51,8 +51,23 @@ INSERT INTO Match_ (Player1_ID, Player2_ID, Winner_ID, Total_Turns) VALUES
 (2, 1, 2, 15);
 
 INSERT INTO Stats (HP, Speed, Speed_Cost, Atk, Def, Passive) VALUES
-(15, 3, 0, 0, 0, 'Passive2'),
-(120, 0, 2, 4, 0, 'Passive1');
+(20, 1, 0, 0, 0, 'Pierce Cards have 50% less effect'),
+(15, 2, 0, 0, 0, 'If an attack boost card is used, heal 50% of damage dealt'),
+(10, 3, 0, 0, 0, 'If a pierce card is used, pierce the defense 50% more'),
+(20, 1, 0, 0, 0, 'Healing cards heal 25% more'),
+(15, 2, 0, 0, 0, 'Attack cards cost 1 more speed (Except weak punch)'),
+(10, 3, 0, 0, 0, 'Ego weapons increase 50% more damage'),
+(0, 0, 3, 7, 0, 'N/A'),
+(0, 0, 2, 4, 0, 'N/A'),
+(0, 0, 1, 2, 0, 'N/A'),
+(0, 0, 3, 0, 10, 'N/A'),
+(0, 0, 2, 0, 5, 'N/A'),
+(0, 0, 1, 0, 3, 'N/A'),
+(0, 0, 0, 0, 3, 'N/A'),
+(0, 0, 0, 2, 0, 'N/A'),
+(0, 0, 0, 0, -4, 'N/A'),
+(4, 0, 0, 0, 0, 'N/A'),
+(0, 0, 0, 0, 0, 'N/A');
 
 INSERT INTO Deck_Card (Card_ID, Deck_ID) VALUES
 (1, 1),
