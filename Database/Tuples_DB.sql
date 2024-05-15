@@ -1,27 +1,15 @@
 USE submil;
 
 INSERT INTO Type_ (Name) VALUES
-('Heathcliff'),
-('Faust'),
-('Don Quixote'),
-('Ishmael'),
-('Outis'),
-('Yi Sang'),
-('Opportunistic Slash'),
-('Blunt Hit'),
-('Weak Punch'),
-('Strong Block'),
-('Shield'),
-('Arm Block'),
-('Ego Armor'),
-('Ego Weapon'),
-('Ego Needie'),
-('Healing Ampule'),
-('Ego Claw');
+('Identity'),
+('Attack'),
+('Defense'),
+('Effect'),
+('Draw');
 
 INSERT INTO Deck (Name, Creation_Date, Description, Type, Size) VALUES
-('Basic Deck 1', NOW(), 'Description Deck 1', 'Type 1', 23),
-('Basic Deck 2', NOW(), 'Description Deck 2', 'Type 2', 23);
+('Basic Deck 1', NOW(), 'Description Deck 1', 'Attack', 23),
+('Basic Deck 2', NOW(), 'Description Deck 2', 'Defense', 23);
 
 INSERT INTO Card (Type_ID, Name, Description) VALUES
 (1, 'Heathcliff', 'Tank Unit'),
