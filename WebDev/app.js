@@ -5,33 +5,11 @@
 import express from 'express';
 const port = 5000;
 const app = express();
-// Card template for the wanted parameters of the cards in the game
-let card_template = ["id", "name", "type_id", "type_name", "hp", "speed", "speed_cost", "atk", "def"];
 
-let card_list = [
-{
-  "id": 1, 
-  "name": "Faust", 
-  "type_id": 1, 
-  "type_name": "Identity", 
-  "hp": 15, 
-  "speed": 3, 
-  "speed_cost": "NULL", 
-  "atk": "NULL", 
-  "def": "NULL"
-},
-{
-  "id": 2,
-  "name": "Mephistopheles",
-  "type_id": 2,
-  "type_name": "Attack Card",
-  "hp": "NULL",
-  "speed": "NULL",
-  "speed_cost": 2,
-  "atk": 4,
-  "def": "NULL"
-}
-];
+// Card template for the wanted parameters of the cards in the game
+let card_template = ["id", "name", "type_id", "hp", "speed", "speed_cost", "atk", "def"];
+
+let card_list = [];
 
 app.use(express.json());
 
@@ -53,30 +31,39 @@ app.get("/lookup/:id", (req, res) => {
   }
 });  
 
-
 app.post("/add_card", (req, res) => {
-  const cards_to_add = req.body;
-  let inserted = [];
+  let cards_to_add = req.body.cards;
+
+  if (!cards_to_add) {
+    res.status(400).send("No cards provided.");
+    return;
+  }
 
   if (!Array.isArray(cards_to_add)) {
     cards_to_add = [cards_to_add];
   }
 
-  cards_to_add.forEach((cards_to_add) => {
-    const missingFields = card_template.filter((field) => !cards_to_add.hasOwnProperty(field));
+  cards_to_add.forEach((card_to_add) => {
+    const cardFields = Object.keys(card_to_add);
+    const missingFields = card_template.filter((field) => !cardFields.includes(field));
     if (missingFields.length > 0) {
-      res.status(200).send(`Missing fields: ${missingFields.join(", ")}`,);
+      res.status(400).send(`Missing fields: ${missingFields.join(", ")}`);
       return;
     }
 
-    const existingCard = card_list.find((card) => card.id === cards_to_add.id);
+    const extraFields = cardFields.filter(field => !card_template.includes(field));
+    if (extraFields.length > 0) {
+      res.status(400).send(`Card with id ${card_to_add.id} has extra fields: ${extraFields.join(", ")}`);
+      return;
+    }
+
+    const existingCard = card_list.find((card) => card.id === card_to_add.id);
     if (existingCard) {
-      res.status(200).send(`Card with id ${cards_to_add.id} already exists.`);
+      res.status(400).send(`Card with id ${card_to_add.id} already exists.`);
       return;
     }
 
-    card_list.push(cards_to_add);
-    inserted.push(cards_to_add);
+    card_list.push(card_to_add);
   });
 
   res.status(200).send("Cards added successfully.");
@@ -99,10 +86,9 @@ app.put('/update/:id', (req, res) => {
     if (!card) {
         res.status(404).send('card not found');
     } else {
-        const { name, type_id, type_name, hp, speed, speed_cost, atk, def } = req.body;
+        const { name, type_id, hp, speed, speed_cost, atk, def } = req.body;
         if (name) card.name = name;
         if (type_id) card.type_id = type_id;
-        if (type_name) card.type_name = type_name;
         if (hp) card.hp = hp;
         if (speed) card.speed = speed;
         if (speed_cost) card.speed_cost = speed_cost;
