@@ -3,6 +3,9 @@
 "use strict";
 
 import express from 'express';
+
+import mysql from 'mysql2/promise';
+
 const port = 5000;
 const app = express();
 
@@ -13,12 +16,56 @@ let card_list = [];
 
 app.use(express.json());
 
+async function connectToDB() {
+  return await mysql.createConnection({
+    host: "localhost",
+    user: "TC2005B",
+    password: "Password123",
+    database: "submil",
+  });
+}
+
+
 app.get("/available_cards", (req, res) => {
   if (card_list.length > 0) {
     const cardsObject = {cards: card_list}
     res.json(cardsObject);
   } else {
     res.status(200).send("No cards available.");
+  }
+});
+
+app.get("/api/cards", async (request, response) => {
+  let connection = null;
+
+  try {
+
+    // The await keyword is used to wait for a Promise. It can only be used inside an async function.
+    // The await expression causes async function execution to pause until a Promise is settled (that is, fulfilled or rejected), and to resume execution of the async function after fulfillment. When resumed, the value of the await expression is that of the fulfilled Promise.
+
+    connection = await connectToDB();
+
+    // The execute method is used to execute a SQL query. It returns a Promise that resolves with an array containing the results of the query (results) and an array containing the metadata of the results (fields).
+    const [results, fields] = await connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID;");
+
+    console.log('Requesting all cards...')
+    console.log(`${results.length} rows returned`);
+    // uncomment to see the cards in the console
+    // console.log(results);
+    response.status(200).json({cards: results});
+  }
+  catch (error) {
+    response.status(500);
+    response.json(error);
+    console.log(error);
+  }
+  finally {
+    // The finally statement lets you execute code, after try and catch, regardless of the result. In this case, it closes the connection to the database.
+    // Closing the connection is important to avoid memory leaks and to free up resources.
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed succesfully!");
+    }
   }
 });
 
