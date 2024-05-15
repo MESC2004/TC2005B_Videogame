@@ -15,7 +15,8 @@ app.use(express.json());
 
 app.get("/available_cards", (req, res) => {
   if (card_list.length > 0) {
-    res.json(card_list);
+    const cardsObject = {cards: card_list}
+    res.json(cardsObject);
   } else {
     res.status(200).send("No cards available.");
   }
@@ -23,7 +24,7 @@ app.get("/available_cards", (req, res) => {
 
 app.get("/lookup/:id", (req, res) => {
   const id = req.params.id;
-  const card = card_list.find((card) => card.id === id);
+  const card = card_list.find((card) => parseInt(card.id) === parseInt(id));
   if (card) {
     res.json(card);
   } else {
@@ -74,8 +75,8 @@ app.delete("/delete_card/:id", (req, res) => {
   const id = req.params.id;
   const card = card_list.find((card) => card.id == id);
   if (card) {
-    card_list = card_list.filter((card) => card.id !== id);
-    res.json(card_list);
+    card_list = card_list.filter((card) => card.id != id);
+    res.status(200).send("Card deleted successfully."); 
   } else {
     res.status(200).send("Card not found in the card list.");
   }
