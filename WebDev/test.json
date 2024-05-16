@@ -1,0 +1,25 @@
+{
+  "cards": [
+    {
+      "id": 5,
+      "name": "Card 1",
+      "type_id": 1,
+      "hp": 10,
+      "speed": 5,
+      "speed_cost": null,
+      "atk": 7,
+      "def": 3
+    },
+    {
+      "id": 6,
+      "name": "Card 2",
+      "type_id": 2,
+      "hp": 15,
+      "speed": 4,
+      "speed_cost": 2,
+      "atk": 6,
+      "def": 4,
+      "trick": "hehe"
+    }
+  ]
+}
