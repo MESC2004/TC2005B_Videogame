@@ -47,6 +47,7 @@ app.get("/api/cards", async (request, response) => {
 
     // The execute method is used to execute a SQL query. It returns a Promise that resolves with an array containing the results of the query (results) and an array containing the metadata of the results (fields).
     const [results, fields] = await connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID;");
+    // TODO replace the query with a view.
 
     console.log('Requesting all cards...')
     console.log(`${results.length} rows returned`);
@@ -69,6 +70,35 @@ app.get("/api/cards", async (request, response) => {
   }
 });
 
+app.get("/api/cards/:id", async (request, response) => {
+  let connection = null;
+
+  try {
+    connection = await connectToDB();
+
+    const [results, fields] = await 
+    connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID WHERE Card_ID = ?;", [request.params.id]);
+
+    console.log('Requesting card with ID ' + request.params.id);
+    console.log(`${results.length} rows returned`);
+    if (results.length === 0) {
+      response.status(200).send("Card not found.");
+    } else {
+      response.status(200).json({cards: results});
+    }
+  }
+  catch (error) {
+    response.status(500);
+    response.json(error);
+    console.log(error);
+  }
+  finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed succesfully!");
+    }
+  }
+});
 app.get("/lookup/:id", (req, res) => {
   const id = req.params.id;
   const card = card_list.find((card) => parseInt(card.id) === parseInt(id));
