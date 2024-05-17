@@ -26,15 +26,6 @@ async function connectToDB() {
 }
 
 
-app.get("/available_cards", (req, res) => {
-  if (card_list.length > 0) {
-    const cardsObject = {cards: card_list}
-    res.json(cardsObject);
-  } else {
-    res.status(200).send("No cards available.");
-  }
-});
-
 app.get("/api/cards", async (request, response) => {
   let connection = null;
 
@@ -45,8 +36,11 @@ app.get("/api/cards", async (request, response) => {
 
     connection = await connectToDB();
 
-    // The execute method is used to execute a SQL query. It returns a Promise that resolves with an array containing the results of the query (results) and an array containing the metadata of the results (fields).
     const [results, fields] = await connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID;");
+    
+    // FOR DEBUGGING, DO NOT UNCOMMENT
+    // const [results, fields] = await connection.execute("SELECT * FROM card;");
+    
     // TODO replace the query with a view.
 
     console.log('Requesting all cards...')
@@ -76,7 +70,9 @@ app.get("/api/cards/:id", async (request, response) => {
   try {
     connection = await connectToDB();
 
-    const [results, fields] = await 
+    const [results, fields] = await
+    // Missing view (SELECT * FROM all_cards_view WHERE Card_ID = ?;, [request.params.id])
+    // Currently using full query
     connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID WHERE Card_ID = ?;", [request.params.id]);
 
     console.log('Requesting card with ID ' + request.params.id);
@@ -99,15 +95,41 @@ app.get("/api/cards/:id", async (request, response) => {
     }
   }
 });
-app.get("/lookup/:id", (req, res) => {
-  const id = req.params.id;
-  const card = card_list.find((card) => parseInt(card.id) === parseInt(id));
-  if (card) {
-    res.json(card);
-  } else {
-    res.status(200).send("Card not found in the card list.");
+ 
+app.post("/api/add_card", async (request, response) => {
+  // Hardcoded INSERT, might replace with a stored procedure in the schema to be called to avoid SQL injection.
+  // Must recieve an object named cards: which contains the card to be added.
+  // MUST BE A SINGLE OBJECT, NOT A LIST OR IT WILL NOT WORK
+
+  let card = request.body.cards;
+  let connection = null;
+
+  try {
+    connection = await connectToDB();
+
+    console.log(card);
+    console.log(card.Name, card.Type_ID, card.Description, card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive);
+
+    const [results, fields] = await connection.execute("INSERT INTO card (Type_ID, Name, Description) VALUES (?, ?, ?);", [card.Type_ID, card.Name, card.Description]);
+    const [results2, fields2] = await connection.execute("INSERT INTO stats (HP, Speed, Speed_Cost, Atk, Def, Passive) VALUES (?, ?, ?, ?, ?, ?);", [card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive]);
+
+    console.log('Card added succesfully!');
+    response.status(200).send("Card added succesfully!");
   }
-});  
+  catch (error) {
+    response.status(500);
+    response.json(error);
+    console.log(error);
+  }
+  finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed succesfully!");
+    }
+  }
+});
+
+
 
 app.post("/add_card", (req, res) => {
   let cards_to_add = req.body.cards;
