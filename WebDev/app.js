@@ -181,6 +181,31 @@ app.delete("/delete_card/:id", (req, res) => {
   }
 });
 
+app.delete("/api/delete_card/:id", async (req, res) => {
+  let connection = null;
+
+  try {
+    connection = await connectToDB();
+
+    const [results, fields] = await connection.execute("DELETE FROM card WHERE Card_ID = ?;", [req.params.id]);
+    const [results2, fields2] = await connection.execute("DELETE FROM stats WHERE Stats_ID = ?;", [req.params.id]);
+
+    console.log('Card deleted succesfully!');
+    res.status(200).send("Card deleted succesfully!");
+  }
+  catch (error) {
+    res.status(500);
+    res.json(error);
+    console.log(error);
+  }
+  finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed succesfully!");
+    }
+  }
+});
+
 app.put('/update/:id', (req, res) => {
     const card = card_list.find(card => card.id == parseInt(req.params.id));
     if (!card) {
@@ -196,6 +221,36 @@ app.put('/update/:id', (req, res) => {
         if (def) card.def = def;
         res.status(201).send('card updated');
     }
+});
+
+
+app.put("/api/update_card/:id", async (req, res) => {
+  let connection = null;
+
+  try {
+    connection = await connectToDB();
+
+    const card = req.body.cards;
+    console.log(card);
+    console.log(card.Name, card.Type_ID, card.Description, card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive);
+
+    const [results, fields] = await connection.execute("UPDATE card SET Type_ID = ?, Name = ?, Description = ? WHERE Card_ID = ?;", [card.Type_ID, card.Name, card.Description, req.params.id]);
+    const [results2, fields2] = await connection.execute("UPDATE stats SET HP = ?, Speed = ?, Speed_Cost = ?, Atk = ?, Def = ?, Passive = ? WHERE Stats_ID = ?;", [card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive, req.params.id]);
+
+    console.log('Card updated succesfully!');
+    res.status(200).send("Card updated succesfully!");
+  }
+  catch (error) {
+    res.status(500);
+    res.json(error);
+    console.log(error);
+  }
+  finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed succesfully!");
+    }
+  }
 });
 
 
