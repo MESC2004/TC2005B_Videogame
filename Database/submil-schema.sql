@@ -110,3 +110,19 @@ CREATE TABLE Card_Stats (
     FOREIGN KEY (Card_ID) REFERENCES Card(Card_ID),
     FOREIGN KEY (Stats_ID) REFERENCES Stats(Stats_ID)
 );
+
+--
+-- View to consult general information of all cards 
+--
+
+USE submil;
+
+CREATE VIEW card_stat_consult AS
+SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats
+    ON card.Card_ID = stats.Stats_ID;
+
+SELECT * FROM card_stat_consult;
+
+--
+-- View...
+--
