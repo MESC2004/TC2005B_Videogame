@@ -8,6 +8,8 @@ A01784217 - Nicole Dávila Hernández
 
 A01028033 - Miguel Enrique Soria
 
+A01028796 - Fernando Adrián Fuentes Martínez
+
 # **SUBMIL TCG**
 
 ## _Game Design Document_
