@@ -2,6 +2,8 @@ DROP SCHEMA IF EXISTS submil;
 CREATE SCHEMA submil;
 USE submil;
 
+-- TABLES -- 
+
 --
 -- Table structure for table `Deck`
 --
@@ -111,6 +113,9 @@ CREATE TABLE Card_Stats (
     FOREIGN KEY (Stats_ID) REFERENCES Stats(Stats_ID)
 );
 
+
+-- VIEWS -- 
+
 --
 -- View to consult general information of all cards 
 --
@@ -118,11 +123,41 @@ CREATE TABLE Card_Stats (
 USE submil;
 
 CREATE VIEW card_stat_consult AS
-SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats
-    ON card.Card_ID = stats.Stats_ID;
+SELECT 
+	Card_ID, 
+    Type_ID, 
+    Name, 
+    HP, 
+    Speed, 
+    Speed_Cost, 
+    Atk, 
+    Def, 
+    Passive 
+FROM card 
+INNER JOIN stats
+ON card.Card_ID = stats.Stats_ID;
 
 SELECT * FROM card_stat_consult;
 
 --
--- View...
+-- View for consulting a card through ID
 --
+
+USE submil;
+
+CREATE VIEW card_through_ID AS
+SELECT 
+    card.Card_ID, 
+    card.Type_ID, 
+    card.Name, 
+    stats.HP, 
+    stats.Speed, 
+    stats.Speed_Cost, 
+    stats.Atk, 
+    stats.Def, 
+    stats.Passive 
+FROM card 
+INNER JOIN stats 
+ON card.Card_ID = stats.Stats_ID;
+    
+SELECT * FROM card_through_ID WHERE Card_ID = 2;
