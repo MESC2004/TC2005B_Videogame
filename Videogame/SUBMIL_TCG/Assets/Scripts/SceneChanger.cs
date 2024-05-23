@@ -4,20 +4,9 @@ using UnityEngine;
 
 public class SceneChanger : MonoBehaviour
 {
-
     public static void GoTo(string sceneName)
     {
-        //load the scene with the given name
+        // Load the scene with the given name
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
-    }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }
