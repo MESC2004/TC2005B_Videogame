@@ -9,40 +9,38 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class Register : MonoBehaviour
 {
-
     public InputField usernameInput;
     public InputField passwordInput;
     public Button registerButton;
     public Button goToLoginButton;
 
-    ArrayList credentials;
+    private ArrayList credentials;
 
     // Start is called before the first frame update
     void Start()
     {
         registerButton.onClick.AddListener(writeStuffToFile);
-        goToLoginButton.onClick.AddListener(goToLoginScene);
+        //goToLoginButton.onClick.AddListener(goToLoginScene);
 
-        if (File.Exists(Application.dataPath + "/credentials.txt"))
+        string filePath = Application.dataPath + "/credentials.txt";
+        if (File.Exists(filePath))
         {
-            credentials = new ArrayList(File.ReadAllLines(Application.dataPath + "/credentials.txt"));
+            credentials = new ArrayList(File.ReadAllLines(filePath));
         }
         else
         {
-            File.WriteAllText(Application.dataPath + "/credentials.txt", "");
+            File.WriteAllText(filePath, "");
+            credentials = new ArrayList();
         }
-
     }
 
     void goToLoginScene()
     {
-        SceneManager.LoadScene("Login");
+        SceneChanger.GoTo("Title");
     }
-
 
     void writeStuffToFile()
     {
@@ -51,7 +49,7 @@ public class Register : MonoBehaviour
         credentials = new ArrayList(File.ReadAllLines(Application.dataPath + "/credentials.txt"));
         foreach (var i in credentials)
         {
-            if (i.ToString().Contains(usernameInput.text))
+            if (i.ToString().Split(':')[0] == usernameInput.text)
             {
                 isExists = true;
                 break;
@@ -65,10 +63,8 @@ public class Register : MonoBehaviour
         else
         {
             credentials.Add(usernameInput.text + ":" + passwordInput.text);
-            File.WriteAllLines(Application.dataPath + "/credentials.txt", (String[])credentials.ToArray(typeof(string)));
+            File.WriteAllLines(Application.dataPath + "/credentials.txt", (string[])credentials.ToArray(typeof(string)));
             Debug.Log("Account Registered");
         }
     }
-
-
 }

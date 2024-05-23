@@ -681,6 +681,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1164495113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1164495114}
+  - component: {fileID: 1164495115}
+  m_Layer: 0
+  m_Name: LoginManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1164495114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164495113}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 427.94974, y: 265.44873, z: -1.3208226}
+  m_LocalScale: {x: 1.0465118, y: 1.0465118, z: 1.0465118}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1164495115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164495113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7c1172c7d3bff498b07e59ac5d5e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usernameInput: {fileID: 1806152802}
+  passwordInput: {fileID: 1806152802}
+  nextSceneName: Combat
 --- !u!1001 &1303792440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -700,9 +747,21 @@ PrefabInstance:
 '
       objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 34660949}
+      objectReference: {fileID: 1164495115}
+    - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLoginButtonPressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoginManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: 
@@ -797,6 +856,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
   m_PrefabInstance: {fileID: 8322097784290096215}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1806152802 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7723738696568693908, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
+  m_PrefabInstance: {fileID: 62563953}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1890827398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1229,3 +1299,4 @@ SceneRoots:
   - {fileID: 1957243259}
   - {fileID: 1083397279}
   - {fileID: 34660950}
+  - {fileID: 1164495114}

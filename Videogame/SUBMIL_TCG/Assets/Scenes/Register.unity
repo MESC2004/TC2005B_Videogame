@@ -347,7 +347,11 @@ PrefabInstance:
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 34660949}
+      objectReference: {fileID: 11500000, guid: 6cea53ebc80aeaf4583945fe5bd60353, type: 3}
+    - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Deck
