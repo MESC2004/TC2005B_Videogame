@@ -7,7 +7,7 @@ using TMPro;
 public class CombatController : MonoBehaviour
 {
 
-    public string identityCardData = @"{
+    string identityCardData = @"{
         ""cards"": 
         [
             {
@@ -80,20 +80,24 @@ public class CombatController : MonoBehaviour
     }";
 
     // Lista de IDs de las cartas en el deck del jugador.
-    [SerializeField] public List<int> playerDeck = new List<int>() {1, 2};
+    [SerializeField] List<int> playerDeck = new List<int>() {1, 2, 3};
+    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6};
     [SerializeField] bool inCombat;
     [SerializeField] Cards cardsObject;
     [SerializeField] GameObject cardPrefab;
-    [SerializeField] Transform cardPanel;
-    // Start is called before the first frame update
+    [SerializeField] Transform PlayerPanelTop;
+    [SerializeField] Transform PlayerPanelBottom;
+    [SerializeField] Transform EnemyPanelTop;
+    [SerializeField] Transform EnemyPanelBottom;
 
 
-    void prepareCards()
+    void prepareIdentityCards()
     {
+        Transform parent;
         // Json data into object
         cardsObject = JsonUtility.FromJson<Cards>(identityCardData);
 
-        // Loop through cards in cardsObject
+        // Loop through cards in the deck (probably first 3 (identity cards))
         for (int i = 0; i < playerDeck.Count; i++) {
 
             int deckCardID = playerDeck[i];
@@ -101,8 +105,16 @@ public class CombatController : MonoBehaviour
             // Find card data in cardsObject
             CardData singleCardData = cardsObject.cards.Find(card => card.Card_ID == deckCardID);
 
+            if (i == 0)
+            {
+                parent = PlayerPanelTop;
+            }
+            else
+            {
+                parent = PlayerPanelBottom;
+            }
             // Instantiate Card
-            GameObject newCard = Instantiate(cardPrefab, cardPanel);
+            GameObject newCard = Instantiate(cardPrefab, parent);
             
             // Set card values
             CardScript cardscript = newCard.GetComponent<CardScript>();
@@ -116,14 +128,13 @@ public class CombatController : MonoBehaviour
             cardscript.cardData.Atk = singleCardData.Atk;
             cardscript.cardData.Def = singleCardData.Def;
             cardscript.cardData.Passive = singleCardData.Passive;
-
             
         } 
     } 
     // Start is called before the first frame update
     void Start()
     {
-        prepareCards();
+        prepareIdentityCards();
     }
 
     // Update is called once per frame
