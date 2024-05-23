@@ -79,7 +79,7 @@ public class CombatController : MonoBehaviour
         ]
     }";
 
-    // Lista de IDs de las cartas en el deck del jugador.
+    // Lista de IDs de las cartas en el deck del jugador y la IA.
     [SerializeField] List<int> playerDeck = new List<int>() {1, 2, 3};
     [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6};
     [SerializeField] bool inCombat;
