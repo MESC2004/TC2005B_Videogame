@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class Cards : MonoBehaviour
+public class CardsButton : MonoBehaviour
 {
     public GameObject CardButtonPrefab;
     public Transform content; 
