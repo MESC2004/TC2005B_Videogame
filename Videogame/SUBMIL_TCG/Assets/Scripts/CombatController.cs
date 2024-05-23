@@ -105,8 +105,8 @@ public class CombatController : MonoBehaviour
         // Loop through cards in the deck (probably first 3 (identity cards))
         for (int i = 0; i < 3; i++) {
 
-            int deckCardID = playerDeck[i];
-            int enemyCardID = enemyDeck[i];
+            int deckCardID = playerDeck[0];
+            int enemyCardID = enemyDeck[0];
 
             // Find card data in cardsObject
             CardData singleCardData = cardsObject.cards.Find(card => card.Card_ID == deckCardID);
@@ -129,6 +129,10 @@ public class CombatController : MonoBehaviour
             // Instantiate Enemy Card
             GameObject newEnemyCard = Instantiate(cardPrefab, EnemyPanelParent);
             SetData(newEnemyCard, enemyCardData);
+
+            // Remove card in position i from the deck
+            playerDeck.RemoveAt(0);
+            enemyDeck.RemoveAt(0);
             
         } 
     } 
@@ -194,4 +198,13 @@ public class CombatController : MonoBehaviour
                     break;
             }
     }
+
+    public void DrawCard()
+    {
+        // Draw a card from the deck
+        // Instantiate card on the player's panel
+        // Set card values
+        // Remove card from the deck
+    }
+
 }
