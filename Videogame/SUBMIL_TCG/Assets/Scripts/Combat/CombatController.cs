@@ -13,75 +13,197 @@ public class CombatController : MonoBehaviour
             {
             ""Card_ID"": 1,
             ""Type_ID"": 1,
-            ""Name"": ""Goblin"",
-            ""HP"": 10,
-            ""Speed"": 5,
-            ""SpeedCost"": 2,
-            ""Atk"": 3,
-            ""Def"": 1,
-            ""Passive"": ""None""
+            ""Name"": ""Heathcliff"",
+            ""HP"": 20,
+            ""Speed"": 1,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 0,
+            ""Passive"": ""Pierce Cards have 50% less effect""
             },
             {
             ""Card_ID"": 2,
             ""Type_ID"": 1,
-            ""Name"": ""Orc"",
+            ""Name"": ""Faust"",
             ""HP"": 15,
-            ""Speed"": 3,
-            ""SpeedCost"": 3,
-            ""Atk"": 5,
-            ""Def"": 2,
-            ""Passive"": ""None""
+            ""Speed"": 2,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 0,
+            ""Passive"": ""If an attack boost card is used, heal 50% of damage dealt""
             },
             {
             ""Card_ID"": 3,
             ""Type_ID"": 1,
-            ""Name"": ""Orc"",
-            ""HP"": 15,
+            ""Name"": ""Don Quixote"",
+            ""HP"": 10,
             ""Speed"": 3,
-            ""SpeedCost"": 3,
-            ""Atk"": 5,
-            ""Def"": 2,
-            ""Passive"": ""None""
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 0,
+            ""Passive"": ""If a pierce card is used, pierce the defense 50% more""
             },
             {
             ""Card_ID"": 4,
             ""Type_ID"": 1,
-            ""Name"": ""Orc"",
-            ""HP"": 15,
-            ""Speed"": 3,
-            ""SpeedCost"": 3,
-            ""Atk"": 5,
-            ""Def"": 2,
-            ""Passive"": ""None""
+            ""Name"": ""Ishmael"",
+            ""HP"": 20,
+            ""Speed"": 1,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 0,
+            ""Passive"": ""Healing cards heal 25% more""
             },
             {
             ""Card_ID"": 5,
             ""Type_ID"": 1,
-            ""Name"": ""Orc"",
+            ""Name"": ""Outis"",
             ""HP"": 15,
-            ""Speed"": 3,
-            ""SpeedCost"": 3,
-            ""Atk"": 5,
-            ""Def"": 2,
-            ""Passive"": ""None""
+            ""Speed"": 2,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 0,
+            ""Passive"": ""Attack cards cost 1 more speed (Except weak punch)""
             },
             {
             ""Card_ID"": 6,
             ""Type_ID"": 1,
-            ""Name"": ""Orc"",
-            ""HP"": 15,
+            ""Name"": ""Yi Sang"",
+            ""HP"": 10,
             ""Speed"": 3,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 0,
+            ""Passive"": ""Ego weapons increase 50% more damage""
+            },
+            {
+            ""Card_ID"": 7,
+            ""Type_ID"": 2,
+            ""Name"": ""Opportunistic Slash"",
+            ""HP"": 0,
+            ""Speed"": 0,
             ""SpeedCost"": 3,
-            ""Atk"": 5,
-            ""Def"": 2,
-            ""Passive"": ""None""
+            ""Atk"": 7,
+            ""Def"": 0,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 8,
+            ""Type_ID"": 2,
+            ""Name"": ""Blunt Hit"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 2,
+            ""Atk"": 4,
+            ""Def"": 0,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 9,
+            ""Type_ID"": 2,
+            ""Name"": ""Weak Punch"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 1,
+            ""Atk"": 2,
+            ""Def"": 0,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 10,
+            ""Type_ID"": 3,
+            ""Name"": ""Strong Block"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 3,
+            ""Atk"": 0,
+            ""Def"": 10,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 11,
+            ""Type_ID"": 3,
+            ""Name"": ""Shield"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 2,
+            ""Atk"": 0,
+            ""Def"": 5,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 12,
+            ""Type_ID"": 3,
+            ""Name"": ""Arm Block"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 1,
+            ""Atk"": 0,
+            ""Def"": 3,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 13,
+            ""Type_ID"": 4,
+            ""Name"": ""Ego Armor"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 3,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 14,
+            ""Type_ID"": 4,
+            ""Name"": ""Ego Weapon"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 0,
+            ""Atk"": 2,
+            ""Def"": 0,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 15,
+            ""Type_ID"": 4,
+            ""Name"": ""Ego Needie"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": -4,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 16,
+            ""Type_ID"": 4,
+            ""Name"": ""Healing Ampule"",
+            ""HP"": 4,
+            ""Speed"": 0,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 0,
+            ""Passive"": ""N/A""
+            },
+            {
+            ""Card_ID"": 17,
+            ""Type_ID"": 5,
+            ""Name"": ""Ego Claw"",
+            ""HP"": 0,
+            ""Speed"": 0,
+            ""SpeedCost"": 0,
+            ""Atk"": 0,
+            ""Def"": 0,
+            ""Passive"": ""N/A""
             }
         ]
     }";
 
+
     // Lista de IDs de las cartas en el deck del jugador y la IA.
-    [SerializeField] List<int> playerDeck = new List<int>() {1, 2, 3, 4};
-    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6};
+    [SerializeField] List<int> playerDeck = new List<int>() {1, 2, 3, 7, 8, 8, 8, 10};
+    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10};
     [SerializeField] bool inCombat;
     [SerializeField] Cards cardsObject;
     [SerializeField] GameObject cardPrefab;
@@ -89,6 +211,7 @@ public class CombatController : MonoBehaviour
     [SerializeField] Transform PlayerPanelBottom;
     [SerializeField] Transform EnemyPanelTop;
     [SerializeField] Transform EnemyPanelBottom;
+    [SerializeField] Transform HandPanel;
 
 
     void prepareIdentityCards()
@@ -136,7 +259,9 @@ public class CombatController : MonoBehaviour
             
         } 
     } 
-    // Start is called before the first frame update
+
+    
+
     void Start()
     {
         prepareIdentityCards();
@@ -201,10 +326,24 @@ public class CombatController : MonoBehaviour
 
     public void DrawCard()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            DrawSingleCard();
+        }
+    }
+
+    void DrawSingleCard() {
         // Draw a card from the deck
-        // Instantiate card on the player's panel
-        // Set card values
-        // Remove card from the deck
+
+        // Find card data in cardsObject
+        CardData singleCardData = cardsObject.cards.Find(card => card.Card_ID == playerDeck[0]);
+
+        // Instantiate Card
+        GameObject newCard = Instantiate(cardPrefab, HandPanel);
+        SetData(newCard, singleCardData);
+
+        // Remove card in position 0 from the deck
+        playerDeck.RemoveAt(0);
     }
 
 }
