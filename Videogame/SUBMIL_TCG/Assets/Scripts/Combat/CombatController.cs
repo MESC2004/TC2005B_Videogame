@@ -419,6 +419,9 @@ public class CombatController : MonoBehaviour
 
         // Get top card
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+        // Update speed attribute and text of top card to original speed from apiCardData
+        topCard.GetComponent<CardScript>().cardData.Speed = cardsObject.cards.Find(card => card.Card_ID == topCard.GetComponent<CardScript>().cardData.Card_ID).Speed;
+        topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString(); 
 
         // Store parent transforms
         Transform topCardParent = topCard.transform.parent;
