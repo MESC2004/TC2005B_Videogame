@@ -1,70 +1,42 @@
-/*
- * Handles registration logic
- * Nicole Dñavila
- * 22-05-2024
- */
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Register : MonoBehaviour
 {
     public InputField usernameInput;
     public InputField passwordInput;
-    public Button registerButton;
-    public Button goToLoginButton;
+    public string registerEndpoint = "http://localhost:5000/api/register"; // Update if hosted elsewhere
+    public string loginSceneName;
 
-    private ArrayList credentials;
-
-    // Start is called before the first frame update
-    void Start()
+    public void OnRegisterButtonPressed()
     {
-        registerButton.onClick.AddListener(writeStuffToFile);
-        //goToLoginButton.onClick.AddListener(goToLoginScene);
-
-        string filePath = Application.dataPath + "/credentials.txt";
-        if (File.Exists(filePath))
-        {
-            credentials = new ArrayList(File.ReadAllLines(filePath));
-        }
-        else
-        {
-            File.WriteAllText(filePath, "");
-            credentials = new ArrayList();
-        }
+        string enteredUsername = usernameInput.text;
+        string enteredPassword = passwordInput.text;
+        StartCoroutine(AttemptRegister(enteredUsername, enteredPassword));
     }
 
-    void goToLoginScene()
+    IEnumerator AttemptRegister(string username, string password)
     {
-        SceneChanger.GoTo("Title");
-    }
+        WWWForm form = new WWWForm();
+        form.AddField("username", username);
+        form.AddField("password", password);
 
-    void writeStuffToFile()
-    {
-        bool isExists = false;
-
-        credentials = new ArrayList(File.ReadAllLines(Application.dataPath + "/credentials.txt"));
-        foreach (var i in credentials)
+        using (UnityWebRequest www = UnityWebRequest.Post(registerEndpoint, form))
         {
-            if (i.ToString().Split(':')[0] == usernameInput.text)
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
             {
-                isExists = true;
-                break;
+                // Handle successful registration (e.g., show success message, redirect to login)
+                Debug.Log("User registered successfully!");
+                SceneChanger.GoTo(loginSceneName);
             }
-        }
-
-        if (isExists)
-        {
-            Debug.Log($"Username '{usernameInput.text}' already exists");
-        }
-        else
-        {
-            credentials.Add(usernameInput.text + ":" + passwordInput.text);
-            File.WriteAllLines(Application.dataPath + "/credentials.txt", (string[])credentials.ToArray(typeof(string)));
-            Debug.Log("Account Registered");
+            else
+            {
+                Debug.LogError("Registration failed: " + www.error);
+            }
         }
     }
 }

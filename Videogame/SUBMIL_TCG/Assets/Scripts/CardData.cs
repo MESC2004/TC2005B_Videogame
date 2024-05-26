@@ -5,21 +5,20 @@ using UnityEngine;
 [System.Serializable]
 public class CardData
 {
-    [SerializeField] public int Card_ID;
-    [SerializeField] public int Type_ID;
-    [SerializeField] public string Name;
-    [SerializeField] public int HP;
-    [SerializeField] public int Speed;
-    [SerializeField] public int SpeedCost;
-    [SerializeField] public int Atk;
-    [SerializeField] public int Def;
-    [SerializeField] public string Passive;
-    // Start is called before the first frame update
-    
+    public int Card_ID;
+    public int Type_ID;
+    public string Name;
+    public int HP;
+    public int Speed;
+    public int SpeedCost;
+    public int Atk;
+    public int Def;
+    public string Passive;
+    public string ImageUrl;
 }
 
-
+[System.Serializable]
 public class Cards
-    {
-        public List<CardData> cards;
-    } 
+{
+    public List<CardData> cards;
+}
