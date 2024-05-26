@@ -100,7 +100,7 @@ app.post("/api/add_card", async (request, response) => {
   // MUST BE A SINGLE OBJECT, NOT A LIST OR IT WILL NOT WORK
 
   let card = request.body.cards;
-  let connection = null;
+  let connection = null; 
 
   try {
     connection = await connectToDB();
@@ -186,6 +186,56 @@ app.put("/api/update_card/:id", async (req, res) => {
   }
 });
 
+// for log in and registration system
+app.post("/api/login", async (request, response) => {
+  let connection = null;
+
+  try {
+    connection = await connectToDB();
+
+    const { username, password } = request.body;
+
+    // Log the incoming request data
+    console.log('Login request received:', { username, password });
+
+    // Check for undefined or null values
+    if (!username || !password) {
+      response.status(400).json({ error: 'Username or password is missing' });
+      console.log('Username or password is missing');
+      return;
+    }
+
+    const [results] = await connection.execute(
+      "SELECT Player_ID, Name, Password FROM Player WHERE Name = ?;",
+      [username]
+    );
+
+    if (results.length === 0) {
+      response.status(404).json({ error: 'User not found' });
+      console.log('User not found:', username);
+      return;
+    }
+
+    const user = results[0];
+
+    if (user.Password !== password) {
+      response.status(401).json({ error: 'Incorrect password' });
+      console.log('Incorrect password for user:', username);
+      return;
+    }
+
+    console.log('Login successful for user:', username);
+    response.status(200).json({ message: "Login successful", userId: user.Player_ID });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+    console.log(error);
+  } finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed successfully!");
+    }
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

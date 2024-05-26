@@ -1,5 +1,6 @@
 USE submil;
 
+-- Insert initial data into Type table
 INSERT INTO Type_ (Name) VALUES
 ('Identity'),
 ('Attack'),
@@ -7,10 +8,12 @@ INSERT INTO Type_ (Name) VALUES
 ('Effect'),
 ('Draw');
 
+-- Insert initial data into Deck table
 INSERT INTO Deck (Name, Creation_Date, Description, Type, Size) VALUES
 ('Basic Deck 1', NOW(), 'Description Deck 1', 'Attack', 23),
 ('Basic Deck 2', NOW(), 'Description Deck 2', 'Defense', 23);
 
+-- Insert initial data into Card table
 INSERT INTO Card (Type_ID, Name, Description) VALUES
 (1, 'Heathcliff', 'Tank Unit'),
 (1, 'Faust', 'Balanced Unit'),
@@ -30,14 +33,17 @@ INSERT INTO Card (Type_ID, Name, Description) VALUES
 (4, 'Healing Ampule', 'Description 1'),
 (5, 'Ego Claw', 'A claw that allows for deeper insight');
 
+-- Insert initial data into Player table
 INSERT INTO Player (Deck_ID, Name, Registration_Date, Password, IsNPC) VALUES
 (1, 'Fabrizio', NOW(), 'password1', FALSE),
 (2, 'Miguel', NOW(), 'password2', FALSE);
 
+-- Insert initial data into Match table
 INSERT INTO Match_ (Player1_ID, Player2_ID, Winner_ID, Total_Turns) VALUES
 (1, 2, 1, 15),
 (2, 1, 2, 15);
 
+-- Insert initial data into Stats table
 INSERT INTO Stats (HP, Speed, Speed_Cost, Atk, Def, Passive) VALUES
 (20, 1, 0, 0, 0, 'Pierce Cards have 50% less effect'),
 (15, 2, 0, 0, 0, 'If an attack boost card is used, heal 50% of damage dealt'),
@@ -57,16 +63,14 @@ INSERT INTO Stats (HP, Speed, Speed_Cost, Atk, Def, Passive) VALUES
 (4, 0, 0, 0, 0, 'N/A'),
 (0, 0, 0, 0, 0, 'N/A');
 
+-- Insert initial data into Deck_Card table
 INSERT INTO Deck_Card (Card_ID, Deck_ID) VALUES
 (1, 1),
 (2, 1),
 (1, 2),
 (2, 2);
 
+-- Insert initial data into Card_Stats table
 INSERT INTO Card_Stats (Card_ID, Stats_ID) VALUES
 (1, 1),
 (2, 2);
-
-
-
-
