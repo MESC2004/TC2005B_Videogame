@@ -202,9 +202,9 @@ public class CombatController : MonoBehaviour
 
 
     // Lista de IDs de las cartas en el deck del jugador y la IA.
-    [SerializeField] List<int> playerDeck = new List<int>() {1, 2, 3, 7, 8, 8, 8, 10};
-    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10};
-    [SerializeField] bool inCombat;
+    [SerializeField] List<int> playerDeck = new List<int>() {1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
+    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
+    
     [SerializeField] Cards cardsObject;
     [SerializeField] GameObject cardPrefab;
     [SerializeField] Transform PlayerPanelTop;
@@ -248,6 +248,7 @@ public class CombatController : MonoBehaviour
             // Instantiate Card
             GameObject newCard = Instantiate(cardPrefab, PlayerPanelParent);
             SetData(newCard, singleCardData);
+            // newCard
 
             // Instantiate Enemy Card
             GameObject newEnemyCard = Instantiate(cardPrefab, EnemyPanelParent);
@@ -346,4 +347,81 @@ public class CombatController : MonoBehaviour
         playerDeck.RemoveAt(0);
     }
 
+    public void TurnSequence()
+    {
+        // Listen for click on draw button
+        // Draw 3 cards
+        // Allow click on cards from hand
+        // Listen for click on card
+        // If card is identity card, swap bottom card with top card
+        // If card is attack card, move to bottom panel
+        // If card is defense card, move to bottom panel
+        // If card is effect card, apply effect
+        // If card is draw card, draw 2 cards
+        // Apply stats and effects to the card in the top panel
+        // Use stats to determine damage to opposing card
+        // End Turn
+        // Repeat for enemy
+
+        DrawCard();
+
+    }
+
+    public void CardClicked(CardData cardData)
+    {
+        Debug.Log("Card Clicked Game Manager");
+        // Listen for click on card
+        // If card is identity card, swap bottom card with top card
+        // Apply stats and effects to the card in the top panel
+        // If card is attack card, add to attack of the card in the top panel
+        // If card is defense card, add to defense of the card in the top panel
+        // If card is draw card, draw 2 cards
+
+        // Get card data from any card object, hand or table
+        // Listener for card click
+
+
+        // Check card type
+        switch (cardData.Type_ID)
+        {
+            case 1:
+                // Identity Card
+                Debug.Log("Identity Card Clicked, Swapping");
+                Swap();
+                break;
+            case 2:
+                // Attack Card
+                // Add to attack of the card in the top panel
+                break;
+            case 3:
+                // Defense Card
+                // Add to defense of the card in the top panel
+                break;
+            case 4:
+                // Effect card
+                // Apply effect
+                break;
+            case 5:
+                // Draw card
+                // Draw 2 cards
+                DrawCard();
+                break;
+        }
+        
+        
+    }
+
+    public void Swap() {
+        // Swap the top card with the bottom card
+
+        // Get top card
+        GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+        // Get bottom card
+        GameObject bottomCard = PlayerPanelBottom.GetChild(0).gameObject;
+
+        // Set top card to bottom
+        bottomCard.transform.SetParent(PlayerPanelTop);
+        // Set bottom card to top
+        topCard.transform.SetParent(PlayerPanelBottom);
+    }
 }
