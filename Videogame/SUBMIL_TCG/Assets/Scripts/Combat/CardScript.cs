@@ -31,7 +31,7 @@ public class CardScript : MonoBehaviour
     public void OnClick() {
 
         Debug.Log(this.cardData.Type_ID);
-        combatController.CardClicked(this.cardData);
+        combatController.CardClicked(this.cardData, this.gameObject);
         Debug.Log("Card Clicked");
     }
 

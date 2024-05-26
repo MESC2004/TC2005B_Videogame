@@ -253,6 +253,8 @@ public class CombatController : MonoBehaviour
             // Instantiate Enemy Card
             GameObject newEnemyCard = Instantiate(cardPrefab, EnemyPanelParent);
             SetData(newEnemyCard, enemyCardData);
+            // Disable click on enemy card
+            newEnemyCard.GetComponent<Button>().interactable = false;
 
             // Remove card in position i from the deck
             playerDeck.RemoveAt(0);
@@ -367,7 +369,7 @@ public class CombatController : MonoBehaviour
 
     }
 
-    public void CardClicked(CardData cardData)
+    public void CardClicked(CardData cardData, GameObject clickedCard)
     {
         Debug.Log("Card Clicked Game Manager");
         // Listen for click on card
@@ -387,7 +389,7 @@ public class CombatController : MonoBehaviour
             case 1:
                 // Identity Card
                 Debug.Log("Identity Card Clicked, Swapping");
-                Swap();
+                Swap(clickedCard);
                 break;
             case 2:
                 // Attack Card
@@ -411,17 +413,19 @@ public class CombatController : MonoBehaviour
         
     }
 
-    public void Swap() {
-        // Swap the top card with the bottom card
+    public void Swap(GameObject clickedCard)
+    {
+        // Swap the top card with the clicked card
 
         // Get top card
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
-        // Get bottom card
-        GameObject bottomCard = PlayerPanelBottom.GetChild(0).gameObject;
 
-        // Set top card to bottom
-        bottomCard.transform.SetParent(PlayerPanelTop);
-        // Set bottom card to top
-        topCard.transform.SetParent(PlayerPanelBottom);
+        // Store parent transforms
+        Transform topCardParent = topCard.transform.parent;
+        Transform clickedCardParent = clickedCard.transform.parent;
+
+        // Swap parents
+        topCard.transform.SetParent(clickedCardParent);
+        clickedCard.transform.SetParent(topCardParent);
     }
 }
