@@ -4,6 +4,12 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const imageBaseDir = path.join(__dirname, '../Card_Data/Card_Visuals');
 
 const port = 5000;
 const app = express();
