@@ -8,30 +8,32 @@ INSERT INTO Type_ (Name) VALUES
 ('Effect'),
 ('Draw');
 
+SELECT * FROM Type_;
+
 -- Insert initial data into Deck table
 INSERT INTO Deck (Name, Creation_Date, Description, Type, Size) VALUES
 ('Basic Deck 1', NOW(), 'Description Deck 1', 'Attack', 23),
 ('Basic Deck 2', NOW(), 'Description Deck 2', 'Defense', 23);
 
 -- Insert initial data into Card table
-INSERT INTO Card (Type_ID, Name, Description) VALUES
-(1, 'Heathcliff', 'Tank Unit'),
-(1, 'Faust', 'Balanced Unit'),
-(1, 'Don Quixote', 'Fast Unit'),
-(1, 'Ishmael', 'Tank Unit'),
-(1, 'Outis', 'Balanced Unit'),
-(1, 'Yi Sang', 'Fast Unit'),
-(2, 'Opportunistic Slash', 'A strong slash with powerful damage'),
-(2, 'Blunt Hit', 'A hard hit that knocks back enemies'),
-(2, 'Weak Punch', 'A weak preemptive hit'),
-(3, 'Strong Block', 'A strong block that covers vitals'),
-(3, 'Shield', 'A shield that can support a medium hit'),
-(3, 'Arm Block', 'A desperate struggle to avoid damage'),
-(4, 'Ego Armor', 'Powerful EGO gear that allows for greater defense'),
-(4, 'Ego Weapon', 'Powerful EGO gear that allows for greater power'),
-(4, 'Ego Needie', 'Powerful EGO gear that allows piercing defense'),
-(4, 'Healing Ampule', 'Description 1'),
-(5, 'Ego Claw', 'A claw that allows for deeper insight');
+INSERT INTO Card (Type_ID, Name, Description, Image_Path) VALUES
+(1, 'Heathcliff', 'Tank Unit', '../Card_Data/Card_Visuals/Heathcliff.png'),
+(1, 'Faust', 'Balanced Unit', '../Card_Data/Card_Visuals/Faust.png'),
+(1, 'Don Quixote', 'Fast Unit', '../Card_Data/Card_Visuals/Quixote.png'),
+(1, 'Ishmael', 'Tank Unit', '../Card_Data/Card_Visuals/Ishmael.png'),
+(1, 'Outis', 'Balanced Unit', '../Card_Data/Card_Visuals/Outis.png'),
+(1, 'Yi Sang', 'Fast Unit', '../Card_Data/Card_Visuals/Yi_Sang.png'),
+/*(2, 'Opportunistic Slash', 'A strong slash with powerful damage', 'path/to/image_opportunisticslash.png'),
+(2, 'Blunt Hit', 'A hard hit that knocks back enemies', 'path/to/image_blunthit.png'),
+(2, 'Weak Punch', 'A weak preemptive hit', 'path/to/image_weakpunch.png'),
+(3, 'Strong Block', 'A strong block that covers vitals', 'path/to/image_strongblock.png'),
+(3, 'Shield', 'A shield that can support a medium hit', 'path/to/image_shield.png'),
+(3, 'Arm Block', 'A desperate struggle to avoid damage', 'path/to/image_armblock.png'),*/
+(4, 'Ego Armor', 'Powerful EGO gear that allows for greater defense', '../Card_Data/Card_Visuals/Ego_Armor.png'),
+(4, 'Ego Weapon', 'Powerful EGO gear that allows for greater power', '../Card_Data/Card_Visuals/Ego_Weapon.png'),
+(4, 'Ego Needie', 'Powerful EGO gear that allows piercing defense', '../Card_Data/Card_Visuals/Ego_Needle.png'),
+(4, 'Healing Ampule', 'Description 1', '../Card_Data/Card_Visuals/Healing_Ampule.png'),
+(5, 'Ego Claw', 'A claw that allows for deeper insight', '../Card_Data/Card_Visuals/Ego_Claw.png');
 
 -- Insert initial data into Player table
 INSERT INTO Player (Deck_ID, Name, Registration_Date, Password, IsNPC) VALUES

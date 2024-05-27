@@ -70,7 +70,8 @@ CREATE TABLE Card (
     Name VARCHAR(255) NOT NULL,
     Description TEXT,
     PRIMARY KEY (Card_ID),
-    FOREIGN KEY (Type_ID) REFERENCES Type_(Type_ID)
+    FOREIGN KEY (Type_ID) REFERENCES Type_(Type_ID),
+    Image_Path VARCHAR(255)
 );
 
 --

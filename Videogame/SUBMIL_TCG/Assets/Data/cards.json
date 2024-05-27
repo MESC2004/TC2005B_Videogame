@@ -1,0 +1,71 @@
+{
+  "cards": 
+  [
+      {
+      "Card_ID": 1,
+      "Type_ID": 1,
+      "Name": "Goblin",
+      "HP": 10,
+      "Speed": 5,
+      "SpeedCost": 2,
+      "Atk": 3,
+      "Def": 1,
+      "Passive": "None"
+      },
+      {
+      "Card_ID": 2,
+      "Type_ID": 1,
+      "Name": "Orc",
+      "HP": 15,
+      "Speed": 3,
+      "SpeedCost": 3,
+      "Atk": 5,
+      "Def": 2,
+      "Passive": "None"
+      },
+      {
+      "Card_ID": 3,
+      "Type_ID": 1,
+      "Name": "Orc",
+      "HP": 15,
+      "Speed": 3,
+      "SpeedCost": 3,
+      "Atk": 5,
+      "Def": 2,
+      "Passive": "None"
+      },
+      {
+      "Card_ID": 4,
+      "Type_ID": 1,
+      "Name": "Orc",
+      "HP": 15,
+      "Speed": 3,
+      "SpeedCost": 3,
+      "Atk": 5,
+      "Def": 2,
+      "Passive": "None"
+      },
+      {
+      "Card_ID": 5,
+      "Type_ID": 1,
+      "Name": "Orc",
+      "HP": 15,
+      "Speed": 3,
+      "SpeedCost": 3,
+      "Atk": 5,
+      "Def": 2,
+      "Passive": "None"
+      },
+      {
+      "Card_ID": 6,
+      "Type_ID": 1,
+      "Name": "Orc",
+      "HP": 15,
+      "Speed": 3,
+      "SpeedCost": 3,
+      "Atk": 5,
+      "Def": 2,
+      "Passive": "None"
+      }
+  ]
+}
