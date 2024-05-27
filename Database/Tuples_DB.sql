@@ -8,7 +8,8 @@ INSERT INTO Type_ (Name) VALUES
 ('Effect'),
 ('Draw');
 
-SELECT * FROM Type_;
+-- for testing purposes only
+SELECT * FROM Type_; 
 
 -- Insert initial data into Deck table
 INSERT INTO Deck (Name, Creation_Date, Description, Type, Size) VALUES
@@ -65,14 +66,69 @@ INSERT INTO Stats (HP, Speed, Speed_Cost, Atk, Def, Passive) VALUES
 (4, 0, 0, 0, 0, 'N/A'),
 (0, 0, 0, 0, 0, 'N/A');
 
--- Insert initial data into Deck_Card table
 INSERT INTO Deck_Card (Card_ID, Deck_ID) VALUES
 (1, 1),
 (2, 1),
+(3, 1),
+(7, 1),
+(7, 1),
+(7, 1),
+(7, 1),
+(7, 1),
+(8, 1),
+(8, 1),
+(8, 1),
+(8, 1),
+(9, 1),
+(9, 1),
+(9, 1),
+(9, 1),
+(9, 1),
+(9, 1),
+(9, 1),
+(17, 1),
+(17, 1),
+(17, 1),
+(11, 1),
 (1, 2),
-(2, 2);
+(2, 2),
+(3, 2),
+(8, 2),
+(8, 2),
+(8, 2),
+(9, 2),
+(9, 2),
+(9, 2),
+(9, 2),
+(9, 2),
+(9, 2),
+(10, 2),
+(10, 2),
+(10, 2),
+(10, 2),
+(10, 2),
+(10, 2),
+(10, 2),
+(10, 2),
+(10, 2),
+(10, 2),
+(10, 2);
 
--- Insert initial data into Card_Stats table
 INSERT INTO Card_Stats (Card_ID, Stats_ID) VALUES
 (1, 1),
-(2, 2);
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 16),
+(17, 17);

@@ -38,6 +38,9 @@ public class CardLoader : MonoBehaviour
     public Transform cardParent; // The parent transform where card UI elements will be instantiated
     public GameObject cardPrefab; // The prefab for a card UI element
 
+    // Add a reference to the CombatController script
+    public CombatController combatController;
+
     void Start()
     {
         StartCoroutine(FetchCards());
@@ -56,6 +59,10 @@ public class CardLoader : MonoBehaviour
             else
             {
                 string json = webRequest.downloadHandler.text;
+
+                // Pass the json data to CombatController
+                combatController.apiCardData = json;
+
                 CardResponse cardResponse = JsonUtility.FromJson<CardResponse>(json);
                 DisplayCards(cardResponse.cards);
             }

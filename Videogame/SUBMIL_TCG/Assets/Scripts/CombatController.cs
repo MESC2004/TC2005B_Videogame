@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 public class CombatController : MonoBehaviour
 {
     public string apiCardData;
-    [SerializeField] List<int> playerDeck = new List<int>() { 1, 2, 3, 4 };
+    [SerializeField] List<int> playerDeck = new List<int>() { 1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8 };
     [SerializeField] List<int> enemyDeck = new List<int>() { 4, 5, 6 };
     [SerializeField] bool inCombat;
     [SerializeField] GameObject cardPrefab;
