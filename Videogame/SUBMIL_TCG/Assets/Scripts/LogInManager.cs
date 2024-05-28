@@ -1,56 +1,55 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class LoginManager : MonoBehaviour
 {
     public InputField usernameInput;
     public InputField passwordInput;
-    public string nextSceneName; // The name of the scene to load after successful login
-
-    private ArrayList credentials;
-
-    void Start()
-    {
-        string filePath = Application.dataPath + "/credentials.txt";
-        if (File.Exists(filePath))
-        {
-            credentials = new ArrayList(File.ReadAllLines(filePath));
-        }
-        else
-        {
-            Debug.LogError("Credentials file not found.");
-            credentials = new ArrayList();
-        }
-    }
+    public string loginEndpoint = "http://localhost:5000/api/login"; // Update if hosted elsewhere
+    public string nextSceneName;
 
     public void OnLoginButtonPressed()
     {
         string enteredUsername = usernameInput.text;
         string enteredPassword = passwordInput.text;
+        StartCoroutine(AttemptLogin(enteredUsername, enteredPassword));
+    }
 
-        if (IsLoginValid(enteredUsername, enteredPassword))
+    IEnumerator AttemptLogin(string username, string password)
+    {
+        UserLogin user = new UserLogin
         {
+            username = username,
+            password = password
+        };
+
+        string json = JsonUtility.ToJson(user);
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+
+        UnityWebRequest www = new UnityWebRequest(loginEndpoint, "POST");
+        www.uploadHandler = new UploadHandlerRaw(jsonToSend);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            // Handle successful login (e.g., save user data, load next scene)
             SceneChanger.GoTo(nextSceneName);
         }
         else
         {
-            Debug.Log("Invalid login credentials.");
+            Debug.LogError("Login failed: " + www.error);
         }
     }
 
-    private bool IsLoginValid(string username, string password)
+    [System.Serializable]
+    public class UserLogin
     {
-        foreach (var i in credentials)
-        {
-            var parts = i.ToString().Split(':');
-            if (parts[0] == username && parts[1] == password)
-            {
-                return true;
-            }
-        }
-        return false;
+        public string username;
+        public string password;
     }
 }

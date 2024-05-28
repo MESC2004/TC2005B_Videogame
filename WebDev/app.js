@@ -1,17 +1,18 @@
-// Miguel Enrique Soria A01028033 22/04/2024
-
 "use strict";
 
 import express from 'express';
-
 import mysql from 'mysql2/promise';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const imageBaseDir = path.join(__dirname, '../Card_Data/Card_Visuals');
 
 const port = 5000;
 const app = express();
-
-// Card template for the wanted parameters of the cards in the game
-
-
 app.use(express.json());
 
 async function connectToDB() {
@@ -23,169 +24,200 @@ async function connectToDB() {
   });
 }
 
-
 app.get("/api/cards", async (request, response) => {
   let connection = null;
-
   try {
-
-    // The await keyword is used to wait for a Promise. It can only be used inside an async function.
-    // The await expression causes async function execution to pause until a Promise is settled (that is, fulfilled or rejected), and to resume execution of the async function after fulfillment. When resumed, the value of the await expression is that of the fulfilled Promise.
-
     connection = await connectToDB();
+    const [results] = await connection.execute(
+      `SELECT c.Card_ID, c.Type_ID, c.Name, c.Description, s.HP, s.Speed, s.Speed_Cost, s.Atk, s.Def, s.Passive, c.Image_Path 
+       FROM card c
+       INNER JOIN card_stats cs ON c.Card_ID = cs.Card_ID
+       INNER JOIN stats s ON cs.Stats_ID = s.Stats_ID`
+    );
 
-    const [results, fields] = await connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID;");
-    
-    // FOR DEBUGGING, DO NOT UNCOMMENT
-    // const [results, fields] = await connection.execute("SELECT * FROM card;");
-    
-    // TODO replace the query with a view.
+    const cards = results.map(card => {
+      if (card.Image_Path) {
+        const imagePath = path.join(__dirname, card.Image_Path);
+        const imageBuffer = fs.readFileSync(imagePath);
+        card.Image = imageBuffer.toString('base64');
+      }
+      return card;
+    });
 
-    console.log('Requesting all cards...')
-    console.log(`${results.length} rows returned`);
-    // uncomment to see the cards in the console
-    // console.log(results);
-    response.status(200).json({cards: results});
-  }
-  catch (error) {
-    response.status(500);
-    response.json(error);
+    response.status(200).json({ cards });
+  } catch (error) {
+    response.status(500).json(error);
     console.log(error);
-  }
-  finally {
-    // The finally statement lets you execute code, after try and catch, regardless of the result. In this case, it closes the connection to the database.
-    // Closing the connection is important to avoid memory leaks and to free up resources.
+  } finally {
     if (connection !== null) {
       connection.end();
-      console.log("Connection closed succesfully!");
+      console.log("Connection closed successfully!");
     }
   }
 });
 
 app.get("/api/cards/:id", async (request, response) => {
   let connection = null;
-
   try {
     connection = await connectToDB();
+    const [results] = await connection.execute(
+      `SELECT c.Card_ID, c.Type_ID, c.Name, c.Description, s.HP, s.Speed, s.Speed_Cost, s.Atk, s.Def, s.Passive, c.Image_Path 
+       FROM card c
+       INNER JOIN card_stats cs ON c.Card_ID = cs.Card_ID
+       INNER JOIN stats s ON cs.Stats_ID = s.Stats_ID
+       WHERE c.Card_ID = ?`, [request.params.id]
+    );
 
-    const [results, fields] = await
-    // Missing view (SELECT * FROM all_cards_view WHERE Card_ID = ?;, [request.params.id])
-    // Currently using full query
-    connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID WHERE Card_ID = ?;", [request.params.id]);
-
-    console.log('Requesting card with ID ' + request.params.id);
-    console.log(`${results.length} rows returned`);
     if (results.length === 0) {
       response.status(200).send("Card not found.");
     } else {
-      response.status(200).json({cards: results});
+      const card = results[0];
+      if (card.Image_Path) {
+        const imagePath = path.join(__dirname, card.Image_Path);
+        const imageBuffer = fs.readFileSync(imagePath);
+        card.Image = imageBuffer.toString('base64');
+      }
+      response.status(200).json({ card });
     }
-  }
-  catch (error) {
-    response.status(500);
-    response.json(error);
+  } catch (error) {
+    response.status(500).json(error);
     console.log(error);
-  }
-  finally {
+  } finally {
     if (connection !== null) {
       connection.end();
-      console.log("Connection closed succesfully!");
+      console.log("Connection closed successfully!");
     }
   }
 });
- 
-app.post("/api/add_card", async (request, response) => {
-  // Hardcoded INSERT, might replace with a stored procedure in the schema to be called to avoid SQL injection.
-  // Must recieve an object named cards: which contains the card to be added.
-  // MUST BE A SINGLE OBJECT, NOT A LIST OR IT WILL NOT WORK
 
+app.post("/api/add_card", async (request, response) => {
   let card = request.body.cards;
   let connection = null;
-
   try {
     connection = await connectToDB();
+    await connection.execute("INSERT INTO card (Type_ID, Name, Description, Image_Path) VALUES (?, ?, ?, ?);",
+      [card.Type_ID, card.Name, card.Description, card.Image_Path]);
+    const [results] = await connection.execute("SELECT LAST_INSERT_ID() as Card_ID;");
+    const cardId = results[0].Card_ID;
+    await connection.execute("INSERT INTO stats (HP, Speed, Speed_Cost, Atk, Def, Passive) VALUES (?, ?, ?, ?, ?, ?);",
+      [card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive]);
+    await connection.execute("INSERT INTO card_stats (Card_ID, Stats_ID) VALUES (?, LAST_INSERT_ID());", [cardId]);
 
-    console.log(card);
-    console.log(card.Name, card.Type_ID, card.Description, card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive);
-
-    const [results, fields] = await connection.execute("INSERT INTO card (Type_ID, Name, Description) VALUES (?, ?, ?);", [card.Type_ID, card.Name, card.Description]);
-    const [results2, fields2] = await connection.execute("INSERT INTO stats (HP, Speed, Speed_Cost, Atk, Def, Passive) VALUES (?, ?, ?, ?, ?, ?);", [card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive]);
-
-    console.log('Card added succesfully!');
-    response.status(200).send("Card added succesfully!");
-  }
-  catch (error) {
-    response.status(500);
-    response.json(error);
+    response.status(200).send("Card added successfully!");
+  } catch (error) {
+    response.status(500).json(error);
     console.log(error);
-  }
-  finally {
+  } finally {
     if (connection !== null) {
       connection.end();
-      console.log("Connection closed succesfully!");
+      console.log("Connection closed successfully!");
     }
   }
 });
-
-
-
 
 app.delete("/api/delete_card/:id", async (req, res) => {
   let connection = null;
-
   try {
     connection = await connectToDB();
+    await connection.execute("DELETE FROM card_stats WHERE Card_ID = ?;", [req.params.id]);
+    await connection.execute("DELETE FROM card WHERE Card_ID = ?;", [req.params.id]);
+    await connection.execute("DELETE FROM stats WHERE Stats_ID = ?;", [req.params.id]);
 
-    const [results, fields] = await connection.execute("DELETE FROM card WHERE Card_ID = ?;", [req.params.id]);
-    const [results2, fields2] = await connection.execute("DELETE FROM stats WHERE Stats_ID = ?;", [req.params.id]);
-
-    console.log('Card deleted succesfully!');
-    res.status(200).send("Card deleted succesfully!");
-  }
-  catch (error) {
-    res.status(500);
-    res.json(error);
+    res.status(200).send("Card deleted successfully!");
+  } catch (error) {
+    res.status(500).json(error);
     console.log(error);
-  }
-  finally {
+  } finally {
     if (connection !== null) {
       connection.end();
-      console.log("Connection closed succesfully!");
+      console.log("Connection closed successfully!");
     }
   }
 });
-
-
 
 app.put("/api/update_card/:id", async (req, res) => {
   let connection = null;
-
   try {
     connection = await connectToDB();
-
     const card = req.body.cards;
-    console.log(card);
-    console.log(card.Name, card.Type_ID, card.Description, card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive);
 
-    const [results, fields] = await connection.execute("UPDATE card SET Type_ID = ?, Name = ?, Description = ? WHERE Card_ID = ?;", [card.Type_ID, card.Name, card.Description, req.params.id]);
-    const [results2, fields2] = await connection.execute("UPDATE stats SET HP = ?, Speed = ?, Speed_Cost = ?, Atk = ?, Def = ?, Passive = ? WHERE Stats_ID = ?;", [card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive, req.params.id]);
+    await connection.execute("UPDATE card SET Type_ID = ?, Name = ?, Description = ?, Image_Path = ? WHERE Card_ID = ?;",
+      [card.Type_ID, card.Name, card.Description, card.Image_Path, req.params.id]);
+    await connection.execute("UPDATE stats SET HP = ?, Speed = ?, Speed_Cost = ?, Atk = ?, Def = ?, Passive = ? WHERE Stats_ID = ?;",
+      [card.HP, card.Speed, card.Speed_Cost, card.Atk, card.Def, card.Passive, req.params.id]);
 
-    console.log('Card updated succesfully!');
-    res.status(200).send("Card updated succesfully!");
-  }
-  catch (error) {
-    res.status(500);
-    res.json(error);
+    res.status(200).send("Card updated successfully!");
+  } catch (error) {
+    res.status(500).json(error);
     console.log(error);
-  }
-  finally {
+  } finally {
     if (connection !== null) {
       connection.end();
-      console.log("Connection closed succesfully!");
+      console.log("Connection closed successfully!");
     }
   }
 });
 
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+  console.log("Login request received:", req.body);
+
+  if (!username || !password) {
+    return res.status(400).send('Username or password is missing');
+  }
+
+  let connection = null;
+  try {
+    connection = await connectToDB();
+    const [rows] = await connection.execute('SELECT * FROM Player WHERE Name = ? AND Password = ?', [username, password]);
+    if (rows.length === 0) {
+      console.log("User not found or incorrect password:", username);
+      return res.status(404).send('User not found or incorrect password');
+    }
+
+    console.log("Login successful for user:", username);
+    res.status(200).send('Login successful');
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).send('Internal server error');
+  } finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed successfully!");
+    }
+  }
+});
+
+app.post('/api/register', async (req, res) => {
+  const { username, password } = req.body;
+  console.log("Register request received:", req.body);
+
+  if (!username || !password) {
+    return res.status(400).send('Username or password is missing');
+  }
+
+  let connection = null;
+  try {
+    connection = await connectToDB();
+    const [rows] = await connection.execute('SELECT * FROM Player WHERE Name = ?', [username]);
+    if (rows.length > 0) {
+      console.log("Username already taken:", username);
+      return res.status(400).send('Username already taken');
+    }
+
+    await connection.execute('INSERT INTO Player (Name, Password, Deck_ID) VALUES (?, ?, 1)', [username, password]);
+    console.log("User registered successfully:", username);
+    res.status(201).send('User registered successfully');
+  } catch (err) {
+    console.error("Error during user registration:", err);
+    res.status(500).send('Internal server error');
+  } finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed successfully!");
+    }
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

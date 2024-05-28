@@ -1,3 +1,4 @@
+-- Drop the schema if it already exists
 DROP SCHEMA IF EXISTS submil;
 CREATE SCHEMA submil;
 USE submil;
@@ -32,6 +33,7 @@ CREATE TABLE Player (
     PRIMARY KEY (Player_ID),
     FOREIGN KEY (Deck_ID) REFERENCES Deck(Deck_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `Match`
@@ -48,6 +50,7 @@ CREATE TABLE Match_ (
     FOREIGN KEY (Player2_ID) REFERENCES Player(Player_ID),
     FOREIGN KEY (Winner_ID) REFERENCES Player(Player_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `Type`
@@ -57,6 +60,7 @@ CREATE TABLE Type_ (
     Type_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
     Name VARCHAR(100) NOT NULL,
     PRIMARY KEY (Type_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -69,6 +73,9 @@ CREATE TABLE Card (
     Name VARCHAR(255) NOT NULL,
     Description TEXT,
     PRIMARY KEY (Card_ID),
+    FOREIGN KEY (Type_ID) REFERENCES Type_(Type_ID),
+    Image_Path VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     FOREIGN KEY (Type_ID) REFERENCES Type_(Type_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -83,6 +90,7 @@ CREATE TABLE Deck_Card (
     PRIMARY KEY (Deck_Card_ID),
     FOREIGN KEY (Card_ID) REFERENCES Card(Card_ID),
     FOREIGN KEY (Deck_ID) REFERENCES Deck(Deck_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -99,6 +107,7 @@ CREATE TABLE Stats (
     Passive VARCHAR(255),
     PRIMARY KEY (Stats_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `Card_Stats`
@@ -111,6 +120,7 @@ CREATE TABLE Card_Stats (
     PRIMARY KEY (Card_Stat_ID),
     FOREIGN KEY (Card_ID) REFERENCES Card(Card_ID),
     FOREIGN KEY (Stats_ID) REFERENCES Stats(Stats_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

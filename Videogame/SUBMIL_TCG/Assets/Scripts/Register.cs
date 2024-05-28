@@ -1,70 +1,55 @@
-/*
- * Handles registration logic
- * Nicole Dñavila
- * 22-05-2024
- */
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class Register : MonoBehaviour
+public class RegisterManager : MonoBehaviour
 {
     public InputField usernameInput;
     public InputField passwordInput;
-    public Button registerButton;
-    public Button goToLoginButton;
+    public string registerEndpoint = "http://localhost:5000/api/register"; // Update if hosted elsewhere
+    public string loginSceneName;
 
-    private ArrayList credentials;
-
-    // Start is called before the first frame update
-    void Start()
+    public void OnRegisterButtonPressed()
     {
-        registerButton.onClick.AddListener(writeStuffToFile);
-        //goToLoginButton.onClick.AddListener(goToLoginScene);
+        string enteredUsername = usernameInput.text;
+        string enteredPassword = passwordInput.text;
+        StartCoroutine(AttemptRegister(enteredUsername, enteredPassword));
+    }
 
-        string filePath = Application.dataPath + "/credentials.txt";
-        if (File.Exists(filePath))
+    IEnumerator AttemptRegister(string username, string password)
+    {
+        UserRegister user = new UserRegister
         {
-            credentials = new ArrayList(File.ReadAllLines(filePath));
+            username = username,
+            password = password
+        };
+
+        string json = JsonUtility.ToJson(user);
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+
+        UnityWebRequest www = new UnityWebRequest(registerEndpoint, "POST");
+        www.uploadHandler = new UploadHandlerRaw(jsonToSend);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            // Handle successful registration (e.g., save user data, load login scene)
+            SceneChanger.GoTo(loginSceneName);
         }
         else
         {
-            File.WriteAllText(filePath, "");
-            credentials = new ArrayList();
+            Debug.LogError("Registration failed: " + www.error);
         }
     }
 
-    void goToLoginScene()
+    [System.Serializable]
+    public class UserRegister
     {
-        SceneChanger.GoTo("Title");
-    }
-
-    void writeStuffToFile()
-    {
-        bool isExists = false;
-
-        credentials = new ArrayList(File.ReadAllLines(Application.dataPath + "/credentials.txt"));
-        foreach (var i in credentials)
-        {
-            if (i.ToString().Split(':')[0] == usernameInput.text)
-            {
-                isExists = true;
-                break;
-            }
-        }
-
-        if (isExists)
-        {
-            Debug.Log($"Username '{usernameInput.text}' already exists");
-        }
-        else
-        {
-            credentials.Add(usernameInput.text + ":" + passwordInput.text);
-            File.WriteAllLines(Application.dataPath + "/credentials.txt", (string[])credentials.ToArray(typeof(string)));
-            Debug.Log("Account Registered");
-        }
+        public string username;
+        public string password;
     }
 }
