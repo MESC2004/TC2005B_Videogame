@@ -1,3 +1,5 @@
+/*
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -18,6 +20,7 @@ public class CardSelect : MonoBehaviour
      void OnCardSelected(GameObject card)
     {
         GameObject newCard = Instantiate(CardButtonPrefab, Panel);
+        newCard.GetComponent<Card>().cardData = card.GetComponent<Card>().cardData;
         newCard.GetComponentInChildren<TextMeshProUGUI>().text = card.GetComponentInChildren<TextMeshProUGUI>().text;
         newCard.GetComponent<Button>().onClick.AddListener(() => OnCardDeselected(newCard));
     }
@@ -29,3 +32,4 @@ public class CardSelect : MonoBehaviour
     }
 }
 
+*/
