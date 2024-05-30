@@ -1,3 +1,7 @@
+// Miguel Soria A01028033
+// 24/05/2024
+// Script to control the combat sequence of the game, including the deck, cards, and turn sequence.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -371,24 +375,16 @@ public class CombatController : MonoBehaviour
 
     public void CardClicked(CardData cardData, GameObject clickedCard)
     {
-        // Listen for click on card
-        // If card is identity card, swap bottom card with top card
-        // Apply stats and effects to the card in the top panel
-        // If card is attack card, add to attack of the card in the top panel
-        // If card is defense card, add to defense of the card in the top panel
-        // If card is draw card, draw 2 cards
+        /* Listen for click on card
+        If card is identity card, swap bottom card with top card
+        Apply stats and effects to the card in the top panel
+        If card is attack card, add to attack of the card in the top panel
+        If card is defense card, add to defense of the card in the top panel
+        If card is draw card, draw 2 cards */
 
         // Get card data from any card object, hand or table
         // Listener for card click
 
-        // Cehck for enough energy
-
-        if (cardData.Speed > PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.Speed)
-        {
-            Debug.Log("Not enough speed");
-            return;
-        } else {
-            Debug.Log("Enough speed, entering switch");
         // Check card type
         switch (cardData.Type_ID)
         {
@@ -417,9 +413,6 @@ public class CombatController : MonoBehaviour
                 DrawCard();
                 break;
         }
-        }
-        
-        
     }
 
     public void Swap(GameObject clickedCard)
@@ -443,12 +436,19 @@ public class CombatController : MonoBehaviour
 
     public void AttackCardClick(GameObject clickedCard) {
         // Get attack card from hand
+        // Check if speed cost is less than speed of the top card
         // Move to the middle of the bottom panel
         // Add to attack of the card in the top panel
         // Add to speed cost of the card in the top panel
 
         // Get top card
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Check if speed cost is less than speed of the top card
+        if (clickedCard.GetComponent<CardScript>().cardData.SpeedCost > topCard.GetComponent<CardScript>().cardData.Speed) {
+            Debug.Log("Not enough speed");
+            return;
+        }
 
         // Move clicked card to the middle of the bottom panel
         clickedCard.transform.SetParent(PlayerPanelBottom);
@@ -467,12 +467,19 @@ public class CombatController : MonoBehaviour
 
     public void DefenseCardClick(GameObject clickedCard) {
         // Get defense card from hand
+        // Check if speed cost is less than speed of the top card
         // Move to the middle of the bottom panel
         // Add to defense of the card in the top panel
         // Add to speed cost of the card in the top panel
 
         // Get top card
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Check if speed cost is less than speed of the top card
+        if (clickedCard.GetComponent<CardScript>().cardData.SpeedCost > topCard.GetComponent<CardScript>().cardData.Speed) {
+            Debug.Log("Not enough speed");
+            return;
+        }
 
         // Move clicked card to the middle of the bottom panel
         clickedCard.transform.SetParent(PlayerPanelBottom);
