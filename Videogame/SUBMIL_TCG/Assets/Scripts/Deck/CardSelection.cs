@@ -4,12 +4,11 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
-public class CardSelectionManager : MonoBehaviour
+public class CardSelection : MonoBehaviour
 {
     public Transform PlayerDeckPanelContent;
     public GameObject CardButtonPrefab;
     public Button saveButton;
-    public TextMeshProUGUI WarningText;  // Para mostrar advertencias
     private const int maxCards = 23;
     private const int maxType1Cards = 3;
     private List<CardData> selectedCards = new List<CardData>();
@@ -18,24 +17,19 @@ public class CardSelectionManager : MonoBehaviour
     void Start()
     {
         UpdateSaveButtonState();
-        LoadSelectedCards();  // Carga las cartas seleccionadas al iniciar
+        LoadSelectedCards();
     }
 
     public void OnCardSelected(Card card)
     {
-        if (selectedCards.Count >= maxCards || 
-            (type1Count < 1 && selectedCards.Count >= 20) || 
-            (type1Count < 2 && selectedCards.Count >= 21) || 
-            (type1Count < 3 && selectedCards.Count >= 22))
+        if (card.cardData.Type_ID == 1 && type1Count >= maxType1Cards)
         {
-            ShowWarning("You cannot select more cards without required type 1 cards.");
             return;
         }
 
-        if (card.cardData.Type_ID == 1 && type1Count >= maxType1Cards)
+        if (card.cardData.Type_ID == 1)
         {
-            ShowWarning("Maximum number of Type 1 cards selected.");
-            return;
+            card.cardButton.interactable = false;
         }
 
         selectedCards.Add(card.cardData);
@@ -56,7 +50,6 @@ public class CardSelectionManager : MonoBehaviour
 
     void UpdatePlayerDeck()
     {
-        // Clear all current card buttons
         List<GameObject> children = new List<GameObject>();
         foreach (Transform child in PlayerDeckPanelContent)
         {
@@ -68,7 +61,6 @@ public class CardSelectionManager : MonoBehaviour
             Destroy(child);
         }
 
-        // Add selected cards as buttons
         foreach (CardData card in selectedCards)
         {
             GameObject newCard = Instantiate(CardButtonPrefab, PlayerDeckPanelContent);
@@ -94,23 +86,26 @@ public class CardSelectionManager : MonoBehaviour
                 if (cardButton != null)
                 {
                     bool isDisabled = false;
+                    if (cardComponent.cardData.Type_ID == 1 && type1Count >= maxType1Cards)
+                    {
+                        isDisabled = true;
+                    }
+                    if ((cardComponent.cardData.Type_ID == 1) && !selectedCards.Contains(cardComponent.cardData))
+                    {
+                        cardButton.interactable = !isDisabled;
+                    }
                     if (selectedCards.Count >= maxCards)
                     {
-                        isDisabled = true;
+                        cardButton.interactable = false;
                     }
-                    else if (cardComponent.cardData.Type_ID == 1 && type1Count >= maxType1Cards)
+                    else if (selectedCards.Count < maxCards && (cardComponent.cardData.Type_ID != 1))
                     {
-                        isDisabled = true;
+                        cardButton.interactable = true;
                     }
-                    else if ((type1Count < 1 && selectedCards.Count >= 20) || 
-                             (type1Count < 2 && selectedCards.Count >= 21) || 
-                             (type1Count < 3 && selectedCards.Count >= 22))
+                    if ((cardComponent.cardData.Type_ID != 1) && (selectedCards.Count - type1Count >= 20))
                     {
-                        isDisabled = true;
+                        cardButton.interactable = false;
                     }
-
-                    cardButton.interactable = !isDisabled;
-                    child.GetComponent<Image>().color = isDisabled ? Color.gray : Color.white;
                 }
             }
         }
@@ -128,29 +123,6 @@ public class CardSelectionManager : MonoBehaviour
     public bool CanSaveDeck()
     {
         return selectedCards.Count == maxCards && type1Count == maxType1Cards;
-    }
-
-    public void ShowSaveWarning()
-    {
-        ShowWarning("You must have exactly 23 cards, including 3 type 1 cards.");
-    }
-
-    public void ShowWarning(string message)
-    {
-        if (WarningText != null)
-        {
-            WarningText.text = message;
-            WarningText.gameObject.SetActive(true);
-            Invoke("HideWarning", 2.0f);
-        }
-    }
-
-    void HideWarning()
-    {
-        if (WarningText != null)
-        {
-            WarningText.gameObject.SetActive(false);
-        }
     }
 
     public List<CardData> GetSelectedCards()

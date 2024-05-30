@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CanSaveDeck : MonoBehaviour
 {
@@ -15,24 +16,25 @@ public class CanSaveDeck : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Save button is not assigned.");
+            Debug.LogError("Save unasigned");
         }
     }
 
     void SaveSelection()
     {
-        CardSelectionManager cardSelectionManager = FindObjectOfType<CardSelectionManager>();
-        if (cardSelectionManager != null)
+        CardSelection cardSelection = FindObjectOfType<CardSelection>();
+        if (cardSelection != null)
         {
-            if (cardSelectionManager.CanSaveDeck())
+            if (cardSelection.CanSaveDeck())
             {
-                List<CardData> selectedCards = cardSelectionManager.GetSelectedCards();
-                PlayerPrefs.SetString("SelectedCards", JsonUtility.ToJson(new CardListWrapper(selectedCards)));
+                List<CardData> selectedCards = cardSelection.GetSelectedCards();
+            
+                List<CardData> sortedCards = selectedCards.OrderByDescending(card => card.Type_ID == 1).ToList();
+            
+                PlayerPrefs.SetString("SelectedCards", JsonUtility.ToJson(new CardListWrapper(sortedCards)));
+                GameObject objectToDestroy = GameObject.Find("DeckManager");
+                Destroy(objectToDestroy);
                 SceneManager.LoadScene("Title");
-            }
-            else
-            {
-                cardSelectionManager.ShowSaveWarning();
             }
         }
     }
