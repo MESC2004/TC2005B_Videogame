@@ -371,7 +371,6 @@ public class CombatController : MonoBehaviour
 
     public void CardClicked(CardData cardData, GameObject clickedCard)
     {
-        Debug.Log("Card Clicked Game Manager");
         // Listen for click on card
         // If card is identity card, swap bottom card with top card
         // Apply stats and effects to the card in the top panel
@@ -382,7 +381,14 @@ public class CombatController : MonoBehaviour
         // Get card data from any card object, hand or table
         // Listener for card click
 
+        // Cehck for enough energy
 
+        if (cardData.Speed > PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.Speed)
+        {
+            Debug.Log("Not enough speed");
+            return;
+        } else {
+            Debug.Log("Enough speed, entering switch");
         // Check card type
         switch (cardData.Type_ID)
         {
@@ -393,11 +399,13 @@ public class CombatController : MonoBehaviour
                 break;
             case 2:
                 // Attack Card
-                // Add to attack of the card in the top panel
+                Debug.Log("Attack Card Clicked");
+                AttackCardClick(clickedCard);
                 break;
             case 3:
                 // Defense Card
-                // Add to defense of the card in the top panel
+                Debug.Log("Defense Card Clicked");
+                DefenseCardClick(clickedCard);
                 break;
             case 4:
                 // Effect card
@@ -408,6 +416,7 @@ public class CombatController : MonoBehaviour
                 // Draw 2 cards
                 DrawCard();
                 break;
+        }
         }
         
         
@@ -431,4 +440,54 @@ public class CombatController : MonoBehaviour
         topCard.transform.SetParent(clickedCardParent);
         clickedCard.transform.SetParent(topCardParent);
     }
+
+    public void AttackCardClick(GameObject clickedCard) {
+        // Get attack card from hand
+        // Move to the middle of the bottom panel
+        // Add to attack of the card in the top panel
+        // Add to speed cost of the card in the top panel
+
+        // Get top card
+        GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Move clicked card to the middle of the bottom panel
+        clickedCard.transform.SetParent(PlayerPanelBottom);
+        clickedCard.transform.SetSiblingIndex(1);
+
+        // Make card not clickable
+        clickedCard.GetComponent<Button>().interactable = false;
+
+        // Substract speed cost to speed of the top card
+        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.SpeedCost;
+        topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString();
+
+        // Add attack to the top card
+        topCard.GetComponent<CardScript>().cardData.Atk += clickedCard.GetComponent<CardScript>().cardData.Atk;
+    }
+
+    public void DefenseCardClick(GameObject clickedCard) {
+        // Get defense card from hand
+        // Move to the middle of the bottom panel
+        // Add to defense of the card in the top panel
+        // Add to speed cost of the card in the top panel
+
+        // Get top card
+        GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Move clicked card to the middle of the bottom panel
+        clickedCard.transform.SetParent(PlayerPanelBottom);
+        clickedCard.transform.SetSiblingIndex(1);
+
+        // Make card not clickable
+        clickedCard.GetComponent<Button>().interactable = false;
+
+        // Substract speed cost to speed of the top card
+        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.SpeedCost;
+        topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString();
+
+        // Add defense to the top card
+        topCard.GetComponent<CardScript>().cardData.Def += clickedCard.GetComponent<CardScript>().cardData.Def;
+    }
 }
+
+
