@@ -223,7 +223,7 @@ public class CardLoader : MonoBehaviour
             newCard.GetComponentInChildren<TextMeshProUGUI>().text = card.Name + " " + card.Card_ID;
 
             Button cardButton = newCard.GetComponent<Button>();
-            cardButton.onClick.RemoveAllListeners();  // AsegÃºrate de que no haya listeners previos
+            cardButton.onClick.RemoveAllListeners();  // Asegúrate de que no haya listeners previos
             cardButton.onClick.AddListener(() => FindObjectOfType<CardSelectionManager>().OnCardSelected(cardComponent));
             newCard.GetComponent<Image>().color = Color.white;
         }
