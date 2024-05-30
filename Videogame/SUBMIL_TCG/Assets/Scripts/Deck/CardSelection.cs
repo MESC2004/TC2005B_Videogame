@@ -23,20 +23,27 @@ public class CardSelectionManager : MonoBehaviour
 
     public void OnCardSelected(Card card)
     {
-        if (selectedCards.Count >= maxCards || 
-            (type1Count < 1 && selectedCards.Count >= 20) || 
-            (type1Count < 2 && selectedCards.Count >= 21) || 
-            (type1Count < 3 && selectedCards.Count >= 22))
-        {
-            ShowWarning("You cannot select more cards without required type 1 cards.");
-            return;
-        }
+        // if (selectedCards.Count >= maxCards || 
+        //     (type1Count < 1 && selectedCards.Count >= 20) || 
+        //     (type1Count < 2 && selectedCards.Count >= 21) || 
+        //     (type1Count < 3 && selectedCards.Count >= 22))
+        // {
+        //     ShowWarning("You cannot select more cards without required type 1 cards.");
+        //     return;
+        // }
 
         if (card.cardData.Type_ID == 1 && type1Count >= maxType1Cards)
         {
             ShowWarning("Maximum number of Type 1 cards selected.");
             return;
         }
+
+        if (card.cardData.Type_ID == 1)
+        {
+            card.cardButton.interactable = false;
+
+        }
+
 
         selectedCards.Add(card.cardData);
         if (card.cardData.Type_ID == 1) type1Count++;
@@ -94,23 +101,30 @@ public class CardSelectionManager : MonoBehaviour
                 if (cardButton != null)
                 {
                     bool isDisabled = false;
+                    if (cardComponent.cardData.Type_ID == 1 && type1Count >= maxType1Cards)
+                    {
+                        isDisabled = true;
+                    }
+                    // else if ((type1Count < 1 && selectedCards.Count >= 20) || 
+                    //          (type1Count < 2 && selectedCards.Count >= 21) || 
+                    //          (type1Count < 3 && selectedCards.Count >= 22))
+                    // {
+                    //     isDisabled = true;
+                    // }
+                    if ((cardComponent.cardData.Type_ID == 1) && !selectedCards.Contains(cardComponent.cardData)) {
+                        cardButton.interactable = !isDisabled;
+                    }
                     if (selectedCards.Count >= maxCards)
                     {
-                        isDisabled = true;
+                        cardButton.interactable = false;
+                    }else if(selectedCards.Count < maxCards && (cardComponent.cardData.Type_ID != 1)){
+                        cardButton.interactable = true;
                     }
-                    else if (cardComponent.cardData.Type_ID == 1 && type1Count >= maxType1Cards)
-                    {
-                        isDisabled = true;
-                    }
-                    else if ((type1Count < 1 && selectedCards.Count >= 20) || 
-                             (type1Count < 2 && selectedCards.Count >= 21) || 
-                             (type1Count < 3 && selectedCards.Count >= 22))
-                    {
-                        isDisabled = true;
+                    if ((cardComponent.cardData.Type_ID != 1) && (selectedCards.Count - type1Count >= 20)) {
+                        cardButton.interactable = false;
                     }
 
-                    cardButton.interactable = !isDisabled;
-                    child.GetComponent<Image>().color = isDisabled ? Color.gray : Color.white;
+                    // child.GetComponent<Image>().color = isDisabled ? Color.gray : Color.white;
                 }
             }
         }

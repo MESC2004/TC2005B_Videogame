@@ -28,6 +28,8 @@ public class CanSaveDeck : MonoBehaviour
             {
                 List<CardData> selectedCards = cardSelectionManager.GetSelectedCards();
                 PlayerPrefs.SetString("SelectedCards", JsonUtility.ToJson(new CardListWrapper(selectedCards)));
+                GameObject objectToDestroy = GameObject.Find("DeckManager");
+                Destroy(objectToDestroy);
                 SceneManager.LoadScene("Title");
             }
             else
