@@ -171,7 +171,7 @@ public class CombatController : MonoBehaviour
             {
             ""Card_ID"": 15,
             ""Type_ID"": 4,
-            ""Name"": ""Ego Needie"",
+            ""Name"": ""Ego Needle"",
             ""HP"": 0,
             ""Speed"": 0,
             ""SpeedCost"": 0,
@@ -348,15 +348,17 @@ public class CombatController : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            DrawSingleCard();
+            StartCoroutine(DrawSingleCard());
         }
     }
 
-    void DrawSingleCard() {
-        // Draw a card from the deck
-
+    IEnumerator DrawSingleCard() {
+        yield return new WaitForSeconds(0.5f);
         // Find card data in cardsObject
         CardData singleCardData = cardsObject.cards.Find(card => card.Card_ID == playerDeck[0]);
+
+        // Wait half a second
+        
 
         // Instantiate Card
         GameObject newCard = Instantiate(cardPrefab, HandPanel);
@@ -364,6 +366,9 @@ public class CombatController : MonoBehaviour
 
         // Remove card in position 0 from the deck
         playerDeck.RemoveAt(0);
+
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Card Drawn");
     }
 
     public void TurnSequence()
@@ -418,12 +423,14 @@ public class CombatController : MonoBehaviour
                 break;
             case 4:
                 // Effect card
-                // Apply effect
+                Debug.Log("Effect Card Clicked");
+                EffectCardClicked(clickedCard);
                 break;
             case 5:
                 // Draw card
                 // Draw 2 cards
-                DrawCard();
+                Debug.Log("Draw Card Clicked");
+                DrawCardClicked(clickedCard);
                 break;
         }
     }
@@ -434,6 +441,12 @@ public class CombatController : MonoBehaviour
 
         // Get top card
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Check if the top card is the clicked card, speed stays the same
+        if (topCard == clickedCard) {
+            Debug.Log("Top card is clicked card");
+            return;
+        }
         // Update speed attribute and text of top card to original speed from apiCardData
         topCard.GetComponent<CardScript>().cardData.Speed = cardsObject.cards.Find(card => card.Card_ID == topCard.GetComponent<CardScript>().cardData.Card_ID).Speed;
         topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString(); 
@@ -508,6 +521,57 @@ public class CombatController : MonoBehaviour
         // Add defense to the top card
         topCard.GetComponent<CardScript>().cardData.Def += clickedCard.GetComponent<CardScript>().cardData.Def;
     }
+
+    public void EffectCardClicked(GameObject clickedCard) {
+        // Add all stats from the effect card to the top card
+        // Move to the middle of the bottom panel
+
+        // Get top card
+        GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Move clicked card to the middle of the bottom panel
+        clickedCard.transform.SetParent(PlayerPanelBottom);
+        clickedCard.transform.SetSiblingIndex(1);
+
+        // Make card not clickable
+        clickedCard.GetComponent<Button>().interactable = false;
+
+        if (clickedCard.GetComponent<CardScript>().cardData.Card_ID == 15) {
+            // Check for specific case of defense reduction
+            topCard = EnemyPanelTop.GetChild(0).gameObject;
+        }
+
+        // Add all stats from the effect card to the target card
+
+        CardData topCardData = topCard.GetComponent<CardScript>().cardData;
+        CardData clickedCardData = clickedCard.GetComponent<CardScript>().cardData;
+
+        topCardData.HP += clickedCardData.HP;
+        topCardData.Atk += clickedCardData.Atk;
+        topCardData.Def += clickedCardData.Def;
+
+        // Destroy clicked card with a destroy function that waits for a delay before destroying
+        StartCoroutine(DestroyTrue(clickedCard));  
+    }
+
+    public void DrawCardClicked(GameObject clickedCard) {
+        // Draw 2 cards
+        // Destroy clicked card
+
+        // Draw 2 cards
+        StartCoroutine(DrawSingleCard());
+        StartCoroutine(DrawSingleCard());
+        StartCoroutine(DestroyTrue(clickedCard));
+    }
+    IEnumerator DestroyTrue(GameObject clickedCard) {
+        // Wait for a delay before destroying the clicked card
+        yield return new WaitForSeconds(1);
+        Destroy(clickedCard);
+    }
+
+    
 }
+
+
 
 
