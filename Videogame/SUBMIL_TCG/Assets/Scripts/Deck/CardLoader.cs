@@ -7,7 +7,6 @@ public class CardLoader : MonoBehaviour
 {
     public GameObject CardButtonPrefab;
     public Transform content;
-    public TextMeshProUGUI WarningText;
     public Cards cardsObject = new Cards();
 
     string apiCardData = @"{
@@ -223,33 +222,10 @@ public class CardLoader : MonoBehaviour
             newCard.GetComponentInChildren<TextMeshProUGUI>().text = card.Name + " " + card.Card_ID;
 
             Button cardButton = newCard.GetComponent<Button>();
-            cardButton.onClick.RemoveAllListeners();  // Asegúrate de que no haya listeners previos
+
+            cardButton.onClick.RemoveAllListeners();  // Asegï¿½rate de que no haya listeners previos
             cardButton.onClick.AddListener(() => FindObjectOfType<CardSelectionManager>().OnCardSelected(cardComponent));
             newCard.GetComponent<Image>().color = Color.white;
-        }
-
-        if (WarningText != null)
-        {
-            WarningText.text = "";
-            WarningText.gameObject.SetActive(false);
-        }
-    }
-
-    public void ShowWarning(string message)
-    {
-        if (WarningText != null)
-        {
-            WarningText.text = message;
-            WarningText.gameObject.SetActive(true);
-            Invoke("HideWarning", 2.0f);
-        }
-    }
-
-    void HideWarning()
-    {
-        if (WarningText != null)
-        {
-            WarningText.gameObject.SetActive(false);
         }
     }
 }
