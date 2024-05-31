@@ -275,6 +275,9 @@ public class CombatController : MonoBehaviour
         LoadPlayerDeck();
         prepareIdentityCards();
         TurnSequence("Swap");
+        // Randomize the rest of the playerDeck list
+        playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+
     }
 
     // Update is called once per frame
@@ -477,10 +480,7 @@ public class CombatController : MonoBehaviour
         else if (phase == "Play")
         {
             // Allow for playing of hand cards
-            foreach (Transform card in HandPanel)
-            {
-                card.GetComponent<Button>().interactable = true;
-            }
+            AllowHandClick(); 
         }
         else if (phase == "End")
         {
@@ -512,6 +512,16 @@ public class CombatController : MonoBehaviour
                 // Switch enemy top card with one fo the enemy bottom panel cards
                 GameObject enemyBottomCard = EnemyPanelBottom.GetChild(0).gameObject;
             }
+
+            // Delete the used card if it is an attack card from the bottom panel
+            foreach (Transform card in PlayerPanelBottom)
+            {
+                if (card.GetComponent<CardScript>().cardData.Type_ID == 2)
+                {
+                    StartCoroutine(DestroyTrue(card.gameObject));
+                }
+            }
+           
 
             playerTurn = false;
 
@@ -579,6 +589,8 @@ public class CombatController : MonoBehaviour
                 // Draw 2 cards
                 Debug.Log("Draw Card Clicked");
                 DrawCardClicked(clickedCard);
+                // Disable clicabillity of the card
+                clickedCard.GetComponent<Button>().interactable = false;
                 break;
         }
     }
@@ -637,8 +649,6 @@ public class CombatController : MonoBehaviour
 
         // Add attack to the top card
         topCard.GetComponent<CardScript>().cardData.Atk += clickedCard.GetComponent<CardScript>().cardData.Atk;
-
-        DestroyTrue(clickedCard);
     }
 
     public void DefenseCardClick(GameObject clickedCard) {
@@ -716,6 +726,7 @@ public class CombatController : MonoBehaviour
     IEnumerator DestroyTrue(GameObject clickedCard) {
         // Wait for a delay before destroying the clicked card
         yield return new WaitForSeconds(1);
+        Debug.Log("Destroying" + clickedCard);
         Destroy(clickedCard);
     }
 }
