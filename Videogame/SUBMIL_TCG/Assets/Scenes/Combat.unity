@@ -1079,7 +1079,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2093280344}
         m_TargetAssemblyTypeName: CombatController, Assembly-CSharp
-        m_MethodName: DrawCard
+        m_MethodName: DeckClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1426,6 +1426,7 @@ MonoBehaviour:
   EnemyPanelTop: {fileID: 245794993}
   EnemyPanelBottom: {fileID: 1261532677}
   HandPanel: {fileID: 1982452133}
+  phase: 
 --- !u!1 &2116227788
 GameObject:
   m_ObjectHideFlags: 0
