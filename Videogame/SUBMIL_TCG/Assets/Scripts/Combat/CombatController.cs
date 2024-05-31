@@ -217,7 +217,9 @@ public class CombatController : MonoBehaviour
     [SerializeField] Transform EnemyPanelTop;
     [SerializeField] Transform EnemyPanelBottom;
     [SerializeField] Transform HandPanel;
+    bool playerTurn;
 
+    public string phase;
 
     void prepareIdentityCards()
     {
@@ -268,14 +270,11 @@ public class CombatController : MonoBehaviour
         } 
     } 
 
-    
-
     void Start()
     {
-
         LoadPlayerDeck();
         prepareIdentityCards();
-
+        TurnSequence("Swap");
     }
 
     // Update is called once per frame
@@ -297,7 +296,6 @@ public class CombatController : MonoBehaviour
         }
     }
 
-
     public void SetData(GameObject newCard, CardData singleCardData) {
         // Set card values given a newly instantiated card and the data of a single card
 
@@ -312,6 +310,9 @@ public class CombatController : MonoBehaviour
             cardscript.cardData.Atk = singleCardData.Atk;
             cardscript.cardData.Def = singleCardData.Def;
             cardscript.cardData.Passive = singleCardData.Passive;
+
+            // Set name (temporal)
+            newCard.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Name;
 
             switch (cardscript.cardData.Type_ID)
             {
@@ -349,6 +350,13 @@ public class CombatController : MonoBehaviour
             }
     }
 
+    public void DeckClick() {
+        // Function so the deck button does not directly use DrawCard
+        DrawCard();
+        DisableDeckClick();
+        // Call next phase
+        TurnSequence("Play");
+    }
     public void DrawCard()
     {
         for (int i = 0; i < 3; i++)
@@ -376,25 +384,152 @@ public class CombatController : MonoBehaviour
         Debug.Log("Card Drawn");
     }
 
-    public void TurnSequence()
-    {
-        // Listen for click on draw button
-        // Draw 3 cards
-        // Allow click on cards from hand
-        // Listen for click on card
-        // If card is identity card, swap bottom card with top card
-        // If card is attack card, move to bottom panel
-        // If card is defense card, move to bottom panel
-        // If card is effect card, apply effect
-        // If card is draw card, draw 2 cards
-        // Apply stats and effects to the card in the top panel
-        // Use stats to determine damage to opposing card
-        // End Turn
-        // Repeat for enemy
-
-        DrawCard();
-
+    private void AllowIdentityCardClick() {
+        // Activates click event for player identity cards
+        foreach (Transform card in PlayerPanelTop)
+        {
+            card.GetComponent<Button>().interactable = true;
+        }
+        foreach (Transform card in PlayerPanelBottom)
+        {
+            card.GetComponent<Button>().interactable = true;
+        }
     }
+
+    private void DisableIdentityCardClick() {
+        // Deactivate identity card click event
+        foreach (Transform card in PlayerPanelTop)
+        {
+            card.GetComponent<Button>().interactable = false;
+        }
+        foreach (Transform card in PlayerPanelBottom)
+        {
+            card.GetComponent<Button>().interactable = false;
+        }
+    }
+
+    private void AllowDeckClick() {
+        // Activates click event for deck button
+        GameObject.Find("DeckButton").GetComponent<Button>().interactable = true;
+    }
+
+    private void DisableDeckClick() {
+        // Deactivate deck button click event
+        GameObject.Find("DeckButton").GetComponent<Button>().interactable = false;
+    }
+
+    private void AllowHandClick() {
+        // Activates click event for player hand cards
+        foreach (Transform card in HandPanel)
+        {
+            card.GetComponent<Button>().interactable = true;
+        }
+    }
+
+    private void DisableHandClick() {
+        // Deactivate hand card click event
+        foreach (Transform card in HandPanel)
+        {
+            card.GetComponent<Button>().interactable = false;
+        }
+    }
+    public void TurnSequence(string phase)
+    {
+        /*
+        Start turn
+        enable identity card clickability
+        Listen for click on identity cards (top or bottom panel)
+        use cardclicked function
+        disable identity card clickability
+        enable deck button clickability
+        listen for deck click
+        use cardClicked() function
+        disable deck button clickability
+        enable hand card clickability
+        listen for hand card click
+        if card is type 2 or 3, disable clickability, call cardClicked function
+        if card is type 4 or 5, call cardClicked function, destroy card
+        make all necessary calculations to the top enemy card
+        if card is type 2, destroy at the end of player turn
+        if card is type 3, destroy at the end of enemy turn
+        end turn
+        */
+
+        playerTurn = true;
+
+        // Disable deck button clickability and hand cards clickability
+        GameObject.Find("DeckButton").GetComponent<Button>().interactable = false;
+        foreach (Transform card in HandPanel)
+        {
+            card.GetComponent<Button>().interactable = false;
+        }
+
+        if (phase == "Swap")
+        {
+            // Allow for swapping of identity cards
+            AllowIdentityCardClick();
+        }
+        else if (phase == "Draw")
+        {
+            // Allow deck click
+            AllowDeckClick();
+        }
+        else if (phase == "Play")
+        {
+            // Allow for playing of hand cards
+            foreach (Transform card in HandPanel)
+            {
+                card.GetComponent<Button>().interactable = true;
+            }
+        }
+        else if (phase == "End")
+        {
+            // End of player turn
+            // Disable hand clickability
+            DisableHandClick();
+            
+            // Apply attack stat from player top card to the HP of the enemy top card, going through the enemy defense as well
+            GameObject playerTopCard = PlayerPanelTop.GetChild(0).gameObject;
+            GameObject enemyTopCard = EnemyPanelTop.GetChild(0).gameObject;
+
+            // Check if the enemy defense is higher than the player attack
+            if (playerTopCard.GetComponent<CardScript>().cardData.Atk < enemyTopCard.GetComponent<CardScript>().cardData.Def)
+            {
+                // If the enemy defense is higher, substract the difference from the enemy defense
+                enemyTopCard.GetComponent<CardScript>().cardData.Def -= playerTopCard.GetComponent<CardScript>().cardData.Atk;
+            }
+            else
+            {
+                // If the player attack is higher, substract the difference from the enemy HP
+                enemyTopCard.GetComponent<CardScript>().cardData.HP -= playerTopCard.GetComponent<CardScript>().cardData.Atk - enemyTopCard.GetComponent<CardScript>().cardData.Def;
+                // Update enemy TMP
+                enemyTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.HP.ToString();
+            }
+
+            // Check if the enemy card is dead, if so, automatically swap for the next card
+            if (enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0)
+            {
+                // Switch enemy top card with one fo the enemy bottom panel cards
+                GameObject enemyBottomCard = EnemyPanelBottom.GetChild(0).gameObject;
+            }
+
+            playerTurn = false;
+
+            // Go to enemy logic
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    
+    IEnumerator EnemyTurn() {
+        // AI TODO
+
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(2);
+
+        TurnSequence("Swap");
+    }
+
 
     public void CardClicked(CardData cardData, GameObject clickedCard)
     {
@@ -415,16 +550,24 @@ public class CombatController : MonoBehaviour
                 // Identity Card
                 Debug.Log("Identity Card Clicked, Swapping");
                 Swap(clickedCard);
+                TurnSequence("Draw");
+                DisableIdentityCardClick();
                 break;
             case 2:
                 // Attack Card
                 Debug.Log("Attack Card Clicked");
                 AttackCardClick(clickedCard);
+                // Disable hand clickability, go to End phase
+                DisableHandClick();
+                TurnSequence("End");
                 break;
             case 3:
                 // Defense Card
                 Debug.Log("Defense Card Clicked");
                 DefenseCardClick(clickedCard);
+                // Disable hand clickability, go to End phase
+                DisableHandClick();
+                TurnSequence("End");
                 break;
             case 4:
                 // Effect card
@@ -494,6 +637,8 @@ public class CombatController : MonoBehaviour
 
         // Add attack to the top card
         topCard.GetComponent<CardScript>().cardData.Atk += clickedCard.GetComponent<CardScript>().cardData.Atk;
+
+        DestroyTrue(clickedCard);
     }
 
     public void DefenseCardClick(GameObject clickedCard) {
@@ -573,10 +718,4 @@ public class CombatController : MonoBehaviour
         yield return new WaitForSeconds(1);
         Destroy(clickedCard);
     }
-
-    
 }
-
-
-
-
