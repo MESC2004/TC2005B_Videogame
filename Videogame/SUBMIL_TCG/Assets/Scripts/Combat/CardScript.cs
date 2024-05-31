@@ -1,3 +1,6 @@
+// Miguel Soria A01028033
+// 24/05/2020
+// Script that handles the behavior of a card detecting clicks. Sends data to combat scene.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,3 +1,7 @@
+// Miguel Soria A01028033
+// 24/05/2020
+// Script that handles the parameters of a card
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +18,6 @@ public class CardData
     [SerializeField] public int Atk;
     [SerializeField] public int Def;
     [SerializeField] public string Passive;
-    // Start is called before the first frame update
-    
 }
 
 
