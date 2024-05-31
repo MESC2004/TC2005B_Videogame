@@ -67,7 +67,30 @@ public class CardSelection : MonoBehaviour
             Card cardComponent = newCard.GetComponent<Card>();
             cardComponent.cardData = card;
             cardComponent.cardButton = newCard.GetComponent<Button>();
-            newCard.GetComponentInChildren<TextMeshProUGUI>().text = card.Name + " " + card.Card_ID;
+
+            Sprite cardSprite = Resources.Load<Sprite>($"images/{card.Card_ID}");
+            if (cardSprite != null)
+            {
+                cardComponent.SetCardImage(cardSprite);
+            }
+
+            TextMeshProUGUI[] textComponents = newCard.GetComponentsInChildren<TextMeshProUGUI>();
+            foreach (var textComponent in textComponents)
+            {
+                if (textComponent.name == "HP")
+                {
+                    textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
+                }
+                else if (textComponent.name == "Speed")
+                {
+                    textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
+                }
+                else
+                {
+                    textComponent.text = ""; 
+                }
+            }
+
             Button cardButton = newCard.GetComponent<Button>();
             cardButton.onClick.RemoveAllListeners();
             cardButton.onClick.AddListener(() => OnCardDeselected(card));
