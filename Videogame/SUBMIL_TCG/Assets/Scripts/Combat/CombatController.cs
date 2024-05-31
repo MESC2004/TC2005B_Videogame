@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class CombatController : MonoBehaviour
 {
@@ -206,7 +207,7 @@ public class CombatController : MonoBehaviour
 
 
     // Lista de IDs de las cartas en el deck del jugador y la IA.
-    [SerializeField] List<int> playerDeck = new List<int>() {1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
+    [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
     [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
     
     [SerializeField] Cards cardsObject;
@@ -271,7 +272,10 @@ public class CombatController : MonoBehaviour
 
     void Start()
     {
+
+        LoadPlayerDeck();
         prepareIdentityCards();
+
     }
 
     // Update is called once per frame
@@ -279,6 +283,20 @@ public class CombatController : MonoBehaviour
     {
         
     }
+
+    void LoadPlayerDeck()
+    {
+        string json = PlayerPrefs.GetString("SelectedCards", "");
+        if (!string.IsNullOrEmpty(json))
+        {
+            CardListWrapper wrapper = JsonUtility.FromJson<CardListWrapper>(json);
+            if (wrapper != null && wrapper.cards != null)
+            {
+                playerDeck = wrapper.cards.Select(card => card.Card_ID).ToList();
+            }
+        }
+    }
+
 
     public void SetData(GameObject newCard, CardData singleCardData) {
         // Set card values given a newly instantiated card and the data of a single card
