@@ -294,22 +294,9 @@ public class CombatController : MonoBehaviour
             cardscript.cardData.Atk = singleCardData.Atk;
             cardscript.cardData.Def = singleCardData.Def;
             cardscript.cardData.Passive = singleCardData.Passive;
-            cardscript.cardData = singleCardData;
 
-        // Load card image dynamically
-        Sprite cardImage = Resources.Load<Sprite>("Card_Visuals/" + singleCardData.Name); 
-        if (cardImage != null)
-        {
-            newCard.GetComponent<Image>().sprite = cardImage;
-        }
-        else
-        {
-            Debug.LogError("Failed to load card image: " + singleCardData.Name);
-        }
-
-        // Set TMP values based on card type
-        switch (singleCardData.Type_ID)
-        {
+            switch (cardscript.cardData.Type_ID)
+            {
                 // Sets the appropriate TMP values according to the card type
                 case 1:
                     // Identity Card
