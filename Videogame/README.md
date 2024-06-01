@@ -45,3 +45,5 @@ Most interactions are made through left mouse clicks, except the text input boxe
 Game logic is fully finished, only the exceptional win condition of having to kill 3 instead of 2 enemy cards needs fixing.
 
 Some designs still need to be implemented, suuch as button designs or different fonts for styling the game.
+
+Passives of identity cards still not implemented, might remove from project alltogether.
