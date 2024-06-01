@@ -47,3 +47,6 @@ Game logic is fully finished, only the exceptional win condition of having to ki
 Some designs still need to be implemented, suuch as button designs or different fonts for styling the game.
 
 Passives of identity cards still not implemented, might remove from project alltogether.
+
+# THIS CHANGE IS POST DELIVERY
+Noticed that even though debug message of player win appears, panel for game win does not activate. Not too sure why.
