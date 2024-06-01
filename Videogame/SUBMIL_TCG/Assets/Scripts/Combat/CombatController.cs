@@ -518,7 +518,7 @@ public class CombatController : MonoBehaviour
                 enemyTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.HP.ToString();
             }
 
-            // Check if the enemy card is dead, if so, automatically swap for the next card
+            // Check if the enemy card is dead, do not allow HP to fall below 0
             if (enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0)
             {
                // Not allow  HP to be negative
@@ -548,6 +548,7 @@ public class CombatController : MonoBehaviour
         // AI TODO
 
         GameObject enemyTopCard = EnemyPanelTop.GetChild(0).gameObject;
+        GameObject playerTopCard = PlayerPanelTop.GetChild(0).gameObject;
 
         // Draw 2 cards for the enemy non visually
         List<int> enemyHand = new List<int>();
@@ -568,19 +569,19 @@ public class CombatController : MonoBehaviour
                 Transform topCardParent = enemyTopCard.transform.parent;
                 Transform bottomCardParent = EnemyPanelBottom;
 
-                // Swap parents
-                enemyTopCard.transform.SetParent(bottomCardParent);
-                card.transform.SetParent(topCardParent);
-
-                // Update top card
-                enemyTopCard = card.gameObject;
-
                 // If card is not dead, update speed
                 if (enemyTopCard.GetComponent<CardScript>().cardData.HP > 0)
                 {
                     enemyTopCard.GetComponent<CardScript>().cardData.Speed = cardsObject.cards.Find(card => card.Card_ID == enemyTopCard.GetComponent<CardScript>().cardData.Card_ID).Speed;
                     enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
                 }
+
+                // Swap parents
+                enemyTopCard.transform.SetParent(bottomCardParent);
+                card.transform.SetParent(topCardParent);
+
+                // Update top card
+                enemyTopCard = card.gameObject;   
 
                 // Break the loop
                 break;
@@ -615,17 +616,29 @@ public class CombatController : MonoBehaviour
                 enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
                 // Check if the player defense is higher than the enemy attack
-                if (cardData.Atk < enemyTopCard.GetComponent<CardScript>().cardData.Def)
+                if (cardData.Atk < playerTopCard.GetComponent<CardScript>().cardData.Def)
                 {
                     // If the player defense is higher, substract the difference from the player defense
-                    enemyTopCard.GetComponent<CardScript>().cardData.Def -= cardData.Atk;
+                    playerTopCard.GetComponent<CardScript>().cardData.Def -= cardData.Atk;
+                    // Destroy used card
+                    StartCoroutine(DestroyTrue(newCard));
+                    // Destroy player defense card
+                    foreach (Transform playerCard in PlayerPanelBottom)
+                    {
+                        if (playerCard.GetComponent<CardScript>().cardData.Type_ID == 3)
+                        {
+                            StartCoroutine(DestroyTrue(playerCard.gameObject));
+                        }
+                    }
                 }
                 else
                 {
                     // If the enemy attack is higher, substract the difference from the player HP
-                    enemyTopCard.GetComponent<CardScript>().cardData.HP -= cardData.Atk - enemyTopCard.GetComponent<CardScript>().cardData.Def;
+                    playerTopCard.GetComponent<CardScript>().cardData.HP -= cardData.Atk - playerTopCard.GetComponent<CardScript>().cardData.Def;
                     // Update player TMP
-                    enemyTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.HP.ToString();
+                    playerTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = playerTopCard.GetComponent<CardScript>().cardData.HP.ToString();
+                    // Destroy used card
+                    StartCoroutine(DestroyTrue(newCard));
                 }
             }
         }
@@ -822,7 +835,7 @@ public class CombatController : MonoBehaviour
     }
     IEnumerator DestroyTrue(GameObject clickedCard) {
         // Wait for a delay before destroying the clicked card
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         Debug.Log("Destroying" + clickedCard);
         Destroy(clickedCard);
     }
