@@ -6,7 +6,7 @@ git clone https://github.com/MESC2004/TC2005B_Videogame
 ```
 After cloning, you will be able to run the unity project by opening the project with the route:
 ```
-clone_path/TC2005B_Videogame/SUBMIL_TCG
+clone_path/TC2005B_Videogame/Videogame/SUBMIL_TCG
 ```
 
 ## Running the game
