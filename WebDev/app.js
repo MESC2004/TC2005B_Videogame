@@ -3,7 +3,8 @@
 "use strict";
 
 import express from 'express';
-
+import fs from 'fs';
+import path from 'path';
 import mysql from 'mysql2/promise';
 
 const port = 5000;
@@ -34,22 +35,25 @@ app.get("/api/cards", async (request, response) => {
 
     connection = await connectToDB();
 
-    const [results, fields] = await connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID;");
-    
+    //const [results, fields] = await connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID;");
+    const filePath = path.join(__dirname, 'data', 'cards.json');
+    const jsonData = fs.readFileSync(filePath, 'utf8');
+    const cards = JSON.parse(jsonData);
+
+
     // FOR DEBUGGING, DO NOT UNCOMMENT
     // const [results, fields] = await connection.execute("SELECT * FROM card;");
     
     // TODO replace the query with a view.
 
     console.log('Requesting all cards...')
-    console.log(`${results.length} rows returned`);
+    console.log(`${cards.length} rows returned`);
     // uncomment to see the cards in the console
     // console.log(results);
-    response.status(200).json({cards: results});
+    response.status(200).json({cards: cards});
   }
   catch (error) {
-    response.status(500);
-    response.json(error);
+    response.status(500).json(error);
     console.log(error);
   }
   finally {
