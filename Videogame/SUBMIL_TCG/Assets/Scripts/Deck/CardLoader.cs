@@ -7,8 +7,8 @@ public class CardLoader : MonoBehaviour
 {
     public GameObject CardButtonPrefab;
     public Transform content;
-    public TextMeshProUGUI WarningText;
     public Cards cardsObject = new Cards();
+    public Sprite defaultCardImage; 
 
     string apiCardData = @"{
         ""cards"": 
@@ -161,7 +161,6 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 4,
             ""Name"": ""Ego Weapon"",
             ""HP"": 0,
-            ""Speed"": 0,
             ""SpeedCost"": 0,
             ""Atk"": 2,
             ""Def"": 0,
@@ -220,36 +219,39 @@ public class CardLoader : MonoBehaviour
             Card cardComponent = newCard.GetComponent<Card>();
             cardComponent.cardData = card;
             cardComponent.cardButton = newCard.GetComponent<Button>();
-            newCard.GetComponentInChildren<TextMeshProUGUI>().text = card.Name + " " + card.Card_ID;
+
+            Sprite cardSprite = Resources.Load<Sprite>($"images/{card.Card_ID}");
+            if (cardSprite != null)
+            {
+                cardComponent.SetCardImage(cardSprite);
+            }
+            else
+            {
+                Debug.LogError($"Card image not found for Card_ID: {card.Card_ID}");
+                cardComponent.SetCardImage(defaultCardImage); 
+            }
+
+            TextMeshProUGUI[] textComponents = newCard.GetComponentsInChildren<TextMeshProUGUI>();
+            foreach (var textComponent in textComponents)
+            {
+                if (textComponent.name == "HP")
+                {
+                    textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
+                }
+                else if (textComponent.name == "Speed")
+                {
+                    textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
+                }
+                else
+                {
+                    textComponent.text = ""; 
+                }
+            }
 
             Button cardButton = newCard.GetComponent<Button>();
-            cardButton.onClick.RemoveAllListeners();  // Asegúrate de que no haya listeners previos
-            cardButton.onClick.AddListener(() => FindObjectOfType<CardSelectionManager>().OnCardSelected(cardComponent));
+            cardButton.onClick.RemoveAllListeners();
+            cardButton.onClick.AddListener(() => FindObjectOfType<CardSelection>().OnCardSelected(cardComponent));
             newCard.GetComponent<Image>().color = Color.white;
-        }
-
-        if (WarningText != null)
-        {
-            WarningText.text = "";
-            WarningText.gameObject.SetActive(false);
-        }
-    }
-
-    public void ShowWarning(string message)
-    {
-        if (WarningText != null)
-        {
-            WarningText.text = message;
-            WarningText.gameObject.SetActive(true);
-            Invoke("HideWarning", 2.0f);
-        }
-    }
-
-    void HideWarning()
-    {
-        if (WarningText != null)
-        {
-            WarningText.gameObject.SetActive(false);
         }
     }
 }

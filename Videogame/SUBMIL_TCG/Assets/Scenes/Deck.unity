@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -188.67487, y: 195.19998}
+  m_AnchoredPosition: {x: -188.67487, y: 195.2}
   m_SizeDelta: {x: 377.35, y: 1017.0533}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &155332485
@@ -656,6 +656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerDeckPanelContent: {fileID: 2001190268}
   CardButtonPrefab: {fileID: 5564176358426022654, guid: 9fde1178f7963e34590728a66cbf6b10, type: 3}
+  saveButton: {fileID: 703131192}
 --- !u!114 &288350430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +671,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardButtonPrefab: {fileID: 5564176358426022654, guid: 9fde1178f7963e34590728a66cbf6b10, type: 3}
   content: {fileID: 155332484}
-  WarningText: {fileID: 327447263}
 --- !u!1 &327447261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2068304270}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.38385144
+  m_Size: 0.383854
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1696,7 +1696,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1010557645}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.19504023
+  m_Size: 0.19504021
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

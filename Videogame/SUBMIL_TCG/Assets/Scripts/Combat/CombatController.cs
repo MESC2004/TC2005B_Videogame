@@ -1,8 +1,13 @@
+// Miguel Soria A01028033
+// 24/05/2024
+// Script to control the combat sequence of the game, including the deck, cards, and turn sequence.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class CombatController : MonoBehaviour
 {
@@ -167,7 +172,7 @@ public class CombatController : MonoBehaviour
             {
             ""Card_ID"": 15,
             ""Type_ID"": 4,
-            ""Name"": ""Ego Needie"",
+            ""Name"": ""Ego Needle"",
             ""HP"": 0,
             ""Speed"": 0,
             ""SpeedCost"": 0,
@@ -202,7 +207,7 @@ public class CombatController : MonoBehaviour
 
 
     // Lista de IDs de las cartas en el deck del jugador y la IA.
-    [SerializeField] List<int> playerDeck = new List<int>() {1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
+    [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
     [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
     
     [SerializeField] Cards cardsObject;
@@ -212,7 +217,9 @@ public class CombatController : MonoBehaviour
     [SerializeField] Transform EnemyPanelTop;
     [SerializeField] Transform EnemyPanelBottom;
     [SerializeField] Transform HandPanel;
+    bool playerTurn;
 
+    public string phase;
 
     void prepareIdentityCards()
     {
@@ -263,11 +270,14 @@ public class CombatController : MonoBehaviour
         } 
     } 
 
-    
-
     void Start()
     {
+        LoadPlayerDeck();
         prepareIdentityCards();
+        TurnSequence("Swap");
+        // Randomize the rest of the playerDeck list
+        playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+
     }
 
     // Update is called once per frame
@@ -276,70 +286,110 @@ public class CombatController : MonoBehaviour
         
     }
 
-    public void SetData(GameObject newCard, CardData singleCardData) {
-        // Set card values given a newly instantiated card and the data of a single card
-
-            CardScript cardscript = newCard.GetComponent<CardScript>();
-            cardscript.cardData = new CardData();
-            cardscript.cardData.Card_ID = singleCardData.Card_ID;
-            cardscript.cardData.Type_ID = singleCardData.Type_ID;
-            cardscript.cardData.Name = singleCardData.Name;
-            cardscript.cardData.HP = singleCardData.HP;
-            cardscript.cardData.Speed = singleCardData.Speed;
-            cardscript.cardData.SpeedCost = singleCardData.SpeedCost;
-            cardscript.cardData.Atk = singleCardData.Atk;
-            cardscript.cardData.Def = singleCardData.Def;
-            cardscript.cardData.Passive = singleCardData.Passive;
-
-            switch (cardscript.cardData.Type_ID)
+    void LoadPlayerDeck()
+    {
+        string json = PlayerPrefs.GetString("SelectedCards", "");
+        if (!string.IsNullOrEmpty(json))
+        {
+            CardListWrapper wrapper = JsonUtility.FromJson<CardListWrapper>(json);
+            if (wrapper != null && wrapper.cards != null)
             {
-                // Sets the appropriate TMP values according to the card type
-                case 1:
-                    // Identity Card
-                    // Set Top TMP to Speed and bottom TMP to health
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Speed.ToString();
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.HP.ToString();
-                    break;
-                case 2:
-                    // Attack Card
-                    // Set top value to SpeedCost and bootom value to Atk
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Atk.ToString();
-                    break;
-                case 3:
-                    // Defense Card
-                    // Set top value to SpeedCost and bootom value to Def
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Def.ToString();
-                    break;
-                case 4:
-                    // Effect card
-                    // Leave values empty
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
-                    break;
-                case 5:
-                    // Draw card
-                    //leave values empty
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
-                    break;
+                playerDeck = wrapper.cards.Select(card => card.Card_ID).ToList();
             }
+        }
     }
 
+    public void SetData(GameObject newCard, CardData singleCardData)
+    {
+        // Set card values given a newly instantiated card and the data of a single card
+
+        CardScript cardscript = newCard.GetComponent<CardScript>();
+        cardscript.cardData = new CardData();
+        cardscript.cardData.Card_ID = singleCardData.Card_ID;
+        cardscript.cardData.Type_ID = singleCardData.Type_ID;
+        cardscript.cardData.Name = singleCardData.Name;
+        cardscript.cardData.HP = singleCardData.HP;
+        cardscript.cardData.Speed = singleCardData.Speed;
+        cardscript.cardData.SpeedCost = singleCardData.SpeedCost;
+        cardscript.cardData.Atk = singleCardData.Atk;
+        cardscript.cardData.Def = singleCardData.Def;
+        cardscript.cardData.Passive = singleCardData.Passive;
+
+        // Set name (temporal)
+        newCard.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Name;
+
+        // Load and set the card image
+        Image cardImage = newCard.transform.GetChild(3).GetComponent<Image>(); 
+        string imagePath = "CardImages/" + cardscript.cardData.Card_ID; // Path inside the Resources folder
+        Sprite cardSprite = Resources.Load<Sprite>(imagePath);
+
+        if (cardSprite != null)
+        {
+            cardImage.sprite = cardSprite;
+        }
+        else
+        {
+            Debug.LogWarning("Card image not found for ID: " + cardscript.cardData.Card_ID);
+        }
+
+        switch (cardscript.cardData.Type_ID)
+        {
+            // Sets the appropriate TMP values according to the card type
+            case 1:
+                // Identity Card
+                // Set Top TMP to Speed and bottom TMP to health
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Speed.ToString();
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.HP.ToString();
+                break;
+            case 2:
+                // Attack Card
+                // Set top value to SpeedCost and bottom value to Atk
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Atk.ToString();
+                break;
+            case 3:
+                // Defense Card
+                // Set top value to SpeedCost and bottom value to Def
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Def.ToString();
+                break;
+            case 4:
+                // Effect card
+                // Leave values empty
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                break;
+            case 5:
+                // Draw card
+                // Leave values empty
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                break;
+        }
+    }
+
+    public void DeckClick() {
+        // Function so the deck button does not directly use DrawCard
+        DrawCard();
+        DisableDeckClick();
+        // Call next phase
+        TurnSequence("Play");
+    }
     public void DrawCard()
     {
         for (int i = 0; i < 3; i++)
         {
-            DrawSingleCard();
+            StartCoroutine(DrawSingleCard());
         }
     }
 
-    void DrawSingleCard() {
-        // Draw a card from the deck
-
+    IEnumerator DrawSingleCard() {
+        yield return new WaitForSeconds(0.5f);
         // Find card data in cardsObject
         CardData singleCardData = cardsObject.cards.Find(card => card.Card_ID == playerDeck[0]);
+
+        // Wait half a second
+        
 
         // Instantiate Card
         GameObject newCard = Instantiate(cardPrefab, HandPanel);
@@ -347,41 +397,176 @@ public class CombatController : MonoBehaviour
 
         // Remove card in position 0 from the deck
         playerDeck.RemoveAt(0);
+
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Card Drawn");
     }
 
-    public void TurnSequence()
+    private void AllowIdentityCardClick() {
+        // Activates click event for player identity cards
+        foreach (Transform card in PlayerPanelTop)
+        {
+            card.GetComponent<Button>().interactable = true;
+        }
+        foreach (Transform card in PlayerPanelBottom)
+        {
+            card.GetComponent<Button>().interactable = true;
+        }
+    }
+
+    private void DisableIdentityCardClick() {
+        // Deactivate identity card click event
+        foreach (Transform card in PlayerPanelTop)
+        {
+            card.GetComponent<Button>().interactable = false;
+        }
+        foreach (Transform card in PlayerPanelBottom)
+        {
+            card.GetComponent<Button>().interactable = false;
+        }
+    }
+
+    private void AllowDeckClick() {
+        // Activates click event for deck button
+        GameObject.Find("DeckButton").GetComponent<Button>().interactable = true;
+    }
+
+    private void DisableDeckClick() {
+        // Deactivate deck button click event
+        GameObject.Find("DeckButton").GetComponent<Button>().interactable = false;
+    }
+
+    private void AllowHandClick() {
+        // Activates click event for player hand cards
+        foreach (Transform card in HandPanel)
+        {
+            card.GetComponent<Button>().interactable = true;
+        }
+    }
+
+    private void DisableHandClick() {
+        // Deactivate hand card click event
+        foreach (Transform card in HandPanel)
+        {
+            card.GetComponent<Button>().interactable = false;
+        }
+    }
+    public void TurnSequence(string phase)
     {
-        // Listen for click on draw button
-        // Draw 3 cards
-        // Allow click on cards from hand
-        // Listen for click on card
-        // If card is identity card, swap bottom card with top card
-        // If card is attack card, move to bottom panel
-        // If card is defense card, move to bottom panel
-        // If card is effect card, apply effect
-        // If card is draw card, draw 2 cards
-        // Apply stats and effects to the card in the top panel
-        // Use stats to determine damage to opposing card
-        // End Turn
-        // Repeat for enemy
+        /*
+        Start turn
+        enable identity card clickability
+        Listen for click on identity cards (top or bottom panel)
+        use cardclicked function
+        disable identity card clickability
+        enable deck button clickability
+        listen for deck click
+        use cardClicked() function
+        disable deck button clickability
+        enable hand card clickability
+        listen for hand card click
+        if card is type 2 or 3, disable clickability, call cardClicked function
+        if card is type 4 or 5, call cardClicked function, destroy card
+        make all necessary calculations to the top enemy card
+        if card is type 2, destroy at the end of player turn
+        if card is type 3, destroy at the end of enemy turn
+        end turn
+        */
 
-        DrawCard();
+        playerTurn = true;
 
+        // Disable deck button clickability and hand cards clickability
+        GameObject.Find("DeckButton").GetComponent<Button>().interactable = false;
+        foreach (Transform card in HandPanel)
+        {
+            card.GetComponent<Button>().interactable = false;
+        }
+
+        if (phase == "Swap")
+        {
+            // Allow for swapping of identity cards
+            AllowIdentityCardClick();
+        }
+        else if (phase == "Draw")
+        {
+            // Allow deck click
+            AllowDeckClick();
+        }
+        else if (phase == "Play")
+        {
+            // Allow for playing of hand cards
+            AllowHandClick(); 
+        }
+        else if (phase == "End")
+        {
+            // End of player turn
+            // Disable hand clickability
+            DisableHandClick();
+            
+            // Apply attack stat from player top card to the HP of the enemy top card, going through the enemy defense as well
+            GameObject playerTopCard = PlayerPanelTop.GetChild(0).gameObject;
+            GameObject enemyTopCard = EnemyPanelTop.GetChild(0).gameObject;
+
+            // Check if the enemy defense is higher than the player attack
+            if (playerTopCard.GetComponent<CardScript>().cardData.Atk < enemyTopCard.GetComponent<CardScript>().cardData.Def)
+            {
+                // If the enemy defense is higher, substract the difference from the enemy defense
+                enemyTopCard.GetComponent<CardScript>().cardData.Def -= playerTopCard.GetComponent<CardScript>().cardData.Atk;
+            }
+            else
+            {
+                // If the player attack is higher, substract the difference from the enemy HP
+                enemyTopCard.GetComponent<CardScript>().cardData.HP -= playerTopCard.GetComponent<CardScript>().cardData.Atk - enemyTopCard.GetComponent<CardScript>().cardData.Def;
+                // Update enemy TMP
+                enemyTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.HP.ToString();
+            }
+
+            // Check if the enemy card is dead, if so, automatically swap for the next card
+            if (enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0)
+            {
+                // Switch enemy top card with one fo the enemy bottom panel cards
+                GameObject enemyBottomCard = EnemyPanelBottom.GetChild(0).gameObject;
+            }
+
+            // Delete the used card if it is an attack card from the bottom panel
+            foreach (Transform card in PlayerPanelBottom)
+            {
+                if (card.GetComponent<CardScript>().cardData.Type_ID == 2)
+                {
+                    StartCoroutine(DestroyTrue(card.gameObject));
+                }
+            }
+           
+
+            playerTurn = false;
+
+            // Go to enemy logic
+            StartCoroutine(EnemyTurn());
+        }
     }
+
+    
+    IEnumerator EnemyTurn() {
+        // AI TODO
+
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(2);
+
+        TurnSequence("Swap");
+    }
+
 
     public void CardClicked(CardData cardData, GameObject clickedCard)
     {
-        Debug.Log("Card Clicked Game Manager");
-        // Listen for click on card
-        // If card is identity card, swap bottom card with top card
-        // Apply stats and effects to the card in the top panel
-        // If card is attack card, add to attack of the card in the top panel
-        // If card is defense card, add to defense of the card in the top panel
-        // If card is draw card, draw 2 cards
+        /* Listen for click on card
+        If card is identity card, swap bottom card with top card
+        Apply stats and effects to the card in the top panel
+        If card is attack card, add to attack of the card in the top panel
+        If card is defense card, add to defense of the card in the top panel
+        If card is draw card, draw 2 cards */
 
         // Get card data from any card object, hand or table
         // Listener for card click
-
 
         // Check card type
         switch (cardData.Type_ID)
@@ -390,27 +575,39 @@ public class CombatController : MonoBehaviour
                 // Identity Card
                 Debug.Log("Identity Card Clicked, Swapping");
                 Swap(clickedCard);
+                TurnSequence("Draw");
+                DisableIdentityCardClick();
                 break;
             case 2:
                 // Attack Card
-                // Add to attack of the card in the top panel
+                Debug.Log("Attack Card Clicked");
+                AttackCardClick(clickedCard);
+                // Disable hand clickability, go to End phase
+                DisableHandClick();
+                TurnSequence("End");
                 break;
             case 3:
                 // Defense Card
-                // Add to defense of the card in the top panel
+                Debug.Log("Defense Card Clicked");
+                DefenseCardClick(clickedCard);
+                // Disable hand clickability, go to End phase
+                DisableHandClick();
+                TurnSequence("End");
                 break;
             case 4:
                 // Effect card
-                // Apply effect
+                Debug.Log("Effect Card Clicked");
+                EffectCardClicked(clickedCard);
                 break;
             case 5:
                 // Draw card
                 // Draw 2 cards
-                DrawCard();
+                Debug.Log("Draw Card Clicked");
+                DrawCardClicked(clickedCard);
+                // Disable clicabillity of the card
+                clickedCard.GetComponent<Button>().interactable = false;
                 break;
         }
-        
-        
     }
 
     public void Swap(GameObject clickedCard)
@@ -419,6 +616,12 @@ public class CombatController : MonoBehaviour
 
         // Get top card
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Check if the top card is the clicked card, speed stays the same
+        if (topCard == clickedCard) {
+            Debug.Log("Top card is clicked card");
+            return;
+        }
         // Update speed attribute and text of top card to original speed from apiCardData
         topCard.GetComponent<CardScript>().cardData.Speed = cardsObject.cards.Find(card => card.Card_ID == topCard.GetComponent<CardScript>().cardData.Card_ID).Speed;
         topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString(); 
@@ -430,5 +633,115 @@ public class CombatController : MonoBehaviour
         // Swap parents
         topCard.transform.SetParent(clickedCardParent);
         clickedCard.transform.SetParent(topCardParent);
+    }
+
+    public void AttackCardClick(GameObject clickedCard) {
+        // Get attack card from hand
+        // Check if speed cost is less than speed of the top card
+        // Move to the middle of the bottom panel
+        // Add to attack of the card in the top panel
+        // Add to speed cost of the card in the top panel
+
+        // Get top card
+        GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Check if speed cost is less than speed of the top card
+        if (clickedCard.GetComponent<CardScript>().cardData.SpeedCost > topCard.GetComponent<CardScript>().cardData.Speed) {
+            Debug.Log("Not enough speed");
+            return;
+        }
+
+        // Move clicked card to the middle of the bottom panel
+        clickedCard.transform.SetParent(PlayerPanelBottom);
+        clickedCard.transform.SetSiblingIndex(1);
+
+        // Make card not clickable
+        clickedCard.GetComponent<Button>().interactable = false;
+
+        // Substract speed cost to speed of the top card
+        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.SpeedCost;
+        topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString();
+
+        // Add attack to the top card
+        topCard.GetComponent<CardScript>().cardData.Atk += clickedCard.GetComponent<CardScript>().cardData.Atk;
+    }
+
+    public void DefenseCardClick(GameObject clickedCard) {
+        // Get defense card from hand
+        // Check if speed cost is less than speed of the top card
+        // Move to the middle of the bottom panel
+        // Add to defense of the card in the top panel
+        // Add to speed cost of the card in the top panel
+
+        // Get top card
+        GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Check if speed cost is less than speed of the top card
+        if (clickedCard.GetComponent<CardScript>().cardData.SpeedCost > topCard.GetComponent<CardScript>().cardData.Speed) {
+            Debug.Log("Not enough speed");
+            return;
+        }
+
+        // Move clicked card to the middle of the bottom panel
+        clickedCard.transform.SetParent(PlayerPanelBottom);
+        clickedCard.transform.SetSiblingIndex(1);
+
+        // Make card not clickable
+        clickedCard.GetComponent<Button>().interactable = false;
+
+        // Substract speed cost to speed of the top card
+        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.SpeedCost;
+        topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString();
+
+        // Add defense to the top card
+        topCard.GetComponent<CardScript>().cardData.Def += clickedCard.GetComponent<CardScript>().cardData.Def;
+    }
+
+    public void EffectCardClicked(GameObject clickedCard) {
+        // Add all stats from the effect card to the top card
+        // Move to the middle of the bottom panel
+
+        // Get top card
+        GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // Move clicked card to the middle of the bottom panel
+        clickedCard.transform.SetParent(PlayerPanelBottom);
+        clickedCard.transform.SetSiblingIndex(1);
+
+        // Make card not clickable
+        clickedCard.GetComponent<Button>().interactable = false;
+
+        if (clickedCard.GetComponent<CardScript>().cardData.Card_ID == 15) {
+            // Check for specific case of defense reduction
+            topCard = EnemyPanelTop.GetChild(0).gameObject;
+        }
+
+        // Add all stats from the effect card to the target card
+
+        CardData topCardData = topCard.GetComponent<CardScript>().cardData;
+        CardData clickedCardData = clickedCard.GetComponent<CardScript>().cardData;
+
+        topCardData.HP += clickedCardData.HP;
+        topCardData.Atk += clickedCardData.Atk;
+        topCardData.Def += clickedCardData.Def;
+
+        // Destroy clicked card with a destroy function that waits for a delay before destroying
+        StartCoroutine(DestroyTrue(clickedCard));  
+    }
+
+    public void DrawCardClicked(GameObject clickedCard) {
+        // Draw 2 cards
+        // Destroy clicked card
+
+        // Draw 2 cards
+        StartCoroutine(DrawSingleCard());
+        StartCoroutine(DrawSingleCard());
+        StartCoroutine(DestroyTrue(clickedCard));
+    }
+    IEnumerator DestroyTrue(GameObject clickedCard) {
+        // Wait for a delay before destroying the clicked card
+        yield return new WaitForSeconds(1);
+        Debug.Log("Destroying" + clickedCard);
+        Destroy(clickedCard);
     }
 }
