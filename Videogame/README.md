@@ -10,7 +10,7 @@ clone_path/MESC2004/TC2005B_Videogame/SUBMIL_TCG
 ```
 
 ## Running the game
-To experience all of the features the game has, it must be run from the title scene. You will be able to register a user and account by clicking "Register", then typing the credentials you wish to use. Currently this is done locally. Logging in with the credentials will take you to the deck creation scene.
+To experience all of the features the game has, it must be run from the title scene. You will be able to register a user and account by clicking "Register", then typing the credentials you wish to use. Currently this is done locally. Logging in with the credentials will take you to the deck creation scene. Credentials are saved locally on a txt file named credentials.txt.
 From the title screen, you can also access the deck screen directly, counting as a guest, and allowing to modify the predefined deck that is given. You may add up to 3 identity cards, and as many of the other cards as you wish to add. In the future, draw cards will also limited.
 Upon saving the deck, the data will be sent over for  when you choose to play a match against AI. This can be done by clicking the "Play" button.
 
