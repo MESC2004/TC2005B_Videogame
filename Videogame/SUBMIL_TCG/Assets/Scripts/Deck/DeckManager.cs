@@ -1,3 +1,6 @@
+// Fernando Fuentes
+// 29/05/2024
+// Script that handles adding and removing cards from the deck
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -221,7 +221,6 @@ public class CombatController : MonoBehaviour
     [SerializeField] Transform EnemyPanelTop;
     [SerializeField] Transform EnemyPanelBottom;
     [SerializeField] Transform HandPanel;
-    bool playerTurn;
 
     public string phase;
 
@@ -567,9 +566,6 @@ public class CombatController : MonoBehaviour
                 }
             }
            
-
-            playerTurn = false;
-
             // Go to enemy logic
             EnemyTurn();
         }

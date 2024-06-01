@@ -1,3 +1,6 @@
+// Fabrizio Barrios
+// 27/05/2024
+// Script that handles the behavior of a card detecting clicks. Sends data to combat scene.
 using UnityEngine;
 using UnityEngine.UI;
 
