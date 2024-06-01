@@ -208,7 +208,7 @@ public class CombatController : MonoBehaviour
 
     // Lista de IDs de las cartas en el deck del jugador y la IA.
     [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
-    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
+    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7};
     
     [SerializeField] Cards cardsObject;
     [SerializeField] GameObject cardPrefab;
@@ -521,8 +521,9 @@ public class CombatController : MonoBehaviour
             // Check if the enemy card is dead, if so, automatically swap for the next card
             if (enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0)
             {
-                // Switch enemy top card with one fo the enemy bottom panel cards
-                GameObject enemyBottomCard = EnemyPanelBottom.GetChild(0).gameObject;
+               // Not allow  HP to be negative
+                enemyTopCard.GetComponent<CardScript>().cardData.HP = 0;
+                enemyTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.HP.ToString();
             }
 
             // Delete the used card if it is an attack card from the bottom panel
@@ -538,17 +539,98 @@ public class CombatController : MonoBehaviour
             playerTurn = false;
 
             // Go to enemy logic
-            StartCoroutine(EnemyTurn());
+            EnemyTurn();
         }
     }
 
     
-    IEnumerator EnemyTurn() {
+    public void EnemyTurn() {
         // AI TODO
 
-        // Wait for 2 seconds
-        yield return new WaitForSeconds(2);
+        GameObject enemyTopCard = EnemyPanelTop.GetChild(0).gameObject;
 
+        // Draw 2 cards for the enemy non visually
+        List<int> enemyHand = new List<int>();
+        for (int i = 0; i < 2; i++)
+        {
+            enemyHand.Add(enemyDeck[0]);
+            enemyDeck.RemoveAt(0);
+        }
+
+        // Check if top card speed is less than the speed of a bottom panel card or if HP is 0, swap
+        foreach (Transform card in EnemyPanelBottom)
+        {
+            if (enemyTopCard.GetComponent<CardScript>().cardData.Speed < card.GetComponent<CardScript>().cardData.Speed || enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0)
+            {
+                // Manual swap, no swap function for enemy yet
+                // Must swap the enemytoppanel card for a card in enemybottompanel
+                // Store parent transforms
+                Transform topCardParent = enemyTopCard.transform.parent;
+                Transform bottomCardParent = EnemyPanelBottom;
+
+                // Swap parents
+                enemyTopCard.transform.SetParent(bottomCardParent);
+                card.transform.SetParent(topCardParent);
+
+                // Update top card
+                enemyTopCard = card.gameObject;
+
+                // If card is not dead, update speed
+                if (enemyTopCard.GetComponent<CardScript>().cardData.HP > 0)
+                {
+                    enemyTopCard.GetComponent<CardScript>().cardData.Speed = cardsObject.cards.Find(card => card.Card_ID == enemyTopCard.GetComponent<CardScript>().cardData.Card_ID).Speed;
+                    enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
+                }
+
+                // Break the loop
+                break;
+            }
+        }
+
+        // Check if any cards are playable by the enemy from the speed
+        
+        foreach (int cardID in enemyHand)
+        {
+            CardData cardData = cardsObject.cards.Find(card => card.Card_ID == cardID);
+            if (cardData.SpeedCost <= enemyTopCard.GetComponent<CardScript>().cardData.Speed)
+            {
+                // check for type 5 cards, play those first
+                // check if there are any type 2 or 3 cards, if not, end turn
+                // If there are type 2 or 3 cards, check for type 4 cards, play those, then type 3 or 4 cards
+                // If there are no type 4 cards, play either a type 2 or type 3 card, depending on if the top card has more attack or defense
+                // If the top card has more attack, play a type 2 card, if it has more defense, play a type 3 card
+                // If the top card has equal attack and defense, play a type 2 card
+                // If there are no type 2 or 3 cards, end turn
+                // If there are no cards to play, end turn
+
+                // Play the card
+                GameObject newCard = Instantiate(cardPrefab, EnemyPanelBottom);
+                SetData(newCard, cardData);
+
+                // Substract speed cost to speed of the top card
+                enemyTopCard.GetComponent<CardScript>().cardData.Speed -= cardData.SpeedCost;
+                enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
+
+                // Check if the player defense is higher than the enemy attack
+                if (cardData.Atk < enemyTopCard.GetComponent<CardScript>().cardData.Def)
+                {
+                    // If the player defense is higher, substract the difference from the player defense
+                    enemyTopCard.GetComponent<CardScript>().cardData.Def -= cardData.Atk;
+                }
+                else
+                {
+                    // If the enemy attack is higher, substract the difference from the player HP
+                    enemyTopCard.GetComponent<CardScript>().cardData.HP -= cardData.Atk - enemyTopCard.GetComponent<CardScript>().cardData.Def;
+                    // Update player TMP
+                    enemyTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.HP.ToString();
+                }
+            }
+        }
+
+        // End of enemy turn
+        // Apply attack stat from enemy top card to the HP of the player top card, going through the player defense as well
+        
+        // Start of player turn
         TurnSequence("Swap");
     }
 
