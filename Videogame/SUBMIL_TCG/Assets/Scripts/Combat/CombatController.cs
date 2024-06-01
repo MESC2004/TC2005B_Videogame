@@ -208,7 +208,11 @@ public class CombatController : MonoBehaviour
 
     // Lista de IDs de las cartas en el deck del jugador y la IA.
     [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
+
+    public List<int> playerDiscard = new List<int>();
     [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7};
+
+    public List<int> enemyDiscard = new List<int>();
     
     [SerializeField] Cards cardsObject;
     [SerializeField] GameObject cardPrefab;
@@ -367,6 +371,15 @@ public class CombatController : MonoBehaviour
 
     public void DeckClick() {
         // Function so the deck button does not directly use DrawCard
+
+        // Check if deck has less than 2 cards, add the discard pile to the deck
+        if (playerDeck.Count < 2)
+        {
+            playerDeck.AddRange(playerDiscard);
+            playerDiscard.Clear();
+            // Randomize the deck list
+            playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+        }
         DrawCard();
         DisableDeckClick();
         // Call next phase
@@ -392,7 +405,8 @@ public class CombatController : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab, HandPanel);
         SetData(newCard, singleCardData);
 
-        // Remove card in position 0 from the deck
+        // Add card to discard pile, remove from deck
+        playerDiscard.Add(playerDeck[0]);
         playerDeck.RemoveAt(0);
 
         yield return new WaitForSeconds(0.5f);
@@ -470,7 +484,25 @@ public class CombatController : MonoBehaviour
         end turn
         */
 
-        playerTurn = true;
+        // If two of the player's identity cards are dead, end the game
+        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has lost");
+            return;
+        }
+
+        // If two of the enemy's identity cards are dead, end the game
+        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has won");
+            return;
+        }
+
+        // Delete middle card if there are 3 cards
+        if (HandPanel.childCount == 3)
+        {
+            StartCoroutine(DestroyTrue(HandPanel.GetChild(1).gameObject));
+        }
 
         // Disable deck button clickability and hand cards clickability
         GameObject.Find("DeckButton").GetComponent<Button>().interactable = false;
@@ -518,7 +550,7 @@ public class CombatController : MonoBehaviour
                 enemyTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.HP.ToString();
             }
 
-            // Check if the enemy card is dead, if so, automatically swap for the next card
+            // Check if the enemy card is dead, do not allow HP to fall below 0
             if (enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0)
             {
                // Not allow  HP to be negative
@@ -548,6 +580,21 @@ public class CombatController : MonoBehaviour
         // AI TODO
 
         GameObject enemyTopCard = EnemyPanelTop.GetChild(0).gameObject;
+        GameObject playerTopCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // If three of the player's identity cards are dead, end the game
+        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has lost");
+            return;
+        }
+
+        // If three of the enemy's identity cards are dead, end the game
+        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has won");
+            return;
+        }
 
         // Draw 2 cards for the enemy non visually
         List<int> enemyHand = new List<int>();
@@ -557,10 +604,10 @@ public class CombatController : MonoBehaviour
             enemyDeck.RemoveAt(0);
         }
 
-        // Check if top card speed is less than the speed of a bottom panel card or if HP is 0, swap
+        // Check if top card speed is less than the speed of a bottom panel card or if HP is 0, and bottom card has more than 0 hp, swap
         foreach (Transform card in EnemyPanelBottom)
         {
-            if (enemyTopCard.GetComponent<CardScript>().cardData.Speed < card.GetComponent<CardScript>().cardData.Speed || enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0)
+            if (enemyTopCard.GetComponent<CardScript>().cardData.Speed < card.GetComponent<CardScript>().cardData.Speed || enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0 && card.GetComponent<CardScript>().cardData.HP > 0)
             {
                 // Manual swap, no swap function for enemy yet
                 // Must swap the enemytoppanel card for a card in enemybottompanel
@@ -568,19 +615,19 @@ public class CombatController : MonoBehaviour
                 Transform topCardParent = enemyTopCard.transform.parent;
                 Transform bottomCardParent = EnemyPanelBottom;
 
-                // Swap parents
-                enemyTopCard.transform.SetParent(bottomCardParent);
-                card.transform.SetParent(topCardParent);
-
-                // Update top card
-                enemyTopCard = card.gameObject;
-
                 // If card is not dead, update speed
                 if (enemyTopCard.GetComponent<CardScript>().cardData.HP > 0)
                 {
                     enemyTopCard.GetComponent<CardScript>().cardData.Speed = cardsObject.cards.Find(card => card.Card_ID == enemyTopCard.GetComponent<CardScript>().cardData.Card_ID).Speed;
                     enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
                 }
+
+                // Swap parents
+                enemyTopCard.transform.SetParent(bottomCardParent);
+                card.transform.SetParent(topCardParent);
+
+                // Update top card
+                enemyTopCard = card.gameObject;   
 
                 // Break the loop
                 break;
@@ -604,25 +651,40 @@ public class CombatController : MonoBehaviour
                 // If there are no cards to play, end turn
 
                 // Play the card
+                // Instantiate in the middle of the bottom panel
                 GameObject newCard = Instantiate(cardPrefab, EnemyPanelBottom);
                 SetData(newCard, cardData);
+                // Set the card to middle of bottom enemy panel
+                newCard.transform.SetSiblingIndex(1);
 
                 // Substract speed cost to speed of the top card
                 enemyTopCard.GetComponent<CardScript>().cardData.Speed -= cardData.SpeedCost;
                 enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
                 // Check if the player defense is higher than the enemy attack
-                if (cardData.Atk < enemyTopCard.GetComponent<CardScript>().cardData.Def)
+                if (cardData.Atk < playerTopCard.GetComponent<CardScript>().cardData.Def)
                 {
                     // If the player defense is higher, substract the difference from the player defense
-                    enemyTopCard.GetComponent<CardScript>().cardData.Def -= cardData.Atk;
+                    playerTopCard.GetComponent<CardScript>().cardData.Def -= cardData.Atk;
+                    // Destroy used card
+                    StartCoroutine(DestroyTrue(newCard));
+                    // Destroy player defense card
+                    foreach (Transform playerCard in PlayerPanelBottom)
+                    {
+                        if (playerCard.GetComponent<CardScript>().cardData.Type_ID == 3)
+                        {
+                            StartCoroutine(DestroyTrue(playerCard.gameObject));
+                        }
+                    }
                 }
                 else
                 {
                     // If the enemy attack is higher, substract the difference from the player HP
-                    enemyTopCard.GetComponent<CardScript>().cardData.HP -= cardData.Atk - enemyTopCard.GetComponent<CardScript>().cardData.Def;
+                    playerTopCard.GetComponent<CardScript>().cardData.HP -= cardData.Atk - playerTopCard.GetComponent<CardScript>().cardData.Def;
                     // Update player TMP
-                    enemyTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.HP.ToString();
+                    playerTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = playerTopCard.GetComponent<CardScript>().cardData.HP.ToString();
+                    // Destroy used card
+                    StartCoroutine(DestroyTrue(newCard));
                 }
             }
         }
@@ -819,7 +881,7 @@ public class CombatController : MonoBehaviour
     }
     IEnumerator DestroyTrue(GameObject clickedCard) {
         // Wait for a delay before destroying the clicked card
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         Debug.Log("Destroying" + clickedCard);
         Destroy(clickedCard);
     }

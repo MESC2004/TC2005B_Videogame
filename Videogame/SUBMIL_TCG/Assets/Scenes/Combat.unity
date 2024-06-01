@@ -1531,7 +1531,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1276022304}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.36300036
+  m_Size: 0.3630004
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1751,10 +1751,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1829231940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.5000305, y: 60.785004}
-  m_SizeDelta: {x: 17.000916, y: -121.566956}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 8.5, y: 60.785004}
+  m_SizeDelta: {x: 249.00092, y: 372.43304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1982452134
 MonoBehaviour:
@@ -1811,11 +1811,11 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 64.7774, y: 90.054}
-  m_Spacing: {x: 10, y: 10}
+  m_Spacing: {x: 5, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &2093280340
@@ -1890,7 +1890,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDeck: 01000000020000000300000011000000100000000f000000070000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
+  playerDiscard: 
   enemyDeck: 040000000500000006000000070000000800000008000000070000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
+  enemyDiscard: 
   cardPrefab: {fileID: 1340194003415095969, guid: e40951518fe148e4ab610bbb12d29876, type: 3}
   PlayerPanelTop: {fileID: 2116227789}
   PlayerPanelBottom: {fileID: 730185401}
