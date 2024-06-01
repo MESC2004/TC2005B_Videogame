@@ -485,23 +485,23 @@ public class CombatController : MonoBehaviour
         */
 
         // If two of the player's identity cards are dead, end the game
-        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0)
+        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
         {
             Debug.Log("Player has lost");
             return;
         }
 
         // If two of the enemy's identity cards are dead, end the game
-        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0)
+        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
         {
             Debug.Log("Player has won");
             return;
         }
 
         // Delete middle card if there are 3 cards
-        if (PlayerPanelBottom.childCount == 3)
+        if (HandPanel.childCount == 3)
         {
-            StartCoroutine(DestroyTrue(PlayerPanelBottom.GetChild(1).gameObject));
+            StartCoroutine(DestroyTrue(HandPanel.GetChild(1).gameObject));
         }
 
         // Disable deck button clickability and hand cards clickability
@@ -581,6 +581,20 @@ public class CombatController : MonoBehaviour
 
         GameObject enemyTopCard = EnemyPanelTop.GetChild(0).gameObject;
         GameObject playerTopCard = PlayerPanelTop.GetChild(0).gameObject;
+
+        // If three of the player's identity cards are dead, end the game
+        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has lost");
+            return;
+        }
+
+        // If three of the enemy's identity cards are dead, end the game
+        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has won");
+            return;
+        }
 
         // Draw 2 cards for the enemy non visually
         List<int> enemyHand = new List<int>();
