@@ -43,3 +43,5 @@ You will lose the match if 2 of your cards reach 0 HP (As intended, you lose if 
 Most interactions are made through left mouse clicks, except the text input boxes and scroll inputs in some scenes such as the scrollers in the deck scene and combat scene, or the text inputs on the register and title screens.
 
 Game logic is fully finished, only the exceptional win condition of having to kill 3 instead of 2 enemy cards needs fixing.
+
+Some designs still need to be implemented, suuch as button designs or different fonts for styling the game.
