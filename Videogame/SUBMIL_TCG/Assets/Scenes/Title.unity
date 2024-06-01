@@ -810,7 +810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usernameInput: {fileID: 1806152802}
-  passwordInput: {fileID: 1806152802}
+  passwordInput: {fileID: 1890827400}
   nextSceneName: Combat
 --- !u!1001 &1303792440
 PrefabInstance:
@@ -1073,6 +1073,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3728847631526258579, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
   m_PrefabInstance: {fileID: 1890827398}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1890827400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7723738696568693908, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
+  m_PrefabInstance: {fileID: 1890827398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1957243255
 GameObject:
   m_ObjectHideFlags: 0
