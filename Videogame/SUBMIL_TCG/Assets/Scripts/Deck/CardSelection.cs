@@ -1,3 +1,7 @@
+// Fernando Fuentes
+// 29/05/2024
+// Script that handles the selection of cards for the player's deck
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;

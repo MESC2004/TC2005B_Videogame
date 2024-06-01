@@ -1,3 +1,7 @@
+// Fernando Fuentes
+// 29/05/2024
+// Script that handles the deck of cards
+
 using System.Collections.Generic;
 
 [System.Serializable]

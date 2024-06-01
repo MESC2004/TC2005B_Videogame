@@ -1,3 +1,6 @@
+// Fernando Fuentes
+// 29/05/2024
+// Script that handles the stat assignation as well as image assignation to the cards
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
