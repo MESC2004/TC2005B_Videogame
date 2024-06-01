@@ -8,7 +8,7 @@ public class CardLoader : MonoBehaviour
     public GameObject CardButtonPrefab;
     public Transform content;
     public Cards cardsObject = new Cards();
-    public Sprite defaultCardImage; 
+    public Sprite defaultCardImage;
 
     string apiCardData = @"{
         ""cards"": 
@@ -84,7 +84,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 2,
             ""Name"": ""Opportunistic Slash"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 3,
             ""SpeedCost"": 3,
             ""Atk"": 7,
             ""Def"": 0,
@@ -95,7 +95,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 2,
             ""Name"": ""Blunt Hit"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 2,
             ""SpeedCost"": 2,
             ""Atk"": 4,
             ""Def"": 0,
@@ -106,7 +106,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 2,
             ""Name"": ""Weak Punch"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 1,
             ""SpeedCost"": 1,
             ""Atk"": 2,
             ""Def"": 0,
@@ -117,7 +117,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 3,
             ""Name"": ""Strong Block"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 3,
             ""SpeedCost"": 3,
             ""Atk"": 0,
             ""Def"": 10,
@@ -128,7 +128,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 3,
             ""Name"": ""Shield"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 2,
             ""SpeedCost"": 2,
             ""Atk"": 0,
             ""Def"": 5,
@@ -139,7 +139,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 3,
             ""Name"": ""Arm Block"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 1,
             ""SpeedCost"": 1,
             ""Atk"": 0,
             ""Def"": 3,
@@ -150,7 +150,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 4,
             ""Name"": ""Ego Armor"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 0,
             ""SpeedCost"": 0,
             ""Atk"": 0,
             ""Def"": 3,
@@ -162,6 +162,7 @@ public class CardLoader : MonoBehaviour
             ""Name"": ""Ego Weapon"",
             ""HP"": 0,
             ""SpeedCost"": 0,
+            ""SpeedCost"": 0,
             ""Atk"": 2,
             ""Def"": 0,
             ""Passive"": ""N/A""
@@ -171,7 +172,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 4,
             ""Name"": ""Ego Needie"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 0,
             ""SpeedCost"": 0,
             ""Atk"": 0,
             ""Def"": -4,
@@ -182,7 +183,7 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 4,
             ""Name"": ""Healing Ampule"",
             ""HP"": 4,
-            ""Speed"": 0,
+            ""SpeedCost"": 0,
             ""SpeedCost"": 0,
             ""Atk"": 0,
             ""Def"": 0,
@@ -193,14 +194,13 @@ public class CardLoader : MonoBehaviour
             ""Type_ID"": 5,
             ""Name"": ""Ego Claw"",
             ""HP"": 0,
-            ""Speed"": 0,
+            ""SpeedCost"": 0,
             ""SpeedCost"": 0,
             ""Atk"": 0,
             ""Def"": 0,
             ""Passive"": ""N/A""
             }
         ]
-        
     }";
 
     void Start()
@@ -228,7 +228,7 @@ public class CardLoader : MonoBehaviour
             else
             {
                 Debug.LogError($"Card image not found for Card_ID: {card.Card_ID}");
-                cardComponent.SetCardImage(defaultCardImage); 
+                cardComponent.SetCardImage(defaultCardImage);
             }
 
             TextMeshProUGUI[] textComponents = newCard.GetComponentsInChildren<TextMeshProUGUI>();
@@ -236,15 +236,33 @@ public class CardLoader : MonoBehaviour
             {
                 if (textComponent.name == "HP")
                 {
-                    textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
+                    if (card.Card_ID == 7 || card.Card_ID == 8 || card.Card_ID == 9)
+                    {
+                        textComponent.text = card.Atk > 0 ? card.Atk.ToString() : "";
+                    }
+                    else if (card.Card_ID == 10 || card.Card_ID == 11 || card.Card_ID == 12)
+                    {
+                        textComponent.text = card.Def > 0 ? card.Def.ToString() : "";
+                    }
+                    else
+                    {
+                        textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
+                    }
                 }
                 else if (textComponent.name == "Speed")
                 {
-                    textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
+                    if (card.Card_ID == 7 || card.Card_ID == 8 || card.Card_ID == 9 || card.Card_ID == 10 || card.Card_ID == 11 || card.Card_ID == 12)
+                    {
+                        textComponent.text = card.SpeedCost > 0 ? card.SpeedCost.ToString() : "";
+                    }
+                    else
+                    {
+                        textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
+                    }
                 }
                 else
                 {
-                    textComponent.text = ""; 
+                    textComponent.text = "";
                 }
             }
 
