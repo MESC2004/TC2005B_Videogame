@@ -206,7 +206,6 @@ public class CombatController : MonoBehaviour
     }";
 
 
-    // Lista de IDs de las cartas en el deck del jugador y la IA.
     [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
 
     public List<int> playerDiscard = new List<int>();
@@ -223,6 +222,9 @@ public class CombatController : MonoBehaviour
     [SerializeField] Transform HandPanel;
 
     public string phase;
+
+    public GameObject LosePanel;
+    public GameObject WonPanel;
 
     void prepareIdentityCards()
     {
@@ -275,6 +277,10 @@ public class CombatController : MonoBehaviour
 
     void Start()
     {
+
+        LosePanel.SetActive(false);
+        WonPanel.SetActive(false);
+        
         LoadPlayerDeck();
         prepareIdentityCards();
         TurnSequence("Swap");
@@ -487,6 +493,7 @@ public class CombatController : MonoBehaviour
         if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
         {
             Debug.Log("Player has lost");
+            LosePanel.SetActive(true);  // Shows Lose Screen
             return;
         }
 
@@ -494,6 +501,7 @@ public class CombatController : MonoBehaviour
         if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
         {
             Debug.Log("Player has won");
+            WonPanel.SetActive(true); // Shows Win Screen
             return;
         }
 
