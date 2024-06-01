@@ -292,7 +292,21 @@ public class CombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        // If two of the player's identity cards are dead, end the game
+        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has lost");
+            Lose();
+        }
+
+        // If two of the enemy's identity cards are dead, end the game
+        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has won");
+            Win();
+        }
+
     }
 
     void LoadPlayerDeck()
@@ -489,6 +503,10 @@ public class CombatController : MonoBehaviour
         end turn
         */
 
+
+
+
+/*
         // If two of the player's identity cards are dead, end the game
         if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
         {
@@ -504,6 +522,9 @@ public class CombatController : MonoBehaviour
             WonPanel.SetActive(true); // Shows Win Screen
             return;
         }
+*/
+
+
 
         // Delete middle card if there are 3 cards
         if (HandPanel.childCount == 3)
@@ -577,6 +598,18 @@ public class CombatController : MonoBehaviour
             // Go to enemy logic
             EnemyTurn();
         }
+    }
+
+    public void Lose() 
+    {
+            LosePanel.SetActive(true);  // Shows Lose Screen
+            return;
+    }
+
+    public void Win()
+    {
+            WonPanel.SetActive(true); // Shows Win Screen
+            return;
     }
 
     
