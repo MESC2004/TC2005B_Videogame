@@ -604,8 +604,11 @@ public class CombatController : MonoBehaviour
                 // If there are no cards to play, end turn
 
                 // Play the card
+                // Instantiate in the middle of the bottom panel
                 GameObject newCard = Instantiate(cardPrefab, EnemyPanelBottom);
                 SetData(newCard, cardData);
+                // Set the card to middle of bottom enemy panel
+                newCard.transform.SetSiblingIndex(1);
 
                 // Substract speed cost to speed of the top card
                 enemyTopCard.GetComponent<CardScript>().cardData.Speed -= cardData.SpeedCost;
