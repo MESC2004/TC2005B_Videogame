@@ -79,15 +79,33 @@ public class CardSelection : MonoBehaviour
             {
                 if (textComponent.name == "HP")
                 {
-                    textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
+                    if (card.Card_ID == 7 || card.Card_ID == 8 || card.Card_ID == 9)
+                    {
+                        textComponent.text = card.Atk > 0 ? card.Atk.ToString() : "";
+                    }
+                    else if (card.Card_ID == 10 || card.Card_ID == 11 || card.Card_ID == 12)
+                    {
+                        textComponent.text = card.Def > 0 ? card.Def.ToString() : "";
+                    }
+                    else
+                    {
+                        textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
+                    }
                 }
                 else if (textComponent.name == "Speed")
                 {
-                    textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
+                    if (card.Card_ID == 7 || card.Card_ID == 8 || card.Card_ID == 9 || card.Card_ID == 10 || card.Card_ID == 11 || card.Card_ID == 12)
+                    {
+                        textComponent.text = card.SpeedCost > 0 ? card.SpeedCost.ToString() : "";
+                    }
+                    else
+                    {
+                        textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
+                    }
                 }
                 else
                 {
-                    textComponent.text = ""; 
+                    textComponent.text = "";
                 }
             }
 
