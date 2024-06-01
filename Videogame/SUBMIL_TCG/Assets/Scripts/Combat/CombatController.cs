@@ -299,58 +299,70 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    public void SetData(GameObject newCard, CardData singleCardData) {
+    public void SetData(GameObject newCard, CardData singleCardData)
+    {
         // Set card values given a newly instantiated card and the data of a single card
 
-            CardScript cardscript = newCard.GetComponent<CardScript>();
-            cardscript.cardData = new CardData();
-            cardscript.cardData.Card_ID = singleCardData.Card_ID;
-            cardscript.cardData.Type_ID = singleCardData.Type_ID;
-            cardscript.cardData.Name = singleCardData.Name;
-            cardscript.cardData.HP = singleCardData.HP;
-            cardscript.cardData.Speed = singleCardData.Speed;
-            cardscript.cardData.SpeedCost = singleCardData.SpeedCost;
-            cardscript.cardData.Atk = singleCardData.Atk;
-            cardscript.cardData.Def = singleCardData.Def;
-            cardscript.cardData.Passive = singleCardData.Passive;
+        CardScript cardscript = newCard.GetComponent<CardScript>();
+        cardscript.cardData = new CardData();
+        cardscript.cardData.Card_ID = singleCardData.Card_ID;
+        cardscript.cardData.Type_ID = singleCardData.Type_ID;
+        cardscript.cardData.Name = singleCardData.Name;
+        cardscript.cardData.HP = singleCardData.HP;
+        cardscript.cardData.Speed = singleCardData.Speed;
+        cardscript.cardData.SpeedCost = singleCardData.SpeedCost;
+        cardscript.cardData.Atk = singleCardData.Atk;
+        cardscript.cardData.Def = singleCardData.Def;
+        cardscript.cardData.Passive = singleCardData.Passive;
 
-            // Set name (temporal)
-            newCard.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Name;
+        // Set name (temporal)
+        // newCard.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Name;
 
-            switch (cardscript.cardData.Type_ID)
-            {
-                // Sets the appropriate TMP values according to the card type
-                case 1:
-                    // Identity Card
-                    // Set Top TMP to Speed and bottom TMP to health
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Speed.ToString();
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.HP.ToString();
-                    break;
-                case 2:
-                    // Attack Card
-                    // Set top value to SpeedCost and bootom value to Atk
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Atk.ToString();
-                    break;
-                case 3:
-                    // Defense Card
-                    // Set top value to SpeedCost and bootom value to Def
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Def.ToString();
-                    break;
-                case 4:
-                    // Effect card
-                    // Leave values empty
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
-                    break;
-                case 5:
-                    // Draw card
-                    //leave values empty
-                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
-                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
-                    break;
-            }
+        // Load and set the card image sprite
+        Sprite cardSprite = Resources.Load<Sprite>($"images/{cardscript.cardData.Card_ID}");
+        if (cardSprite != null)
+        {
+            newCard.GetComponent<Image>().sprite = cardSprite;
+        }
+        else
+        {
+            Debug.LogError($"Card image not found for Card_ID: {cardscript.cardData.Card_ID}");
+        }
+
+        switch (cardscript.cardData.Type_ID)
+        {
+            // Sets the appropriate TMP values according to the card type
+            case 1:
+                // Identity Card
+                // Set Top TMP to Speed and bottom TMP to health
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Speed.ToString();
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.HP.ToString();
+                break;
+            case 2:
+                // Attack Card
+                // Set top value to SpeedCost and bottom value to Atk
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Atk.ToString();
+                break;
+            case 3:
+                // Defense Card
+                // Set top value to SpeedCost and bottom value to Def
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Def.ToString();
+                break;
+            case 4:
+                // Effect card
+                // Leave values empty
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                break;
+            case 5:
+                // Draw card
+                // Leave values empty
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                break;
+        }
     }
 
     public void DeckClick() {
