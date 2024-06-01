@@ -316,20 +316,17 @@ public class CombatController : MonoBehaviour
         cardscript.cardData.Passive = singleCardData.Passive;
 
         // Set name (temporal)
-        newCard.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Name;
+        // newCard.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Name;
 
-        // Load and set the card image
-        Image cardImage = newCard.transform.GetChild(3).GetComponent<Image>(); 
-        string imagePath = "CardImages/" + cardscript.cardData.Card_ID; // Path inside the Resources folder
-        Sprite cardSprite = Resources.Load<Sprite>(imagePath);
-
+        // Load and set the card image sprite
+        Sprite cardSprite = Resources.Load<Sprite>($"images/{cardscript.cardData.Card_ID}");
         if (cardSprite != null)
         {
-            cardImage.sprite = cardSprite;
+            newCard.GetComponent<Image>().sprite = cardSprite;
         }
         else
         {
-            Debug.LogWarning("Card image not found for ID: " + cardscript.cardData.Card_ID);
+            Debug.LogError($"Card image not found for Card_ID: {cardscript.cardData.Card_ID}");
         }
 
         switch (cardscript.cardData.Type_ID)
