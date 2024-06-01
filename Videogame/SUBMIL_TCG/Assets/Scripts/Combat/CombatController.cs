@@ -208,7 +208,11 @@ public class CombatController : MonoBehaviour
 
     // Lista de IDs de las cartas en el deck del jugador y la IA.
     [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
+
+    public List<int> playerDiscard = new List<int>();
     [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7};
+
+    public List<int> enemyDiscard = new List<int>();
     
     [SerializeField] Cards cardsObject;
     [SerializeField] GameObject cardPrefab;
@@ -367,6 +371,15 @@ public class CombatController : MonoBehaviour
 
     public void DeckClick() {
         // Function so the deck button does not directly use DrawCard
+
+        // Check if deck has less than 2 cards, add the discard pile to the deck
+        if (playerDeck.Count < 2)
+        {
+            playerDeck.AddRange(playerDiscard);
+            playerDiscard.Clear();
+            // Randomize the deck list
+            playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+        }
         DrawCard();
         DisableDeckClick();
         // Call next phase
@@ -392,7 +405,8 @@ public class CombatController : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab, HandPanel);
         SetData(newCard, singleCardData);
 
-        // Remove card in position 0 from the deck
+        // Add card to discard pile, remove from deck
+        playerDiscard.Add(playerDeck[0]);
         playerDeck.RemoveAt(0);
 
         yield return new WaitForSeconds(0.5f);
@@ -470,7 +484,25 @@ public class CombatController : MonoBehaviour
         end turn
         */
 
-        playerTurn = true;
+        // If two of the player's identity cards are dead, end the game
+        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has lost");
+            return;
+        }
+
+        // If two of the enemy's identity cards are dead, end the game
+        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0)
+        {
+            Debug.Log("Player has won");
+            return;
+        }
+
+        // Delete middle card if there are 3 cards
+        if (PlayerPanelBottom.childCount == 3)
+        {
+            StartCoroutine(DestroyTrue(PlayerPanelBottom.GetChild(1).gameObject));
+        }
 
         // Disable deck button clickability and hand cards clickability
         GameObject.Find("DeckButton").GetComponent<Button>().interactable = false;
@@ -558,10 +590,10 @@ public class CombatController : MonoBehaviour
             enemyDeck.RemoveAt(0);
         }
 
-        // Check if top card speed is less than the speed of a bottom panel card or if HP is 0, swap
+        // Check if top card speed is less than the speed of a bottom panel card or if HP is 0, and bottom card has more than 0 hp, swap
         foreach (Transform card in EnemyPanelBottom)
         {
-            if (enemyTopCard.GetComponent<CardScript>().cardData.Speed < card.GetComponent<CardScript>().cardData.Speed || enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0)
+            if (enemyTopCard.GetComponent<CardScript>().cardData.Speed < card.GetComponent<CardScript>().cardData.Speed || enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0 && card.GetComponent<CardScript>().cardData.HP > 0)
             {
                 // Manual swap, no swap function for enemy yet
                 // Must swap the enemytoppanel card for a card in enemybottompanel
