@@ -33,7 +33,7 @@ public class Pause : MonoBehaviour
     {
         // Pauses the game and shows the pause panel
         pausePanel.SetActive(true);
-        Time.timeScale = 0f;
+        /* Time.timeScale = 0f; */
         isPaused = true;
     }
 
