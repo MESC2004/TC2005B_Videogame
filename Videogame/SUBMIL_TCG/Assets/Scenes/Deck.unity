@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -188.67487, y: 195.19997}
+  m_AnchoredPosition: {x: -188.67487, y: 195.1833}
   m_SizeDelta: {x: 377.35, y: 1017.0533}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &155332485
@@ -399,7 +399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 413.33
+      value: 411
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -416,7 +416,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1988509728}
+    - targetCorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1988509727}
   m_SourcePrefab: {fileID: 100100000, guid: a02d3d215f0580740ba96780497ac451, type: 3}
 --- !u!224 &205873104 stripped
 RectTransform:
@@ -781,7 +787,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '.
+  m_text: '
 
 
 '
@@ -978,7 +984,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
   m_PrefabInstance: {fileID: 1225538420}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 966334642}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -1341,8 +1347,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2068304271}
   m_HandleRect: {fileID: 2068304270}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.38384855
+  m_Value: 1.0000266
+  m_Size: 0.3665936
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1385,6 +1391,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932222276}
   m_CullTransparentMesh: 1
+--- !u!1 &966334642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+  m_PrefabInstance: {fileID: 1225538420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &966334644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966334642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 966334645}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Hover4
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 966334645}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Exit4
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!95 &966334645
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966334642}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 975f28355aadbb4488a90723e5e00fb8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1010557644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,11 +1723,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 98.9848
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 29.607
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1682,11 +1759,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 320
+      value: 328
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 203.40001
+      value: 203
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1703,7 +1780,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 966334645}
+    - targetCorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 966334644}
   m_SourcePrefab: {fileID: 100100000, guid: a02d3d215f0580740ba96780497ac451, type: 3}
 --- !u!1 &1288457375
 GameObject:
@@ -2065,6 +2148,77 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1988509723 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
+  m_PrefabInstance: {fileID: 205873103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1988509727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988509723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1988509728}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Hover5
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1988509728}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Exit5
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!95 &1988509728
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988509723}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 34a8974b9980c7d41b7acb59b14a8c2d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2001190267
 GameObject:
   m_ObjectHideFlags: 0
