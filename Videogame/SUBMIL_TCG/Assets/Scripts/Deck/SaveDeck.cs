@@ -1,3 +1,7 @@
+// Fernando Fuentes
+// 29/05/2024
+// Script that handles saving the deck of cards
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

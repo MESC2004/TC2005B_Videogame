@@ -1,3 +1,6 @@
+// Nicole Davila
+// 23/05/2024
+// Script that handles the login process and storage
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;

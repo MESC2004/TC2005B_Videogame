@@ -1,3 +1,7 @@
+// Fernando Fuentes
+// 15/05/2024
+// Script that handles the scene changing through the project
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
