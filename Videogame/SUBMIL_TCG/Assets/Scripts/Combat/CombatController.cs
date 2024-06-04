@@ -106,7 +106,6 @@ public class CombatController : MonoBehaviour
     playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
 }
 
-
     // Update is called once per frame
     void Update()
 {
