@@ -10,6 +10,12 @@ import mysql from 'mysql2/promise';
 const port = 5000;
 const app = express();
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // Card template for the wanted parameters of the cards in the game
 
 
@@ -35,10 +41,10 @@ app.get("/api/cards", async (request, response) => {
 
     connection = await connectToDB();
 
-    //const [results, fields] = await connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID;");
-    const filePath = path.join(__dirname, 'data', 'cards.json');
-    const jsonData = fs.readFileSync(filePath, 'utf8');
-    const cards = JSON.parse(jsonData);
+    const [results, fields] = await connection.execute("SELECT Card_ID, Type_ID, Name, HP, Speed, Speed_Cost, Atk, Def, Passive FROM card INNER JOIN stats ON card.Card_ID = stats.Stats_ID;");
+    // const filePath = path.join(__dirname, 'data', 'cards.json');
+    // const jsonData = fs.readFileSync(filePath, 'utf8');
+    // const cards = JSON.parse(jsonData);
 
 
     // FOR DEBUGGING, DO NOT UNCOMMENT
@@ -47,10 +53,11 @@ app.get("/api/cards", async (request, response) => {
     // TODO replace the query with a view.
 
     console.log('Requesting all cards...')
-    console.log(`${cards.length} rows returned`);
+    //console.log(`${cards.length} rows returned`);
     // uncomment to see the cards in the console
-    // console.log(results);
-    response.status(200).json({cards: cards});
+    //console.log(results);
+    response.status(200).json({cards: results});
+    //response.status(200).json(JSON.stringify({cards: results})); 
   }
   catch (error) {
     response.status(500).json(error);

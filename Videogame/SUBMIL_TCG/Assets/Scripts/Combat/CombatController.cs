@@ -12,199 +12,7 @@ using System.Linq;
 public class CombatController : MonoBehaviour
 {
 
-    string apiCardData = @"{
-        ""cards"": 
-        [
-            {
-            ""Card_ID"": 1,
-            ""Type_ID"": 1,
-            ""Name"": ""Heathcliff"",
-            ""HP"": 20,
-            ""Speed"": 1,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""Pierce Cards have 50% less effect""
-            },
-            {
-            ""Card_ID"": 2,
-            ""Type_ID"": 1,
-            ""Name"": ""Faust"",
-            ""HP"": 15,
-            ""Speed"": 2,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""If an attack boost card is used, heal 50% of damage dealt""
-            },
-            {
-            ""Card_ID"": 3,
-            ""Type_ID"": 1,
-            ""Name"": ""Don Quixote"",
-            ""HP"": 10,
-            ""Speed"": 3,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""If a pierce card is used, pierce the defense 50% more""
-            },
-            {
-            ""Card_ID"": 4,
-            ""Type_ID"": 1,
-            ""Name"": ""Ishmael"",
-            ""HP"": 20,
-            ""Speed"": 1,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""Healing cards heal 25% more""
-            },
-            {
-            ""Card_ID"": 5,
-            ""Type_ID"": 1,
-            ""Name"": ""Outis"",
-            ""HP"": 15,
-            ""Speed"": 2,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""Attack cards cost 1 more speed (Except weak punch)""
-            },
-            {
-            ""Card_ID"": 6,
-            ""Type_ID"": 1,
-            ""Name"": ""Yi Sang"",
-            ""HP"": 10,
-            ""Speed"": 3,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""Ego weapons increase 50% more damage""
-            },
-            {
-            ""Card_ID"": 7,
-            ""Type_ID"": 2,
-            ""Name"": ""Opportunistic Slash"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 3,
-            ""Atk"": 7,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 8,
-            ""Type_ID"": 2,
-            ""Name"": ""Blunt Hit"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 2,
-            ""Atk"": 4,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 9,
-            ""Type_ID"": 2,
-            ""Name"": ""Weak Punch"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 1,
-            ""Atk"": 2,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 10,
-            ""Type_ID"": 3,
-            ""Name"": ""Strong Block"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 3,
-            ""Atk"": 0,
-            ""Def"": 10,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 11,
-            ""Type_ID"": 3,
-            ""Name"": ""Shield"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 2,
-            ""Atk"": 0,
-            ""Def"": 5,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 12,
-            ""Type_ID"": 3,
-            ""Name"": ""Arm Block"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 1,
-            ""Atk"": 0,
-            ""Def"": 3,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 13,
-            ""Type_ID"": 4,
-            ""Name"": ""Ego Armor"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 3,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 14,
-            ""Type_ID"": 4,
-            ""Name"": ""Ego Weapon"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 2,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 15,
-            ""Type_ID"": 4,
-            ""Name"": ""Ego Needle"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": -4,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 16,
-            ""Type_ID"": 4,
-            ""Name"": ""Healing Ampule"",
-            ""HP"": 4,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 17,
-            ""Type_ID"": 5,
-            ""Name"": ""Ego Claw"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            }
-        ]
-    }";
-
+    public string apiCardData = @"";
 
     [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
 
@@ -226,7 +34,7 @@ public class CombatController : MonoBehaviour
     public GameObject LosePanel;
     public GameObject WonPanel;
 
-    void prepareIdentityCards()
+    public void prepareIdentityCards()
     {
         // Instatiates first 3 cards of the player's deck on the appropriate panels
 
@@ -235,7 +43,18 @@ public class CombatController : MonoBehaviour
         Transform EnemyPanelParent;
 
         // Json data into object
+        // Json data into object
         cardsObject = JsonUtility.FromJson<Cards>(apiCardData);
+        if (cardsObject == null){
+            Debug.LogError("cardsObject is null!");
+            //return; // Exit the method to prevent further null reference errors
+            }
+        else if (cardsObject.cards == null){
+            Debug.LogError("cardsObject.cards is null!");
+            return; // Exit the method to prevent further null reference errors
+        }
+        //Debug.Log("Cards Object: " + cardsObject);
+
 
         // Loop through cards in the deck (probably first 3 (identity cards))
         for (int i = 0; i < 3; i++) {
@@ -276,38 +95,48 @@ public class CombatController : MonoBehaviour
     } 
 
     void Start()
-    {
+{
+    LosePanel.SetActive(false);
+    WonPanel.SetActive(false);
 
-        LosePanel.SetActive(false);
-        WonPanel.SetActive(false);
-        
-        LoadPlayerDeck();
-        prepareIdentityCards();
-        TurnSequence("Swap");
-        // Randomize the rest of the playerDeck list
-        playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+    LoadPlayerDeck();
+    APIConnection apiConnection = GetComponent<APIConnection>();
+    apiConnection.GetData(prepareIdentityCards); // Pass prepareIdentityCards as the callback
+    TurnSequence("Swap");
+    playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+}
 
-    }
 
     // Update is called once per frame
     void Update()
+{
+    // Check if there are enough children before trying to access them
+    if (PlayerPanelTop.childCount > 0 && PlayerPanelBottom.childCount > 1)
     {
-
         // If two of the player's identity cards are dead, end the game
-        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 &&
+            (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 ||
+             PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0))
         {
             Debug.Log("Player has lost");
             Lose();
         }
+    }
 
+    // Similar check for enemy's identity cards
+    if (EnemyPanelTop.childCount > 0 && EnemyPanelBottom.childCount > 1)
+    {
         // If two of the enemy's identity cards are dead, end the game
-        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 &&
+            (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 ||
+             EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0))
         {
             Debug.Log("Player has won");
             Win();
         }
-
     }
+}
+
 
     void LoadPlayerDeck()
     {

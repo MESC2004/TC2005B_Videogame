@@ -2770,6 +2770,7 @@ GameObject:
   - component: {fileID: 2093280341}
   - component: {fileID: 2093280343}
   - component: {fileID: 2093280344}
+  - component: {fileID: 2093280345}
   m_Layer: 0
   m_Name: Manager
   m_TagString: GameController
@@ -2829,6 +2830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb10dbfe9b3b0845be681ab57158031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apiCardData: 
   playerDeck: 01000000020000000300000011000000100000000f000000070000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
   playerDiscard: 
   enemyDeck: 040000000500000006000000070000000800000008000000070000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
@@ -2842,6 +2844,20 @@ MonoBehaviour:
   phase: 
   LosePanel: {fileID: 1490909313}
   WonPanel: {fileID: 165584185}
+--- !u!114 &2093280345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093280340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f13a9a814dafcdc43918c5fc62a96170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  url: http://localhost:5000
+  getEndpoint: /api/cards
 --- !u!1 &2116227788
 GameObject:
   m_ObjectHideFlags: 0
