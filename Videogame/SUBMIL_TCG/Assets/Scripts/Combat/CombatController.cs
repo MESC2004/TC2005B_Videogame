@@ -294,7 +294,11 @@ public class CombatController : MonoBehaviour
     {
 
         // If two of the player's identity cards are dead, end the game
-        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
+            && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
+            | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) 
+            | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
+            && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
         {
             Debug.Log("Player has lost");
             Lose();
