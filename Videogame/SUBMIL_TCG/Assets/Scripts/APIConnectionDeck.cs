@@ -1,6 +1,6 @@
 /*
- * Creates the connection between Unity and the API, which fetches information from a MySQL script and a JSON file
- * Nicole D�vila
+ * Creates the connection between Unity and the API, which fetches Deck information from a MySQL script.
+ * Nicole Dávila
  * 03-06-2024
  */
 
@@ -10,8 +10,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class APIConnection : MonoBehaviour
+public class APIConnectionDeck : MonoBehaviour
 {
+    public string apiCardData;
     [SerializeField] string url;
     [SerializeField] string getEndpoint;
 
@@ -21,7 +22,6 @@ public class APIConnection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CombatController>();
         loader = GetComponent<CardLoader>();
     }
 
@@ -46,10 +46,10 @@ IEnumerator RequestGet(string url, Action onCompleted)
         {
             string result = www.downloadHandler.text;
             Debug.Log("The response was: " + result);
-            controller.apiCardData = result;
-            controller.prepareIdentityCards(); 
+            apiCardData = result; // Assign the result to the public field
+            onCompleted?.Invoke(); // Invoke the callback only after assignment
         }
     }
-    onCompleted?.Invoke();
 }
+
 }

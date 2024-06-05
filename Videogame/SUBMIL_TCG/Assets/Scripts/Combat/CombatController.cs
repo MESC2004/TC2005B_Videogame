@@ -14,10 +14,10 @@ public class CombatController : MonoBehaviour
 
     public string apiCardData = @"";
 
-    [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
+    public List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
 
     public List<int> playerDiscard = new List<int>();
-    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7};
+    public List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7};
 
     public List<int> enemyDiscard = new List<int>();
     
@@ -42,7 +42,6 @@ public class CombatController : MonoBehaviour
         Transform PlayerPanelParent;
         Transform EnemyPanelParent;
 
-        // Json data into object
         // Json data into object
         cardsObject = JsonUtility.FromJson<Cards>(apiCardData);
         if (cardsObject == null){
@@ -90,7 +89,6 @@ public class CombatController : MonoBehaviour
             // Remove card in position i from the deck
             playerDeck.RemoveAt(0);
             enemyDeck.RemoveAt(0);
-            
         } 
     } 
 
@@ -100,10 +98,11 @@ public class CombatController : MonoBehaviour
     WonPanel.SetActive(false);
 
     LoadPlayerDeck();
-    APIConnection apiConnection = GetComponent<APIConnection>();
-    apiConnection.GetData(prepareIdentityCards); // Pass prepareIdentityCards as the callback
+
+    APIConnectionCombat apiConnectionCombat = GetComponent<APIConnectionCombat>();
+    apiConnectionCombat.GetData(prepareIdentityCards); // Pass prepareIdentityCards as the callback
     TurnSequence("Swap");
-    playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+    //playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
 }
 
     // Update is called once per frame
@@ -148,6 +147,7 @@ public class CombatController : MonoBehaviour
                 playerDeck = wrapper.cards.Select(card => card.Card_ID).ToList();
             }
         }
+        Debug.Log("Player Deck: " + string.Join(", ", playerDeck));
     }
 
     public void SetData(GameObject newCard, CardData singleCardData)
@@ -161,7 +161,7 @@ public class CombatController : MonoBehaviour
         cardscript.cardData.Name = singleCardData.Name;
         cardscript.cardData.HP = singleCardData.HP;
         cardscript.cardData.Speed = singleCardData.Speed;
-        cardscript.cardData.SpeedCost = singleCardData.SpeedCost;
+        cardscript.cardData.Speed_Cost = singleCardData.Speed_Cost;
         cardscript.cardData.Atk = singleCardData.Atk;
         cardscript.cardData.Def = singleCardData.Def;
         cardscript.cardData.Passive = singleCardData.Passive;
@@ -191,14 +191,14 @@ public class CombatController : MonoBehaviour
                 break;
             case 2:
                 // Attack Card
-                // Set top value to SpeedCost and bottom value to Atk
-                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
+                // Set top value to Speed_Cost and bottom value to Atk
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Speed_Cost.ToString();
                 newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Atk.ToString();
                 break;
             case 3:
                 // Defense Card
-                // Set top value to SpeedCost and bottom value to Def
-                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
+                // Set top value to Speed_Cost and bottom value to Def
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Speed_Cost.ToString();
                 newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Def.ToString();
                 break;
             case 4:
@@ -504,7 +504,7 @@ public class CombatController : MonoBehaviour
         foreach (int cardID in enemyHand)
         {
             CardData cardData = cardsObject.cards.Find(card => card.Card_ID == cardID);
-            if (cardData.SpeedCost <= enemyTopCard.GetComponent<CardScript>().cardData.Speed)
+            if (cardData.Speed_Cost <= enemyTopCard.GetComponent<CardScript>().cardData.Speed)
             {
                 // check for type 5 cards, play those first
                 // check if there are any type 2 or 3 cards, if not, end turn
@@ -523,7 +523,7 @@ public class CombatController : MonoBehaviour
                 newCard.transform.SetSiblingIndex(1);
 
                 // Substract speed cost to speed of the top card
-                enemyTopCard.GetComponent<CardScript>().cardData.Speed -= cardData.SpeedCost;
+                enemyTopCard.GetComponent<CardScript>().cardData.Speed -= cardData.Speed_Cost;
                 enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
                 // Check if the player defense is higher than the enemy attack
@@ -652,7 +652,7 @@ public class CombatController : MonoBehaviour
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
 
         // Check if speed cost is less than speed of the top card
-        if (clickedCard.GetComponent<CardScript>().cardData.SpeedCost > topCard.GetComponent<CardScript>().cardData.Speed) {
+        if (clickedCard.GetComponent<CardScript>().cardData.Speed_Cost > topCard.GetComponent<CardScript>().cardData.Speed) {
             Debug.Log("Not enough speed");
             return;
         }
@@ -665,7 +665,7 @@ public class CombatController : MonoBehaviour
         clickedCard.GetComponent<Button>().interactable = false;
 
         // Substract speed cost to speed of the top card
-        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.SpeedCost;
+        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.Speed_Cost;
         topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
         // Add attack to the top card
@@ -683,7 +683,7 @@ public class CombatController : MonoBehaviour
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
 
         // Check if speed cost is less than speed of the top card
-        if (clickedCard.GetComponent<CardScript>().cardData.SpeedCost > topCard.GetComponent<CardScript>().cardData.Speed) {
+        if (clickedCard.GetComponent<CardScript>().cardData.Speed_Cost > topCard.GetComponent<CardScript>().cardData.Speed) {
             Debug.Log("Not enough speed");
             return;
         }
@@ -696,7 +696,7 @@ public class CombatController : MonoBehaviour
         clickedCard.GetComponent<Button>().interactable = false;
 
         // Substract speed cost to speed of the top card
-        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.SpeedCost;
+        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.Speed_Cost;
         topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
         // Add defense to the top card

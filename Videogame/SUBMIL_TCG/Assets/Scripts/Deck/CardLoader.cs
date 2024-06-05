@@ -10,20 +10,59 @@ public class CardLoader : MonoBehaviour
 {
     public GameObject CardButtonPrefab;
     public Transform content;
-    public Cards cardsObject = new Cards();
+    public Cards cardsObject;
     public Sprite defaultCardImage;
 
-    public string apiCardData; 
+    public string apiCardData = @"";
+
+    private bool isDataLoaded = false;
+
+    // Start is called before the first frame update
     void Start()
+{
+    APIConnectionDeck apiConnectionDeck = GetComponent<APIConnectionDeck>();
+    if (apiConnectionDeck != null)
     {
-        cardsObject = JsonUtility.FromJson<Cards>(apiCardData);
-
-        if (cardsObject == null || cardsObject.cards == null)
+        apiConnectionDeck.GetData(() =>
         {
-            Debug.LogError("Failed to load cards data.");
-            return;
-        }
+            // This code will run after the data is fetched
+            if (!string.IsNullOrEmpty(apiConnectionDeck.apiCardData))
+            {
+                cardsObject = JsonUtility.FromJson<Cards>(apiConnectionDeck.apiCardData);
+                if (cardsObject != null && cardsObject.cards != null)
+                {
+                    LoadCards(); // Now LoadCards is called here
+                }
+                else
+                {
+                    Debug.LogError("Failed to load cards data.");
+                }
+            }
+            else
+            {
+                Debug.LogError("apiCardData is null or empty.");
+            }
+        });
+    }
+    else
+    {
+        Debug.LogError("APIConnectionDeck component not found.");
+    }
+}
 
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (isDataLoaded)
+        {
+            LoadCards();
+            isDataLoaded = false; // Prevents LoadCards from being called again
+        }
+    }
+
+    private void LoadCards()
+    {
         foreach (CardData card in cardsObject.cards)
         {
             GameObject newCard = Instantiate(CardButtonPrefab, content);
@@ -47,29 +86,15 @@ public class CardLoader : MonoBehaviour
             {
                 if (textComponent.name == "HP")
                 {
-                    if (card.Card_ID == 7 || card.Card_ID == 8 || card.Card_ID == 9)
-                    {
-                        textComponent.text = card.Atk > 0 ? card.Atk.ToString() : "";
-                    }
-                    else if (card.Card_ID == 10 || card.Card_ID == 11 || card.Card_ID == 12)
-                    {
-                        textComponent.text = card.Def > 0 ? card.Def.ToString() : "";
-                    }
-                    else
-                    {
-                        textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
-                    }
+                    textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
                 }
                 else if (textComponent.name == "Speed")
                 {
-                    if (card.Card_ID == 7 || card.Card_ID == 8 || card.Card_ID == 9 || card.Card_ID == 10 || card.Card_ID == 11 || card.Card_ID == 12)
-                    {
-                        textComponent.text = card.SpeedCost > 0 ? card.SpeedCost.ToString() : "";
-                    }
-                    else
-                    {
-                        textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
-                    }
+                    textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
+                }
+                else if (textComponent.name == "Card_ID")
+                {
+                    textComponent.text = card.Card_ID > 0 ? card.Card_ID.ToString() : "";
                 }
                 else
                 {
