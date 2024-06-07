@@ -288,11 +288,11 @@ _(example)_
 
 ### **Style Attributes**
 
-What kinds of colors will you be using? Do you have a limited palette to work with? A post-processed HSV map/image? Consistency is key for immersion.
+The color palette will be mostly dark desaturated colors, at the exception of some special colors such as the circles where the card statistics will be. The style will be based of the style of Limbus Company, repurposing some of the game's assets into our game to fit as cards.
 
-What kind of graphic style are you going for? Cartoony? Pixel-y? Cute? How, specifically? Solid, thick outlines with flat hues? Non-black outlines with limited tints/shades? Emphasize smooth curvatures over sharp angles? Describe a set of general rules depicting your style here.
+The graphic style we aim for is very dark, with desaturated colors, but not too realistic either. Papercut would be a good way to describe it, with sharp edges and thick art elements, as well as flat hues.
 
-Well-designed feedback, both good (e.g. leveling up) and bad (e.g. being hit), are great for teaching the player how to play through trial and error, instead of scripting a lengthy tutorial. What kind of visual feedback are you going to use to let the player know they&#39;re interacting with something? That they \*can\* interact with something?
+The visual feedback will mostlmostly come from stat umber changes in the cards, such as speed depletion, HP loss, and a display of the front ard's current stats efore ending the turn. The phases will not be indicated by darkening the clickable cards, except for the deck. The rest will most likely havhave either a text next to the front card indicating the current phase, or a message that pops up at the beginning of each phase and turn.
 
 ### **Graphics Needed**
 
