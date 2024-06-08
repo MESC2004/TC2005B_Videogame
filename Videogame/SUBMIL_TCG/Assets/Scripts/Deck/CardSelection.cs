@@ -100,7 +100,7 @@ public class CardSelection : MonoBehaviour
                 {
                     if (card.Card_ID == 7 || card.Card_ID == 8 || card.Card_ID == 9 || card.Card_ID == 10 || card.Card_ID == 11 || card.Card_ID == 12)
                     {
-                        textComponent.text = card.SpeedCost > 0 ? card.SpeedCost.ToString() : "";
+                        textComponent.text = card.Speed_Cost > 0 ? card.Speed_Cost.ToString() : "";
                     }
                     else
                     {

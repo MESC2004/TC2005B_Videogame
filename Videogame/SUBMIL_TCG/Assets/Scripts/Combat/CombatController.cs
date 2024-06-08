@@ -12,204 +12,12 @@ using System.Linq;
 public class CombatController : MonoBehaviour
 {
 
-    string apiCardData = @"{
-        ""cards"": 
-        [
-            {
-            ""Card_ID"": 1,
-            ""Type_ID"": 1,
-            ""Name"": ""Heathcliff"",
-            ""HP"": 20,
-            ""Speed"": 1,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""Pierce Cards have 50% less effect""
-            },
-            {
-            ""Card_ID"": 2,
-            ""Type_ID"": 1,
-            ""Name"": ""Faust"",
-            ""HP"": 15,
-            ""Speed"": 2,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""If an attack boost card is used, heal 50% of damage dealt""
-            },
-            {
-            ""Card_ID"": 3,
-            ""Type_ID"": 1,
-            ""Name"": ""Don Quixote"",
-            ""HP"": 10,
-            ""Speed"": 3,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""If a pierce card is used, pierce the defense 50% more""
-            },
-            {
-            ""Card_ID"": 4,
-            ""Type_ID"": 1,
-            ""Name"": ""Ishmael"",
-            ""HP"": 20,
-            ""Speed"": 1,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""Healing cards heal 25% more""
-            },
-            {
-            ""Card_ID"": 5,
-            ""Type_ID"": 1,
-            ""Name"": ""Outis"",
-            ""HP"": 15,
-            ""Speed"": 2,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""Attack cards cost 1 more speed (Except weak punch)""
-            },
-            {
-            ""Card_ID"": 6,
-            ""Type_ID"": 1,
-            ""Name"": ""Yi Sang"",
-            ""HP"": 10,
-            ""Speed"": 3,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""Ego weapons increase 50% more damage""
-            },
-            {
-            ""Card_ID"": 7,
-            ""Type_ID"": 2,
-            ""Name"": ""Opportunistic Slash"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 3,
-            ""Atk"": 7,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 8,
-            ""Type_ID"": 2,
-            ""Name"": ""Blunt Hit"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 2,
-            ""Atk"": 4,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 9,
-            ""Type_ID"": 2,
-            ""Name"": ""Weak Punch"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 1,
-            ""Atk"": 2,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 10,
-            ""Type_ID"": 3,
-            ""Name"": ""Strong Block"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 3,
-            ""Atk"": 0,
-            ""Def"": 10,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 11,
-            ""Type_ID"": 3,
-            ""Name"": ""Shield"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 2,
-            ""Atk"": 0,
-            ""Def"": 5,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 12,
-            ""Type_ID"": 3,
-            ""Name"": ""Arm Block"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 1,
-            ""Atk"": 0,
-            ""Def"": 3,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 13,
-            ""Type_ID"": 4,
-            ""Name"": ""Ego Armor"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 3,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 14,
-            ""Type_ID"": 4,
-            ""Name"": ""Ego Weapon"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 2,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 15,
-            ""Type_ID"": 4,
-            ""Name"": ""Ego Needle"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": -4,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 16,
-            ""Type_ID"": 4,
-            ""Name"": ""Healing Ampule"",
-            ""HP"": 4,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            },
-            {
-            ""Card_ID"": 17,
-            ""Type_ID"": 5,
-            ""Name"": ""Ego Claw"",
-            ""HP"": 0,
-            ""Speed"": 0,
-            ""SpeedCost"": 0,
-            ""Atk"": 0,
-            ""Def"": 0,
-            ""Passive"": ""N/A""
-            }
-        ]
-    }";
+    public string apiCardData = @"";
 
-
-    [SerializeField] List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
+    public List<int> playerDeck = new List<int>(); /*{1, 2, 3, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8}*/
 
     public List<int> playerDiscard = new List<int>();
-    [SerializeField] List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7};
+    public List<int> enemyDeck = new List<int>() {4, 5, 6, 7, 8, 8, 8, 10, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7};
 
     public List<int> enemyDiscard = new List<int>();
     
@@ -226,7 +34,7 @@ public class CombatController : MonoBehaviour
     public GameObject LosePanel;
     public GameObject WonPanel;
 
-    void prepareIdentityCards()
+    public void prepareIdentityCards()
     {
         // Instatiates first 3 cards of the player's deck on the appropriate panels
 
@@ -236,6 +44,16 @@ public class CombatController : MonoBehaviour
 
         // Json data into object
         cardsObject = JsonUtility.FromJson<Cards>(apiCardData);
+        if (cardsObject == null){
+            Debug.LogError("cardsObject is null!");
+            //return; // Exit the method to prevent further null reference errors
+            }
+        else if (cardsObject.cards == null){
+            Debug.LogError("cardsObject.cards is null!");
+            return; // Exit the method to prevent further null reference errors
+        }
+        //Debug.Log("Cards Object: " + cardsObject);
+
 
         // Loop through cards in the deck (probably first 3 (identity cards))
         for (int i = 0; i < 3; i++) {
@@ -271,28 +89,28 @@ public class CombatController : MonoBehaviour
             // Remove card in position i from the deck
             playerDeck.RemoveAt(0);
             enemyDeck.RemoveAt(0);
-            
         } 
     } 
 
     void Start()
-    {
+{
+    LosePanel.SetActive(false);
+    WonPanel.SetActive(false);
 
-        LosePanel.SetActive(false);
-        WonPanel.SetActive(false);
-        
-        LoadPlayerDeck();
-        prepareIdentityCards();
-        TurnSequence("Swap");
-        // Randomize the rest of the playerDeck list
-        playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+    LoadPlayerDeck();
 
-    }
+    APIConnectionCombat apiConnectionCombat = GetComponent<APIConnectionCombat>();
+    apiConnectionCombat.GetData(prepareIdentityCards); // Pass prepareIdentityCards as the callback
+    TurnSequence("Swap");
+    //playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
+}
 
     // Update is called once per frame
     void Update()
+{
+    // Check if there are enough children before trying to access them
+    if (PlayerPanelTop.childCount > 0 && PlayerPanelBottom.childCount > 1)
     {
-
         // If two of the player's identity cards are dead, end the game
         if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
             && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
@@ -303,15 +121,22 @@ public class CombatController : MonoBehaviour
             Debug.Log("Player has lost");
             Lose();
         }
+    }
 
+    // Similar check for enemy's identity cards
+    if (EnemyPanelTop.childCount > 0 && EnemyPanelBottom.childCount > 1)
+    {
         // If two of the enemy's identity cards are dead, end the game
-        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 | EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) | EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 && EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 &&
+            (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 ||
+             EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0))
         {
             Debug.Log("Player has won");
             Win();
         }
-
     }
+}
+
 
     void LoadPlayerDeck()
     {
@@ -324,6 +149,7 @@ public class CombatController : MonoBehaviour
                 playerDeck = wrapper.cards.Select(card => card.Card_ID).ToList();
             }
         }
+        Debug.Log("Player Deck: " + string.Join(", ", playerDeck));
     }
 
     public void SetData(GameObject newCard, CardData singleCardData)
@@ -337,7 +163,7 @@ public class CombatController : MonoBehaviour
         cardscript.cardData.Name = singleCardData.Name;
         cardscript.cardData.HP = singleCardData.HP;
         cardscript.cardData.Speed = singleCardData.Speed;
-        cardscript.cardData.SpeedCost = singleCardData.SpeedCost;
+        cardscript.cardData.Speed_Cost = singleCardData.Speed_Cost;
         cardscript.cardData.Atk = singleCardData.Atk;
         cardscript.cardData.Def = singleCardData.Def;
         cardscript.cardData.Passive = singleCardData.Passive;
@@ -367,14 +193,14 @@ public class CombatController : MonoBehaviour
                 break;
             case 2:
                 // Attack Card
-                // Set top value to SpeedCost and bottom value to Atk
-                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
+                // Set top value to Speed_Cost and bottom value to Atk
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Speed_Cost.ToString();
                 newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Atk.ToString();
                 break;
             case 3:
                 // Defense Card
-                // Set top value to SpeedCost and bottom value to Def
-                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.SpeedCost.ToString();
+                // Set top value to Speed_Cost and bottom value to Def
+                newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Speed_Cost.ToString();
                 newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardscript.cardData.Def.ToString();
                 break;
             case 4:
@@ -680,7 +506,7 @@ public class CombatController : MonoBehaviour
         foreach (int cardID in enemyHand)
         {
             CardData cardData = cardsObject.cards.Find(card => card.Card_ID == cardID);
-            if (cardData.SpeedCost <= enemyTopCard.GetComponent<CardScript>().cardData.Speed)
+            if (cardData.Speed_Cost <= enemyTopCard.GetComponent<CardScript>().cardData.Speed)
             {
                 // check for type 5 cards, play those first
                 // check if there are any type 2 or 3 cards, if not, end turn
@@ -699,7 +525,7 @@ public class CombatController : MonoBehaviour
                 newCard.transform.SetSiblingIndex(1);
 
                 // Substract speed cost to speed of the top card
-                enemyTopCard.GetComponent<CardScript>().cardData.Speed -= cardData.SpeedCost;
+                enemyTopCard.GetComponent<CardScript>().cardData.Speed -= cardData.Speed_Cost;
                 enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
                 // Check if the player defense is higher than the enemy attack
@@ -828,7 +654,7 @@ public class CombatController : MonoBehaviour
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
 
         // Check if speed cost is less than speed of the top card
-        if (clickedCard.GetComponent<CardScript>().cardData.SpeedCost > topCard.GetComponent<CardScript>().cardData.Speed) {
+        if (clickedCard.GetComponent<CardScript>().cardData.Speed_Cost > topCard.GetComponent<CardScript>().cardData.Speed) {
             Debug.Log("Not enough speed");
             return;
         }
@@ -841,7 +667,7 @@ public class CombatController : MonoBehaviour
         clickedCard.GetComponent<Button>().interactable = false;
 
         // Substract speed cost to speed of the top card
-        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.SpeedCost;
+        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.Speed_Cost;
         topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
         // Add attack to the top card
@@ -859,7 +685,7 @@ public class CombatController : MonoBehaviour
         GameObject topCard = PlayerPanelTop.GetChild(0).gameObject;
 
         // Check if speed cost is less than speed of the top card
-        if (clickedCard.GetComponent<CardScript>().cardData.SpeedCost > topCard.GetComponent<CardScript>().cardData.Speed) {
+        if (clickedCard.GetComponent<CardScript>().cardData.Speed_Cost > topCard.GetComponent<CardScript>().cardData.Speed) {
             Debug.Log("Not enough speed");
             return;
         }
@@ -872,7 +698,7 @@ public class CombatController : MonoBehaviour
         clickedCard.GetComponent<Button>().interactable = false;
 
         // Substract speed cost to speed of the top card
-        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.SpeedCost;
+        topCard.GetComponent<CardScript>().cardData.Speed -= clickedCard.GetComponent<CardScript>().cardData.Speed_Cost;
         topCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = topCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
         // Add defense to the top card
