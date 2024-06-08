@@ -14,7 +14,7 @@ public class CardData
     [SerializeField] public string Name;
     [SerializeField] public int HP;
     [SerializeField] public int Speed;
-    [SerializeField] public int SpeedCost;
+    [SerializeField] public int Speed_Cost;
     [SerializeField] public int Atk;
     [SerializeField] public int Def;
     [SerializeField] public string Passive;
