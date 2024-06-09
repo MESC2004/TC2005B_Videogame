@@ -14,6 +14,8 @@ public class LoginManager : MonoBehaviour
     public string nextSceneName; // The name of the scene to load after successful login
 
     private ArrayList credentials;
+    [SerializeField] private GameObject CredentialsPanel; // [SerializeField] allows private variables to be shown in the Inspector
+    [SerializeField] private GameObject TitlePanel;
 
     void Start()
     {
@@ -36,7 +38,11 @@ public class LoginManager : MonoBehaviour
 
         if (IsLoginValid(enteredUsername, enteredPassword))
         {
-            SceneChanger.GoTo(nextSceneName);
+            //SceneChanger.GoTo(nextSceneName);
+            // Disable Credentials panel
+            CredentialsPanel.SetActive(false);
+            // Enable TitlePanel panel
+            TitlePanel.SetActive(true);
         }
         else
         {
