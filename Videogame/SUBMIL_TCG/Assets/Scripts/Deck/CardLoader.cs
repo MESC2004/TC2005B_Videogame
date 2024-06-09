@@ -81,26 +81,37 @@ public class CardLoader : MonoBehaviour
                 cardComponent.SetCardImage(defaultCardImage);
             }
 
-            TextMeshProUGUI[] textComponents = newCard.GetComponentsInChildren<TextMeshProUGUI>();
-            foreach (var textComponent in textComponents)
+            // Assign tmp values according to card Type_ID (Miguel Soria)
+            switch (card.Type_ID)
             {
-                if (textComponent.name == "HP")
-                {
-                    textComponent.text = card.HP > 0 ? card.HP.ToString() : "";
-                }
-                else if (textComponent.name == "Speed")
-                {
-                    textComponent.text = card.Speed > 0 ? card.Speed.ToString() : "";
-                }
-                else if (textComponent.name == "Card_ID")
-                {
-                    textComponent.text = card.Card_ID > 0 ? card.Card_ID.ToString() : "";
-                }
-                else
-                {
-                    textComponent.text = "";
-                }
-            }
+                case 1:
+                    // Set first TMP of the object to Speed, second TMP to HP
+                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = card.Speed.ToString();
+                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = card.HP.ToString();
+                    
+                    break;
+                case 2:
+                    // Set the first TMP to Speed_Cost, second TMP to Attack
+                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = card.Speed_Cost.ToString();
+                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = card.Atk.ToString();
+                    
+                    break;
+                case 3:
+                    // First tmp = Speed_Cost, second TMP = Def
+                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = card.Speed_Cost.ToString();
+                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = card.Def.ToString();
+                    break;
+                case 4:
+                    // Both TMPS empty string
+                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                    break;
+                case 5:
+                    // both TMPS empty string
+                    newCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                    newCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                    break;
+            } 
 
             Button cardButton = newCard.GetComponent<Button>();
             cardButton.onClick.RemoveAllListeners();
