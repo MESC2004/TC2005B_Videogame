@@ -27,6 +27,7 @@ async function connectToDB() {
     user: "TC2005B",
     password: "Password123",
     database: "submil",
+    port: 3307,
   });
 }
 
