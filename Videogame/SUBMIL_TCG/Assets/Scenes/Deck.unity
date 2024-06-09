@@ -419,10 +419,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1988509728}
-    - targetCorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1988509727}
+      addedObject: {fileID: 1988509724}
   m_SourcePrefab: {fileID: 100100000, guid: a02d3d215f0580740ba96780497ac451, type: 3}
 --- !u!224 &205873104 stripped
 RectTransform:
@@ -1364,8 +1361,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2068304271}
   m_HandleRect: {fileID: 2068304270}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.38385028
+  m_Value: 1.0000001
+  m_Size: 0.3838527
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1413,7 +1410,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
   m_PrefabInstance: {fileID: 1225538420}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &966334644
+--- !u!114 &966334643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1422,63 +1419,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 966334642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b524a005d5f46a41887c78fc70cb983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 966334645}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Hover4
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 966334645}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Exit4
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!95 &966334645
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966334642}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 975f28355aadbb4488a90723e5e00fb8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  moveAmount: 10
 --- !u!1 &1010557644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,10 +1744,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 966334645}
-    - targetCorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 966334644}
+      addedObject: {fileID: 966334643}
   m_SourcePrefab: {fileID: 100100000, guid: a02d3d215f0580740ba96780497ac451, type: 3}
 --- !u!1 &1288457375
 GameObject:
@@ -2170,7 +2111,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
   m_PrefabInstance: {fileID: 205873103}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1988509727
+--- !u!114 &1988509724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2179,63 +2120,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1988509723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b524a005d5f46a41887c78fc70cb983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1988509728}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Hover5
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1988509728}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Exit5
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!95 &1988509728
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988509723}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 34a8974b9980c7d41b7acb59b14a8c2d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  moveAmount: 10
 --- !u!1 &2001190267
 GameObject:
   m_ObjectHideFlags: 0
