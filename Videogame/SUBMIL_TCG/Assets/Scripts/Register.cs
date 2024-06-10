@@ -13,7 +13,7 @@ public class Register : MonoBehaviour
 {
     public InputField usernameInput;
     public InputField passwordInput;
-    public string registerEndpoint = "http://localhost:5000/api/register"; // Update if hosted elsewhere
+    public string registerEndpoint = "http://localhost:5000/api/register"; 
     public string loginSceneName;
 
     public void OnRegisterButtonPressed()
@@ -44,6 +44,7 @@ public class Register : MonoBehaviour
         if (www.result == UnityWebRequest.Result.Success)
         {
             // Handle successful registration (e.g., save user data, load login scene)
+            Debug.Log("Registration successful");
             SceneChanger.GoTo(loginSceneName);
         }
         else

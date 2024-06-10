@@ -32,7 +32,8 @@ INSERT INTO Card (Type_ID, Name, Description) VALUES
 
 INSERT INTO Player (Deck_ID, Name, Registration_Date, Password, IsNPC) VALUES
 (1, 'Fabrizio', NOW(), 'password1', FALSE),
-(2, 'Miguel', NOW(), 'password2', FALSE);
+(2, 'Miguel', NOW(), 'password2', FALSE),
+(2, 'Cyber', NOW(), 'password3', FALSE);
 
 INSERT INTO Match_ (Player1_ID, Player2_ID, Winner_ID, Total_Turns) VALUES
 (1, 2, 1, 15),
