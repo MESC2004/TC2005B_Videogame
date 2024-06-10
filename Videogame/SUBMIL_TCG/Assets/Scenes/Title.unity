@@ -1259,9 +1259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usernameInput: {fileID: 1806152802}
   passwordInput: {fileID: 1890827400}
-  nextSceneName: Title
-  CredentialsPanel: {fileID: 1077734183}
-  TitlePanel: {fileID: 879216972}
+  loginEndpoint: http://localhost:5000/api/login
+  nextSceneName: Combat
 --- !u!1 &1229317054 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
