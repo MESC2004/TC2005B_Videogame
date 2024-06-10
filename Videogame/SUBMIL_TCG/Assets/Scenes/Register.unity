@@ -167,6 +167,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &174503566
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 174503568}
+  - component: {fileID: 174503567}
+  m_Layer: 0
+  m_Name: RegisterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &174503567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174503566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cea53ebc80aeaf4583945fe5bd60353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usernameInput: {fileID: 1915828802}
+  passwordInput: {fileID: 3384813276233346365}
+  registerEndpoint: http://localhost:5000/api/register
+  loginSceneName: Title
+--- !u!4 &174503568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174503566}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,19 +460,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 34660949}
+      objectReference: {fileID: 174503567}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GoTo
+      value: OnRegisterButtonPressed
       objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneChanger, Assembly-CSharp
+      value: Register, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -527,17 +575,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
   m_PrefabInstance: {fileID: 1379340816}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1379340818 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
-  m_PrefabInstance: {fileID: 1379340816}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1203231726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1379340820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1132,8 +1169,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usernameInput: {fileID: 1915828802}
   passwordInput: {fileID: 3384813276233346365}
-  registerButton: {fileID: 1379340818}
-  goToLoginButton: {fileID: 0}
+  registerEndpoint: http://localhost:5000/api/register
+  loginSceneName: 
 --- !u!1001 &3384813276233346363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1287,3 +1324,4 @@ SceneRoots:
   - {fileID: 1957243259}
   - {fileID: 1083397279}
   - {fileID: 34660950}
+  - {fileID: 174503568}
