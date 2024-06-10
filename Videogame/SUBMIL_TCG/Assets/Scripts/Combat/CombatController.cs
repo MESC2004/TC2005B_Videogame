@@ -338,7 +338,7 @@ public class CombatController : MonoBehaviour
         */
 
         // Delete middle card if there are 3 cards
-        if (HandPanel.childCount == 3)
+        if (PlayerPanelBottom.childCount == 3)
         {
             StartCoroutine(DestroyTrue(HandPanel.GetChild(1).gameObject));
         }
@@ -363,6 +363,8 @@ public class CombatController : MonoBehaviour
                 // Swap parents
                 PlayerPanelTop.GetChild(0).transform.SetParent(bottomCardParent);
                 PlayerPanelBottom.GetChild(0).transform.SetParent(topCardParent);
+                // Go to next phase
+                TurnSequence("Draw");
             }
             else {
             // Allow for swapping of identity cards
@@ -427,6 +429,12 @@ public class CombatController : MonoBehaviour
             // Go to enemy logic
             EnemyTurn();
         }
+    }
+
+    public void EndTurnButtonClick()
+    {
+        // Call the turn sequence function with the "End" phase
+        TurnSequence("End");
     }
 
     public void Lose() 
@@ -785,6 +793,8 @@ private IEnumerator SwapEnemyCards(GameObject enemyTopCard) {
         CardData clickedCardData = clickedCard.GetComponent<CardScript>().cardData;
 
         topCardData.HP += clickedCardData.HP;
+        // Update TMP HP
+        topCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = topCardData.HP.ToString();
         topCardData.Atk += clickedCardData.Atk;
         topCardData.Def += clickedCardData.Def;
 
