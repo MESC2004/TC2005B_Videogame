@@ -431,8 +431,6 @@ public class CombatController : MonoBehaviour
         {
             enemyDeck.AddRange(enemyDiscard);
             enemyDiscard.Clear();
-            // Randomize the deck list
-            enemyDeck = enemyDeck.OrderBy(x => Random.value).ToList();
         }
     }
     
@@ -445,6 +443,8 @@ public class CombatController : MonoBehaviour
 
         // Draw 3 cards for the enemy non visually if deck has more than 3, if not, add discard pile to deck and scramble
         CheckEnemyDeck();
+        // Randomize deck
+        enemyDeck = enemyDeck.OrderBy(x => Random.value).ToList();
         for (int i = 0; i < 3; i++)
         {
             enemyHand.Add(enemyDeck[0]);
@@ -465,6 +465,8 @@ public class CombatController : MonoBehaviour
             enemyDiscard.Add(17);
             // Remove from hand
             enemyHand.Remove(17);
+            // Add to discard pile
+            enemyDiscard.Add(17);
 
             // Add 2 cards to the enemy hand
             for (int i = 0; i < 2; i++)
