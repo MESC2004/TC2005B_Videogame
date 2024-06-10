@@ -225,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EnemyTurn
+      value: EndTurnButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 4895291646037584330, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -2525,11 +2525,11 @@ RectTransform:
   - {fileID: 730185401}
   - {fileID: 1261532677}
   - {fileID: 1313375871}
+  - {fileID: 55488539}
   - {fileID: 1966776941}
   - {fileID: 1120981896}
   - {fileID: 1490909314}
   - {fileID: 165584186}
-  - {fileID: 55488539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

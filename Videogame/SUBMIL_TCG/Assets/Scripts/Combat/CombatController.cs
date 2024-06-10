@@ -107,7 +107,6 @@ public class CombatController : MonoBehaviour
     APIConnectionCombat apiConnectionCombat = GetComponent<APIConnectionCombat>();
     apiConnectionCombat.GetData(prepareIdentityCards); // Pass prepareIdentityCards as the callback
     TurnSequence("Swap");
-    //playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
 }
 
     // Update is called once per frame
@@ -339,7 +338,7 @@ public class CombatController : MonoBehaviour
         */
 
         // Delete middle card if there are 3 cards
-        if (HandPanel.childCount == 3)
+        if (PlayerPanelBottom.childCount == 3)
         {
             StartCoroutine(DestroyTrue(HandPanel.GetChild(1).gameObject));
         }
@@ -354,8 +353,23 @@ public class CombatController : MonoBehaviour
 
         if (phase == "Swap")
         {
+            // if top card is dead, manually swap with a card in the bottom panel, not using swap coz its bugged
+            if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0)
+            {
+                // Store parent transforms
+                Transform topCardParent = PlayerPanelTop;
+                Transform bottomCardParent = PlayerPanelBottom;
+
+                // Swap parents
+                PlayerPanelTop.GetChild(0).transform.SetParent(bottomCardParent);
+                PlayerPanelBottom.GetChild(0).transform.SetParent(topCardParent);
+                // Go to next phase
+                TurnSequence("Draw");
+            }
+            else {
             // Allow for swapping of identity cards
             AllowIdentityCardClick();
+            }
         }
         else if (phase == "Draw")
         {
@@ -417,6 +431,12 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    public void EndTurnButtonClick()
+    {
+        // Call the turn sequence function with the "End" phase
+        TurnSequence("End");
+    }
+
     public void Lose() 
     {
             LosePanel.SetActive(true);  // Shows Lose Screen
@@ -442,8 +462,9 @@ public class CombatController : MonoBehaviour
     }
     
     public void EnemyTurn() {
+    // For managing timings, called as a coroutine, also convenient for the transition from PlayerTurn to EnemyTurn
     StartCoroutine(EnemyTurnRoutine());
-}
+    }
 
 private IEnumerator EnemyTurnRoutine() {
     // AI TODO
@@ -476,31 +497,64 @@ private IEnumerator EnemyTurnRoutine() {
     }
 
     // Check for type 2 cards and play attack boost (Card_ID 14) cards, then play the attack card
-    if (enemyHand.Contains(2)) {
-        // Play attack boost card
-        if (enemyHand.Contains(14)) {
-            yield return StartCoroutine(InstantiateAndHandleCard(14));
-        }
+    // if (enemyHand.Contains(7) || enemyHand.Contains(8) || enemyHand.Contains(9)) {
+    //     // Play attack boost card
+    //     if (enemyHand.Contains(14)) {
+    //         yield return StartCoroutine(InstantiateAndHandleCard(14));
+    //     }
 
         // Play attack card
         foreach (int cardID in enemyHand) {
             if (cardsObject.cards.Find(card => card.Card_ID == cardID).Type_ID == 2) {
+                // Ckeck for attack boost cards (ID 14)
+                if (enemyHand.Contains(14)) {
+                    yield return StartCoroutine(InstantiateAndHandleCard(14));
+                }
                 // Play the attack card and then break to avoid playing multiple attack cards
-                yield return StartCoroutine(InstantiateAndHandleCard(cardID));
+                yield return StartCoroutine(InstantiateAndHandleCard(cardID));  
+                // Go to player turn
                 TurnSequence("Swap");
-                yield break; // Exit the coroutine after playing the attack card
+                yield break;
             }
         }
+
+    
+    // } else {
+    //     // If there are no attack cards, play the card with the lowest speed cost
+    //     yield return StartCoroutine(InstantiateAndHandleCard(enemyHand[0]));
+    //     TurnSequence("Swap");
+    // }
+}
+
+private void applyEnemyDamage() {
+    // Applies the attack of the enemy top card to the player top card's HP, updates TMPs. Resets attack to 0
+    GameObject enemyTopCard = EnemyPanelTop.GetChild(0).gameObject;
+    GameObject playerTopCard = PlayerPanelTop.GetChild(0).gameObject;
+
+    // Check if the player defense is higher than the enemy attack
+    if (enemyTopCard.GetComponent<CardScript>().cardData.Atk < playerTopCard.GetComponent<CardScript>().cardData.Def) {
+        // If the player defense is higher, substract the difference from the player defense
+        playerTopCard.GetComponent<CardScript>().cardData.Def -= enemyTopCard.GetComponent<CardScript>().cardData.Atk;
     } else {
-        // If there are no attack cards, play the card with the lowest speed cost
-        yield return StartCoroutine(InstantiateAndHandleCard(enemyHand[0]));
-        TurnSequence("Swap");
+        // If the enemy attack is higher, substract the difference from the player HP
+        playerTopCard.GetComponent<CardScript>().cardData.HP -= enemyTopCard.GetComponent<CardScript>().cardData.Atk - playerTopCard.GetComponent<CardScript>().cardData.Def;
+        // Update player TMP
+        playerTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = playerTopCard.GetComponent<CardScript>().cardData.HP.ToString();
+    }
+
+    // Check if the player card is dead, do not allow HP to fall below 0
+    if (playerTopCard.GetComponent<CardScript>().cardData.HP <= 0) {
+        // Not allow HP to be negative
+        playerTopCard.GetComponent<CardScript>().cardData.HP = 0;
+        playerTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = playerTopCard.GetComponent<CardScript>().cardData.HP.ToString();
     }
 }
 
 // Coroutine to instantiate and handle a card
 private IEnumerator InstantiateAndHandleCard(int cardID) {
     yield return StartCoroutine(instantiateEnemyCard(cardID));
+    // Deal Atk equal to the enemy top card Atk to the player top card
+    applyEnemyDamage();
     yield return StartCoroutine(DestroyEnemyCard());
 
     // Remove the card from the hand after it has been handled
@@ -512,7 +566,7 @@ private IEnumerator instantiateEnemyCard(int cardID) {
     // Find card data in cardsObject
     CardData singleCardData = cardsObject.cards.Find(card => card.Card_ID == cardID);
 
-    yield return new WaitForSeconds(2.0f);
+    yield return new WaitForSeconds(1.0f);
 
     // Instantiate card
     GameObject newCard = Instantiate(cardPrefab, EnemyPanelBottom);
@@ -525,6 +579,16 @@ private IEnumerator instantiateEnemyCard(int cardID) {
     enemyDiscard.Add(cardID);
 
     Debug.Log("Card Instantiated");
+
+    // Substract speed cost to speed of the top card
+    GameObject enemyTopCard = EnemyPanelTop.GetChild(0).gameObject;
+    enemyTopCard.GetComponent<CardScript>().cardData.Speed -= singleCardData.Speed_Cost;
+    enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
+
+    // Add Atk, Def, HP to the top enemy card
+    enemyTopCard.GetComponent<CardScript>().cardData.HP += singleCardData.HP;
+    enemyTopCard.GetComponent<CardScript>().cardData.Atk += singleCardData.Atk;
+    enemyTopCard.GetComponent<CardScript>().cardData.Def += singleCardData.Def;
 }
 
 // Coroutine to destroy the enemy card in the middle of the bottom panel
@@ -729,6 +793,8 @@ private IEnumerator SwapEnemyCards(GameObject enemyTopCard) {
         CardData clickedCardData = clickedCard.GetComponent<CardScript>().cardData;
 
         topCardData.HP += clickedCardData.HP;
+        // Update TMP HP
+        topCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = topCardData.HP.ToString();
         topCardData.Atk += clickedCardData.Atk;
         topCardData.Def += clickedCardData.Def;
 
