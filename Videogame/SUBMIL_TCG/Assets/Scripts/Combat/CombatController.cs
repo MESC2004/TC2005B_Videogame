@@ -94,52 +94,53 @@ public class CombatController : MonoBehaviour
 
         // Randomize both decks
         playerDeck = playerDeck.OrderBy(x => Random.value).ToList();
-        enemyDeck = enemyDeck.OrderBy(x => Random.value).ToList(); 
+        enemyDeck = enemyDeck.OrderBy(x => Random.value).ToList();
+        TurnSequence("Swap");
     } 
 
     void Start()
-{
-    LosePanel.SetActive(false);
-    WonPanel.SetActive(false);
+    {
+        LosePanel.SetActive(false);
+        WonPanel.SetActive(false);
 
-    LoadPlayerDeck();
+        LoadPlayerDeck();
 
-    APIConnectionCombat apiConnectionCombat = GetComponent<APIConnectionCombat>();
-    apiConnectionCombat.GetData(prepareIdentityCards); // Pass prepareIdentityCards as the callback
-    TurnSequence("Swap");
-}
+        APIConnectionCombat apiConnectionCombat = GetComponent<APIConnectionCombat>();
+        apiConnectionCombat.GetData(prepareIdentityCards); // Pass prepareIdentityCards as the callback
+        
+    }
 
     // Update is called once per frame
     void Update()
-{
-    // Check if there are enough children before trying to access them
-    if (PlayerPanelTop.childCount > 0 && PlayerPanelBottom.childCount > 1)
     {
-        // If two of the player's identity cards are dead, end the game
-        if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
-            && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
-            | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) 
-            | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
-            && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+        // Check if there are enough children before trying to access them
+        if (PlayerPanelTop.childCount > 0 && PlayerPanelBottom.childCount > 1)
         {
-            Debug.Log("Player has lost");
-            Lose();
+            // If two of the player's identity cards are dead, end the game
+            if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
+                && (PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
+                | PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0) 
+                | PlayerPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 
+                && PlayerPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0)
+            {
+                Debug.Log("Player has lost");
+                Lose();
+            }
         }
-    }
 
-    // Similar check for enemy's identity cards
-    if (EnemyPanelTop.childCount > 0 && EnemyPanelBottom.childCount > 1)
-    {
-        // If two of the enemy's identity cards are dead, end the game
-        if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 &&
-            (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 ||
-             EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0))
+        // Similar check for enemy's identity cards
+        if (EnemyPanelTop.childCount > 0 && EnemyPanelBottom.childCount > 1)
         {
-            Debug.Log("Player has won");
-            Win();
+            // If two of the enemy's identity cards are dead, end the game
+            if (EnemyPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 &&
+                (EnemyPanelBottom.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0 ||
+                EnemyPanelBottom.GetChild(1).GetComponent<CardScript>().cardData.HP <= 0))
+            {
+                Debug.Log("Player has won");
+                Win();
+            }
         }
     }
-}
 
 
     void LoadPlayerDeck()
