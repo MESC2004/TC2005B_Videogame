@@ -1,0 +1,180 @@
+* {
+    font-family:fantasy;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    /*background: var(--background);
+    display: grid;
+    place-items: center;
+    height: 100vh; */
+
+    background-color: #2e1830;
+
+    animation: backgroundChange 10s infinite;
+
+}
+
+.formato {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.Titulo {
+    background-color: #2e1830;
+    color: #dfcc54;
+    font-size: 100px;
+    margin-bottom: 50px;
+    margin-top: 150px;
+    text-align: center;
+}
+
+header {
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 10px;
+    background-color: #3e236a;
+
+    transition: background-color 0.3s;
+
+    h1 {
+        color:#dfcc54
+    }
+
+    nav {
+        display: flex;
+        gap: 15px;
+    }
+    
+    nav a {
+        text-decoration: none;
+        color: #e16040;
+    }
+
+    nav a:hover {
+        color: #dfcc54;
+        transition: color 0.3s;
+    }
+}
+
+#content {
+
+    border:solid #4136dc;
+    width: 50%;
+    height: 500px; 
+    color: white;
+    background-color: black;
+    text-align: center;
+
+    margin-left: 300px;
+    margin-top: 70px;
+}
+
+#description {
+
+    /*
+    h1 {
+        margin-left: 100px;
+        margin-right: 100px;
+    } 
+    */
+
+    p {
+        font-size: 20px;
+        margin-bottom: 50px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #dfcc54;
+    }
+
+    margin-top: 150px;
+    text-align: center;
+}
+
+#pie {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3e236a;
+
+    p{
+        color: #dfcc54;
+    }
+}
+
+/* Esta parte del codigo fue adaptada por nosotros de un trabajo del 
+usuario David Mraz encontrado en su instagram (davidm_ai) 
+y su repositorio (https://github.com/atherosai/ui?tab=readme-ov-file) */
+
+.gallery {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card img {
+    height: 10rem;
+    width: 7.4rem;
+    object-fit: cover;
+    border-radius: 0.25rem;
+}
+
+.card:not(:first-child) {
+    margin-left: -3rem;
+}
+
+.card:hover {
+    transform: translateY(-1rem);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.card:hover ~ .card {
+    left: 2rem;
+}
+
+.card {
+    position: relative;
+    left: 0;
+    width: 7.5rem;
+    height: 10rem;
+    background: var (--background-card);
+    border-radius: 0.5rem;
+    transition: 1s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+}
+
+/**/
+
+
+
+@keyframes backgroundChange {
+    0% { background-color: #2e1830; }
+    25% { background-color: #3e236a; }
+    50% { background-color: #5b2a8f; }
+    75% { background-color: #7c3dcf; }
+    100% { background-color: #2e1830; }
+}
+
+#unity-container {
+    width: 100%;
+    max-width: 960px;
+    height: calc(100vh - 200px);
+    margin-top: 0px; 
+    margin-bottom: 0; 
+}
+
+#unity-fullscreen-button {
+    margin-right: 0;
+}

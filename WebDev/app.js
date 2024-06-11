@@ -20,6 +20,7 @@ const __dirname = dirname(__filename);
 
 
 app.use(express.json());
+app.use(express.static('public'));
 
 async function connectToDB() {
   return await mysql.createConnection({
@@ -27,9 +28,31 @@ async function connectToDB() {
     user: "TC2005B",
     password: "Password123",
     database: "submil",
-    //port: 3307,
+    port: 3307,
   });
 }
+
+app.get('/SubmilWeb', (request, response)=>{
+  fs.readFile('public/html/SubmilWeb.html',  'utf8',(err, html)=>{
+      response.send(html)
+  })
+})
+
+app.get('/statistics', (request, response)=>{
+  fs.readFile('public/html/SubmilStatistics.html',  'utf8',(err, html)=>{
+      if(err) response.status(500).send('There was an error: ' + err)
+      console.log('Loading page...')
+      response.send(html)
+  })
+})
+
+app.get('/HowToPlay', (request, response)=>{
+  fs.readFile('public/html/SubmilHowtoPlay.html',  'utf8',(err, html)=>{
+      if(err) response.status(500).send('There was an error: ' + err)
+      console.log('Loading page...')
+      response.send(html)
+  })
+})
 
 
 app.get("/api/cards", async (request, response) => {
