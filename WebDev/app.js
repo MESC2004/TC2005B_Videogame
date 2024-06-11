@@ -162,7 +162,66 @@ app.post("/api/add_card", async (request, response) => {
   }
 });
 
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+  console.log("Login request received:", req.body);
 
+  if (!username || !password) {
+    return res.status(400).send('Username or password is missing');
+  }
+
+  let connection = null;
+  try {
+    connection = await connectToDB();
+    const [rows] = await connection.execute('SELECT * FROM Player WHERE Name = ? AND Password = ?', [username, password]);
+    if (rows.length === 0) {
+      console.log("User not found or incorrect password:", username);
+      return res.status(404).send('User not found or incorrect password');
+    }
+
+    console.log("Login successful for user:", username);
+    res.status(200).send('Login successful');
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).send('Internal server error');
+  } finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed successfully!");
+    }
+  }
+});
+
+app.post('/api/register', async (req, res) => {
+  const { username, password } = req.body;
+  console.log("Register request received:", req.body);
+
+  if (!username || !password) {
+    return res.status(400).send('Username or password is missing');
+  }
+
+  let connection = null;
+  try {
+    connection = await connectToDB();
+    const [rows] = await connection.execute('SELECT * FROM Player WHERE Name = ?', [username]);
+    if (rows.length > 0) {
+      console.log("Username already taken:", username);
+      return res.status(400).send('Username already taken');
+    }
+
+    await connection.execute('INSERT INTO Player (Name, Password, Deck_ID) VALUES (?, ?, 1)', [username, password]);
+    console.log("User registered successfully:", username);
+    res.status(201).send('User registered successfully');
+  } catch (err) {
+    console.error("Error during user registration:", err);
+    res.status(500).send('Internal server error');
+  } finally {
+    if (connection !== null) {
+      connection.end();
+      console.log("Connection closed successfully!");
+    }
+  }
+});
 
 
 app.delete("/api/delete_card/:id", async (req, res) => {
