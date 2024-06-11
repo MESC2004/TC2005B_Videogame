@@ -1278,7 +1278,7 @@ PrefabInstance:
     - target: {fileID: 5570667921517264675, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: b89423b9606a05f42a27c0f670cd85cc, type: 3}
+      objectReference: {fileID: 12800000, guid: c9f6d0e7bc8541498c9a4799ba184ede, type: 3}
     - target: {fileID: 5570667921517264675, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
       propertyPath: m_FontData.m_MinSize
       value: 3
@@ -1294,6 +1294,18 @@ PrefabInstance:
     - target: {fileID: 5733214995073503159, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
       propertyPath: m_Color.a
       value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723738696568693908, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
+      propertyPath: m_InputType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723738696568693908, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
+      propertyPath: m_ContentType
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723738696568693908, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
+      propertyPath: m_CustomCaretColor
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

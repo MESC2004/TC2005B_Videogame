@@ -341,7 +341,7 @@ public class CombatController : MonoBehaviour
         // Delete middle card if there are 3 cards
         if (PlayerPanelBottom.childCount == 3)
         {
-            StartCoroutine(DestroyTrue(HandPanel.GetChild(1).gameObject));
+            StartCoroutine(DestroyTrue(PlayerPanelBottom.GetChild(1).gameObject));
         }
 
         // Disable deck button clickability and hand cards clickability
@@ -426,6 +426,9 @@ public class CombatController : MonoBehaviour
                     StartCoroutine(DestroyTrue(card.gameObject));
                 }
             }
+
+            // Set attack back to 0
+            playerTopCard.GetComponent<CardScript>().cardData.Atk = 0;
            
             // Go to enemy logic
             EnemyTurn();
@@ -441,12 +444,16 @@ public class CombatController : MonoBehaviour
     public void Lose() 
     {
             LosePanel.SetActive(true);  // Shows Lose Screen
+            // Should avoid enemy from playing
+            TurnSequence("Swap");
             return;
     }
 
     public void Win()
     {
             WonPanel.SetActive(true); // Shows Win Screen
+            // Should avoid enemy from playing
+            TurnSequence("Swap");
             return;
     }
 
@@ -490,10 +497,12 @@ private IEnumerator EnemyTurnRoutine() {
     while (enemyHand.Contains(17)) {
         yield return StartCoroutine(InstantiateAndHandleCard(17));
 
-        // Add 2 cards to the enemy hand
-        for (int i = 0; i < 2; i++) {
-            enemyHand.Add(enemyDeck[0]);
-            enemyDeck.RemoveAt(0);
+        // Add 2 cards to the enemy hand if cards in deck > 2
+        if (enemyDeck.Count > 2) {
+            for (int i = 0; i < 2; i++) {
+                enemyHand.Add(enemyDeck[0]);
+                enemyDeck.RemoveAt(0);
+            }
         }
     }
 
@@ -549,6 +558,9 @@ private void applyEnemyDamage() {
         playerTopCard.GetComponent<CardScript>().cardData.HP = 0;
         playerTopCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = playerTopCard.GetComponent<CardScript>().cardData.HP.ToString();
     }
+
+    // Reset top enemy card atk to 0
+    enemyTopCard.GetComponent<CardScript>().cardData.Atk = 0;
 }
 
 // Coroutine to instantiate and handle a card
