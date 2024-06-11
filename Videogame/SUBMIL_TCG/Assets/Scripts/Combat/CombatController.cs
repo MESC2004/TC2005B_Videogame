@@ -561,6 +561,9 @@ private void applyEnemyDamage() {
 
     // Reset top enemy card atk to 0
     enemyTopCard.GetComponent<CardScript>().cardData.Atk = 0;
+
+    // Reset player top card defense to 0
+    playerTopCard.GetComponent<CardScript>().cardData.Def = 0;
 }
 
 // Coroutine to instantiate and handle a card
