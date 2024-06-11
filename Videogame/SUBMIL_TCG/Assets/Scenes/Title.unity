@@ -276,6 +276,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5570667921517264675, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: b89423b9606a05f42a27c0f670cd85cc, type: 3}
+    - target: {fileID: 5570667921517264675, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
       propertyPath: m_FontData.m_MinSize
       value: 2
       objectReference: {fileID: 0}
@@ -1260,7 +1264,8 @@ MonoBehaviour:
   usernameInput: {fileID: 1806152802}
   passwordInput: {fileID: 1890827400}
   loginEndpoint: http://localhost:5000/api/login
-  nextSceneName: Combat
+  nextSceneName: 
+  titlePanel: {fileID: 879216972}
 --- !u!1 &1229317054 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1541208071688926662, guid: a02d3d215f0580740ba96780497ac451, type: 3}
@@ -1408,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 32.7192
+      value: 44.9136
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1444,7 +1449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -117.91258
+      value: -124.00978
       objectReference: {fileID: 0}
     - target: {fileID: 6212786128084588813, guid: a02d3d215f0580740ba96780497ac451, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1780,6 +1785,14 @@ PrefabInstance:
     - target: {fileID: 5733214995073503159, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
       propertyPath: m_Color.a
       value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723738696568693908, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
+      propertyPath: m_InputType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723738696568693908, guid: 0a0159ae48b40d84fae48756c5febc64, type: 3}
+      propertyPath: m_ContentType
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13,6 +13,8 @@ public class LoginManager : MonoBehaviour
     public string loginEndpoint = "http://localhost:5000/api/login"; // Update if hosted elsewhere
     public string nextSceneName;
 
+    [SerializeField] GameObject titlePanel;
+
     public void OnLoginButtonPressed()
     {
         string enteredUsername = usernameInput.text;
@@ -41,7 +43,12 @@ public class LoginManager : MonoBehaviour
         if (www.result == UnityWebRequest.Result.Success)
         {
             // Handle successful login (e.g., save user data, load next scene)
-            SceneChanger.GoTo(nextSceneName);
+            // Turn off CredentialsPanel, Turn on TitlePanel
+            Debug.Log("Login successful");
+            // Turn off CredentialsPanel
+            GameObject.Find("CredentialsPanel").SetActive(false);
+            // Turn on TitlePanel
+            titlePanel.SetActive(true);
         }
         else
         {
