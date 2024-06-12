@@ -20,7 +20,7 @@ ${\texttt{\color{magenta}[All Sprints]}}$
 
 - **User Account Creation and Access ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Story:** As a user, I want to be able to create and login to my account.
-    - **Acceptance Criteria:** Given that the user wishes to create and log into their account, when the user accesses the registration option, a form should be displayed to create a new account, requesting essential information. After registration, id should allow the user to log in automatically.
+    - **Acceptance Criteria:** Given that the user wishes to create and log into their account, when the user accesses the registration option, a form should be displayed to create a new account, requesting essential information. After registration, credentials should allow the user to log in.
       
 - **Saving Progress and Decks in Each Account ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Story:** As a user, I want to be able to save my progress and decks to my account.
@@ -40,10 +40,10 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **Acceptance Criteria:** Given the initial game development, when the game development has ended then a finished deckbuilding game is expected.
 - **The Deck ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Story:** As a user, I want to be able to create and modify a 23 card deck to manage the strategy I want to use in my gameplay.
-    - **Acceptance Criteria:**
+    - **Acceptance Criteria:** There is a menu that allows for deck creation with appropriate limits to cards.
 - **Pre-set Deck Generator ${\texttt{\color{orange}[Mid]}}$ ${\texttt{\color{magenta}[3-4 sprints]}}$**
     - **User Story:** As a user, I want to have the option to use a default deck to play the game without having to create a deck from scratch.
-    - **Acceptance Criteria:** When the user accesses the option to select a pre-set deck, it is expected that they can choose a deck from a list of well-balanced and strategically designed decks, and start playing.
+    - **Acceptance Criteria:** If the user does not create a deck in the deck scene, or has no available deck, a default deck is used.
 
 ## Gameplay 
 
