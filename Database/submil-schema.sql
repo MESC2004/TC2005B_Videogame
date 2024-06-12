@@ -119,7 +119,6 @@ CREATE TABLE Card_Stats (
 --
 -- View to consult general information of all cards, can be used in API with a WHERE clause to find a unique card's data
 --
-
 USE submil;
 
 CREATE VIEW card_stat_consult AS
@@ -138,10 +137,10 @@ INNER JOIN stats
 ON card.Card_ID = stats.Stats_ID;
 
 SELECT * FROM card_stat_consult;
+
 --
 -- View of the data of every player's active deck, can be filtered with a where clause
 --
-
 CREATE VIEW Player_Deck_Info AS
 SELECT 
 	p.Player_ID, 
@@ -154,7 +153,7 @@ FROM
 	JOIN Deck d ON p.Deck_ID = d.Deck_ID;
 
 -- Test
--- SELECT * FROM PlayerDeckInfo WHERE Player_ID = 1;
+SELECT * FROM Player_Deck_Info WHERE Player_ID = 1;
 
 -- 
 -- View of a player's deck's cards
@@ -179,13 +178,12 @@ FROM
     INNER JOIN card_stat_consult csc ON dc.Card_ID = csc.Card_ID;
     
 -- Test
--- SELECT * FROM Deck_Card_Stats;
+SELECT * FROM Deck_Card_Stats;
     
 
 --
 -- Most Used Cards
 -- 
-
 CREATE VIEW Top_Used_Cards AS
 SELECT 
     c.Card_ID, 
@@ -195,7 +193,8 @@ FROM
 	Card c
 	JOIN Deck_Card dc ON c.Card_ID = dc.Card_ID
 	GROUP BY c.Card_ID
-	ORDER BY Deck_Count DESC;
+	ORDER BY Deck_Count DESC
+LIMIT 5;
 
 -- Test
 SELECT * FROM Top_Used_Cards;
@@ -203,7 +202,6 @@ SELECT * FROM Top_Used_Cards;
 --
 -- Match Insight View (All cards used in a match, might change to get stats of a match like avg dmg, avg hp, etc)
 --
-
 CREATE VIEW Match_Insight AS
 SELECT 
 	m.Match_ID, 
@@ -229,7 +227,6 @@ SELECT * FROM Match_Insight WHERE Match_ID = 1;
 --
 -- Average Speed Cost of a Deck View
 -- 
-
 CREATE VIEW Avg_Spd_Cost AS
 SELECT 
     d.Deck_ID,
@@ -277,7 +274,6 @@ SELECT * FROM Deck_Stats_Summary;
 --
 -- Winrate of a specific deck among different players (if they use the same deck)
 --
-
 CREATE VIEW Deck_Performance AS
 SELECT 
 	d.Deck_ID, 
@@ -295,23 +291,41 @@ SELECT * FROM Deck_Performance;
     
 
 --
--- Player WInrate View;
+-- View for Matches Played
 --
-
-CREATE VIEW Player_Performance AS
+CREATE VIEW Player_Matches_Played AS
 SELECT 
-	p.Player_ID, 
-	p.Name, 
-    COUNT(m.Match_ID) AS Matches_Played,
-	SUM(CASE WHEN p.Player_ID = m.Winner_ID THEN 1 ELSE 0 END) AS Matches_Won
+    p.Player_ID, 
+    p.Name, 
+    COUNT(m.Match_ID) AS Matches_Played
 FROM 
-	Player p
-	LEFT JOIN Match_ m ON p.Player_ID = m.Player1_ID OR p.Player_ID = m.Player2_ID
+    Player p
+    LEFT JOIN Match_ m ON p.Player_ID = m.Player1_ID OR p.Player_ID = m.Player2_ID
 GROUP BY 
-	p.Player_ID;
-
+    p.Player_ID;
+    
 -- Test
-SELECT * FROM Player_Performance;
+SELECT * FROM Player_Matches_Played;
+    
+--
+-- View for Win Rate
+--
+CREATE VIEW Player_Matches_Won AS
+SELECT 
+    p.Player_ID, 
+    p.Name, 
+    SUM(CASE WHEN p.Player_ID = m.Winner_ID THEN 1 ELSE 0 END) AS Matches_Won,
+    COUNT(m.Match_ID) AS Matches_Played,
+    (SUM(CASE WHEN p.Player_ID = m.Winner_ID THEN 1 ELSE 0 END) / COUNT(m.Match_ID)) * 100 AS Win_Rate
+FROM 
+    Player p
+    LEFT JOIN Match_ m ON p.Player_ID = m.Player1_ID OR p.Player_ID = m.Player2_ID
+GROUP BY 
+    p.Player_ID;
+
+-- test
+SELECT * FROM Player_Matches_Won;
+
 
 --
 -- View for looking at the outcomes of matches
@@ -334,4 +348,21 @@ FROM
 SELECT * FROM Match_Results;
 
 
+--
+-- Top 3 Players
+--
+CREATE VIEW Top_3_Players AS
+SELECT 
+    p.Player_ID, 
+    p.Name AS Player_Name, 
+    COUNT(m.Match_ID) AS Matches_Won
+FROM 
+    Player p
+    JOIN Match_ m ON p.Player_ID = m.Winner_ID
+GROUP BY 
+    p.Player_ID
+ORDER BY 
+    Matches_Won DESC
+LIMIT 3;
 
+SELECT * FROM Top_3_Players;
