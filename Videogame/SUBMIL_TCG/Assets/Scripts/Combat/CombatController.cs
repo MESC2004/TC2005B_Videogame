@@ -34,6 +34,8 @@ public class CombatController : MonoBehaviour
 
     public GameObject LosePanel;
     public GameObject WonPanel;
+    [SerializeField] TextMeshProUGUI CurrentAtk;
+    [SerializeField] TextMeshProUGUI CurrentDef;
 
     public void prepareIdentityCards()
     {
@@ -376,6 +378,8 @@ public class CombatController : MonoBehaviour
         {
             // Allow deck click
             AllowDeckClick();
+            // Reset defense TMP to 0
+            CurrentDef.text = "DEF: 0";
         }
         else if (phase == "Play")
         {
@@ -429,7 +433,7 @@ public class CombatController : MonoBehaviour
 
             // Set attack back to 0
             playerTopCard.GetComponent<CardScript>().cardData.Atk = 0;
-           
+
             // Go to enemy logic
             EnemyTurn();
         }
@@ -506,13 +510,6 @@ private IEnumerator EnemyTurnRoutine() {
         }
     }
 
-    // Check for type 2 cards and play attack boost (Card_ID 14) cards, then play the attack card
-    // if (enemyHand.Contains(7) || enemyHand.Contains(8) || enemyHand.Contains(9)) {
-    //     // Play attack boost card
-    //     if (enemyHand.Contains(14)) {
-    //         yield return StartCoroutine(InstantiateAndHandleCard(14));
-    //     }
-
         // Play attack card
         foreach (int cardID in enemyHand) {
             if (cardsObject.cards.Find(card => card.Card_ID == cardID).Type_ID == 2) {
@@ -527,13 +524,6 @@ private IEnumerator EnemyTurnRoutine() {
                 yield break;
             }
         }
-
-    
-    // } else {
-    //     // If there are no attack cards, play the card with the lowest speed cost
-    //     yield return StartCoroutine(InstantiateAndHandleCard(enemyHand[0]));
-    //     TurnSequence("Swap");
-    // }
 }
 
 private void applyEnemyDamage() {
@@ -601,6 +591,12 @@ private IEnumerator instantiateEnemyCard(int cardID) {
     enemyTopCard.GetComponent<CardScript>().cardData.Speed -= singleCardData.Speed_Cost;
     enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
 
+    // Do not allow enemy top card speed to go below 0 (Preemptive measure, should not happen anyways)
+    if (enemyTopCard.GetComponent<CardScript>().cardData.Speed < 0) {
+        enemyTopCard.GetComponent<CardScript>().cardData.Speed = 0;
+        enemyTopCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyTopCard.GetComponent<CardScript>().cardData.Speed.ToString();
+    }
+
     // Add Atk, Def, HP to the top enemy card
     enemyTopCard.GetComponent<CardScript>().cardData.HP += singleCardData.HP;
     enemyTopCard.GetComponent<CardScript>().cardData.Atk += singleCardData.Atk;
@@ -616,6 +612,8 @@ private IEnumerator DestroyEnemyCard() {
 // Coroutine to swap enemy cards
 private IEnumerator SwapEnemyCards(GameObject enemyTopCard) {
     yield return new WaitForSeconds(2.0f);
+    // Set attack TMP to 0
+    CurrentAtk.text = "ATK: 0";
     foreach (Transform card in EnemyPanelBottom) {
         if (enemyTopCard.GetComponent<CardScript>().cardData.Speed < card.GetComponent<CardScript>().cardData.Speed || (enemyTopCard.GetComponent<CardScript>().cardData.HP <= 0 && card.GetComponent<CardScript>().cardData.HP > 0)) {
             // Manual swap, no swap function for enemy yet
@@ -751,6 +749,9 @@ private IEnumerator SwapEnemyCards(GameObject enemyTopCard) {
 
         // Add attack to the top card
         topCard.GetComponent<CardScript>().cardData.Atk += clickedCard.GetComponent<CardScript>().cardData.Atk;
+
+        // Add attack to CurrentAtk TMP
+        CurrentAtk.text = "ATK: " + topCard.GetComponent<CardScript>().cardData.Atk.ToString();
     }
 
     public void DefenseCardClick(GameObject clickedCard) {
@@ -782,6 +783,9 @@ private IEnumerator SwapEnemyCards(GameObject enemyTopCard) {
 
         // Add defense to the top card
         topCard.GetComponent<CardScript>().cardData.Def += clickedCard.GetComponent<CardScript>().cardData.Def;
+
+        // Add defense to CurrentDef TMP
+        CurrentDef.text = "DEF: " + topCard.GetComponent<CardScript>().cardData.Def.ToString();
     }
 
     public void EffectCardClicked(GameObject clickedCard) {
@@ -813,6 +817,12 @@ private IEnumerator SwapEnemyCards(GameObject enemyTopCard) {
         topCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = topCardData.HP.ToString();
         topCardData.Atk += clickedCardData.Atk;
         topCardData.Def += clickedCardData.Def;
+
+        // Add attack to CurrentAtk TMP. String says "ATK: " + current attack
+        CurrentAtk.text = "ATK: " + topCardData.Atk.ToString();
+
+        // Same for defense
+        CurrentDef.text = "DEF: " + topCardData.Def.ToString();
 
         // Destroy clicked card with a destroy function that waits for a delay before destroying
         StartCoroutine(DestroyTrue(clickedCard));  
