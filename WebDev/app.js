@@ -32,6 +32,7 @@ async function connectToDB() {
   });
 }
 
+// Web
 app.get('/SubmilWeb', (request, response)=>{
   fs.readFile('public/html/SubmilWeb.html',  'utf8',(err, html)=>{
       response.send(html)
@@ -45,6 +46,107 @@ app.get('/statistics', (request, response)=>{
       response.send(html)
   })
 })
+
+
+/**/
+// graphs for Web:
+app.get("/statistics/WinRate", async (request, response) => {
+  let connection = null;
+
+  try {
+      connection = await connectToDB();
+      const [results, fields] = await connection.execute("SELECT * FROM Player_Matches_Won");
+
+      console.log(`${results.length} rows returned`);
+      const result = {cards: results};
+      console.log(result);
+      response.status(200).json(result);
+  }
+  catch (error) {
+      console.log(error);
+      response.status(500).json(error);
+  }
+  finally {
+      if (connection !== null) {
+          connection.end();
+          console.log("Connection closed succesfully");
+      }
+  }
+});
+
+app.get("/statistics/MatchesPlayed", async (request, response) => {
+  let connection = null;
+
+  try {
+      connection = await connectToDB();
+      const [results, fields] = await connection.execute("SELECT * FROM Player_Matches_Played");
+
+      console.log(`${results.length} rows returned`);
+      const result = {cards: results};
+      console.log(result);
+      response.status(200).json(result);
+  }
+  catch (error) {
+      console.log(error);
+      response.status(500).json(error);
+  }
+  finally {
+      if (connection !== null) {
+          connection.end();
+          console.log("Connection closed succesfully");
+      }
+  }
+});
+
+app.get("/statistics/TopCards", async (request, response) => {
+  let connection = null;
+
+  try {
+      connection = await connectToDB();
+      const [results, fields] = await connection.execute("SELECT * FROM Top_Used_Cards");
+
+      console.log(`${results.length} rows returned`);
+      const result = {cards: results};
+      console.log(result);
+      response.status(200).json(result);
+  }
+  catch (error) {
+      console.log(error);
+      response.status(500).json(error);
+  }
+  finally {
+      if (connection !== null) {
+          connection.end();
+          console.log("Connection closed succesfully");
+      }
+  }
+});
+
+app.get("/statistics/Top3Players", async (request, response) => {
+  let connection = null;
+
+  try {
+      connection = await connectToDB();
+      const [results, fields] = await connection.execute("SELECT * FROM Top_3_Players");
+
+      console.log(`${results.length} rows returned`);
+      const result = {cards: results};
+      console.log(result);
+      response.status(200).json(result);
+  }
+  catch (error) {
+      console.log(error);
+      response.status(500).json(error);
+  }
+  finally {
+      if (connection !== null) {
+          connection.end();
+          console.log("Connection closed succesfully");
+      }
+  }
+});
+/**/ 
+
 
 app.get('/HowToPlay', (request, response)=>{
   fs.readFile('public/html/SubmilHowtoPlay.html',  'utf8',(err, html)=>{
