@@ -12,8 +12,20 @@ public class LoginManager : MonoBehaviour
     public InputField passwordInput;
     public string loginEndpoint = "http://localhost:5000/api/login"; // Update if hosted elsewhere
     public string nextSceneName;
+    static public bool loggedIn = false;
 
     [SerializeField] GameObject titlePanel;
+
+    // Start
+    void Start()
+    {
+        // if logged in, turn off CredentialsPanel and turn on TitlePanel
+        if (loggedIn)
+        {
+            GameObject.Find("CredentialsPanel").SetActive(false);
+            titlePanel.SetActive(true);
+        }
+    }
 
     public void OnLoginButtonPressed()
     {
@@ -49,6 +61,7 @@ public class LoginManager : MonoBehaviour
             GameObject.Find("CredentialsPanel").SetActive(false);
             // Turn on TitlePanel
             titlePanel.SetActive(true);
+            loggedIn = true;
         }
         else
         {

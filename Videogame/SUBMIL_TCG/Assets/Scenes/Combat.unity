@@ -2660,14 +2660,14 @@ RectTransform:
   - {fileID: 1261532677}
   - {fileID: 1313375871}
   - {fileID: 55488539}
-  - {fileID: 1966776941}
-  - {fileID: 1120981896}
-  - {fileID: 1490909314}
-  - {fileID: 165584186}
   - {fileID: 1926056891}
   - {fileID: 1745167716}
   - {fileID: 1525689745}
   - {fileID: 804922298}
+  - {fileID: 1966776941}
+  - {fileID: 1120981896}
+  - {fileID: 1490909314}
+  - {fileID: 165584186}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
