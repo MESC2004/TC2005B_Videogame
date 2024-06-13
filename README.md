@@ -225,30 +225,23 @@ _(Note : These sections can safely be skipped if they&#39;re not relevant, or yo
 
 ### **Themes**
 
-1. Forest
-    1. Mood
-        1. Dark, calm, foreboding
+1. Menu
+    1. Style
+        1. Dark colors, paperlike font
     2. Objects
         1. _Ambient_
-            1. Fireflies
-            2. Beams of moonlight
-            3. Tall grass
+            1. Light from windows on the side
+            2. Train wagon
         2. _Interactive_
-            1. Wolves
-            2. Goblins
-            3. Rocks
-2. Castle
-    1. Mood
-        1. Dangerous, tense, active
+            1. Buttons
+            2. Input spaces
+2. Deck
+    1. Style
+        1. Same train wagon, no light
     2. Objects
-        1. _Ambient_
-            1. Rodents
-            2. Torches
-            3. Suits of armor
-        2. _Interactive_
-            1. Guards
-            2. Giant rats
-            3. Chests
+        1. _Interactive_
+            1. Panels
+            2. Cards
 
 ### **Game Flow**
 
@@ -292,122 +285,41 @@ The visual feedback will mostlmostly come from stat umber changes in the cards, 
 ### **Graphics Needed**
 
 1. Characters
-    1. Human-like
-        1. Goblin (idle, walking, throwing)
-        2. Guard (idle, walking, stabbing)
-        3. Prisoner (walking, running)
+    1. Identities
+        1. Card sprites
     2. Other
-        1. Wolf (idle, walking, running)
-        2. Giant Rat (idle, scurrying)
-2. Blocks
-    1. Dirt
-    2. Dirt/Grass
-    3. Stone Block
-    4. Stone Bricks
-    5. Tiled Floor
-    6. Weathered Stone Block
-    7. Weathered Stone Bricks
-3. Ambient
-    1. Tall Grass
-    2. Rodent (idle, scurrying)
-    3. Torch
-    4. Armored Suit
-    5. Chains (matching Weathered Stone Bricks)
-    6. Blood stains (matching Weathered Stone Bricks)
-4. Other
-    1. Chest
-    2. Door (matching Stone Bricks)
-    3. Gate
-    4. Button (matching Weathered Stone Bricks)
-
-_(example)_
-
+        1. Attack cards
+        2. Defense cards
+        3. Effect cards
+2. Ambient
+    1. Train wagon
+    2. Office desk
+    3. Texts
 
 ## _Sounds/Music_
 
----
+- Menu Music
+- Combat Music
+- Button click sound effects
+- Card action sound effects (maybe)
 
 ### **Style Attributes**
 
-Again, consistency is key. Define that consistency here. What kind of instruments do you want to use in your music? Any particular tempo, key? Influences, genre? Mood?
+Slow music that isnt necessarily relaxing, taken from the original Limbus Company game.
 
-Stylistically, what kind of sound effects are you looking for? Do you want to exaggerate actions with lengthy, cartoony sounds (e.g. mario&#39;s jump), or use just enough to let the player know something happened (e.g. mega man&#39;s landing)? Going for realism? You can use the music style as a bit of a reference too.
-
- Remember, auditory feedback should stand out from the music and other sound effects so the player hears it well. Volume, panning, and frequency/pitch are all important aspects to consider in both music _and_ sounds - so plan accordingly!
+If sound effects are implemented, clashing sounds for action cards, and rustle or click sounds for effect cards.
 
 ### **Sounds Needed**
 
 1. Effects
-    1. Soft Footsteps (dirt floor)
-    2. Sharper Footsteps (stone floor)
-    3. Soft Landing (low vertical velocity)
-    4. Hard Landing (high vertical velocity)
-    5. Glass Breaking
-    6. Chest Opening
-    7. Door Opening
-2. Feedback
-    1. Relieved &quot;Ahhhh!&quot; (health)
-    2. Shocked &quot;Ooomph!&quot; (attacked)
-    3. Happy chime (extra life)
-    4. Sad chime (died)
-
-_(example)_
+    1. Metal clank
+    2. Click sound
+    3. Gulp sound (heals)
 
 ### **Music Needed**
 
-1. Slow-paced, nerve-racking &quot;forest&quot; track
-2. Exciting &quot;castle&quot; track
-3. Creepy, slow &quot;dungeon&quot; track
-4. Happy ending credits track
-5. Rick Astley&#39;s hit #1 single &quot;Never Gonna Give You Up&quot;
-
-_(example)_
-
-### Progress Reports
-
-04-24-2024
-
-User stories are finalized and compiled into a .md file in the GitHub repository for review. They include five sections:
-
-Deck Creation and Default Decks
-Gameplay
-Controls and UI
-Login and Saving
-Win condition(a)
-
-Deck Creation and Default Decks breaks down how the player's decks are intended to work.
-
-Gameplay focuses more on the game mechanics, such as who the player will face, which in our case is an AI, when they can take cards to play, etc.
-
-Controls and UI is the part that has been developed the most. The ways in which the player interacts with the video game are specified, what are their options, what are the buttons and the interface with which they can interact. etc Likewise, topics related to the art and aesthetics of the game itself are touched upon once the player is in a real game.
-
-In Login and Saving, only the information that the player will have access to is broken down. In our case it is an account protected by username and password, and access to a leaderboard with the highest scores.
-
-In Win Condition, for the moment, is the only way to win our game. However, if more ideas arise about how to win, they will be implemented into GDD and user stories.
-
-The issues corresponding to each user story remain pending.
-
-Likewise, some JSON files were made to experiment with how these would look once they are implemented in the API that will communicate to the client and the database.
-
-Those were some points we were given to fix for the next review, which will include additional progress relevant to Sprint 0:
-
-- Need an image to show basic game mechanics of the game; summarize the readme
-- Add Sser Stories format, add priorities (1 - non functional, 10 - functional)
-- Remove technicalities (terms like TCG,change to "card came")
-- Add basic user stories, simplify them, don't have to be super specific
-- We can ask teachers for their area-specific user stories
-- Order user stories
-- Add tags to issues: functional / non-functional + etc., issues can be 100% technical, must have a description
-- Issues will be 70% functional / 30% non functional (game speed, music, etc.)
-- Wvery sprint should take care of 5-11 ish issues
-- 3 case of use diagrams (web dev, database, videogames)
-- Don't make a branch per issue
-- Create a branch for each team member
-- Distribute issues evenly (everyone must work on web dev, video game, database, etc)
-
-## _Schedule_
-
----
+1. Slow-paced, relaxed music (menus)
+2. Mysterious slow music (combat)
 
 _(define the main activities and the expected dates when they should be finished. This is only a reference, and can change as the project is developed)_
 
