@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private RectTransform rectTransform;
     private Vector3 originalPosition;
+    private AudioSource audioSource;
 
     public float moveAmount = 10f;
     private bool isPointerInside = false;
@@ -14,6 +16,21 @@ public class ButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         rectTransform = GetComponent<RectTransform>();
         originalPosition = rectTransform.anchoredPosition;
+
+        audioSource = GetComponent<AudioSource>();
+        Button button = GetComponent<Button>();
+        if (button != null)
+        {
+            button.onClick.AddListener(PlaySound);
+        }
+    }
+
+    void PlaySound()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
