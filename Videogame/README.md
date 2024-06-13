@@ -9,6 +9,20 @@ After cloning, you will be able to run the unity project by opening the project 
 clone_path/TC2005B_Videogame/Videogame/SUBMIL_TCG
 ```
 
+You can access the game through a local host by accessing the WebDev folder and running:
+```
+npm install
+```
+And then running
+```
+nodemon app.js
+```
+
+You can access the main page through
+```
+http://localhost:5000/SubmilWeb
+```
+
 ## Running the game
 To experience all of the features the game has, it must be run from the title scene. You will be able to register a user and account by clicking "Register", then typing the credentials you wish to use. Currently this is done locally. Logging in with the credentials will take you to the deck creation scene. Credentials are saved locally on a txt file named credentials.txt.
 From the title screen, you can also access the deck screen directly, counting as a guest, and allowing to modify the predefined deck that is given. You may add up to 3 identity cards, and as many of the other cards as you wish to add. In the future, draw cards will also limited.
