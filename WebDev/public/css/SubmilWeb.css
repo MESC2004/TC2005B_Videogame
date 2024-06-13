@@ -66,11 +66,9 @@ header {
 
 #content {
 
-    border:solid #4136dc;
     width: 50%;
     height: 500px; 
     color: white;
-    background-color: black;
     text-align: center;
 
     margin-left: 300px;
