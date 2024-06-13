@@ -189,11 +189,11 @@ Additionally, this would be the view of the back of each card on the card deck:
 ### -Player Turn:
 - Player is given the option to swap the front card for one of the two back cards or leave the front card in combat. An effect of swapping cards is regenerating the card's original speed value. If a card that had 3 speed and used 2 goes back to having 3 speed when swapping. This is intended to help avoid defense card spamming.
 <p align="center">
-    <img src="Images/GameEx2.jpeg" width="500">
+    <img src="Images/GameEx1.jpeg" width="500">
 </p>
 
 
-- If the player swaps the card the card placement changes, if not, it stays the same. The player then draws 2 cards. In this case, an attack and a defense card from the pile.
+- If the player swaps the card the card placement changes, if not, it stays the same. The player then draws 3 cards. In this case, two attack cards and one attack boost card from the deck.
 <p align="center">
     <img src="Images/GameEx3.jpeg" width="500">
 </p>
@@ -220,8 +220,6 @@ Additionally, this would be the view of the back of each card on the card deck:
 - If the deck runs out of cards, the deck is reshuffled and the player can take ards again. This can be made by using an invisible discard pile that keeps track of which cards the player does not have in their hand or in their deck.
 
 ---
-
-_(Note : These sections can safely be skipped if they&#39;re not relevant, or you&#39;d rather go about it another way. For most games, at least one of them should be useful. But I&#39;ll understand if you don&#39;t want to use them. It&#39;ll only hurt my feelings a little bit.)_
 
 ### **Themes**
 
