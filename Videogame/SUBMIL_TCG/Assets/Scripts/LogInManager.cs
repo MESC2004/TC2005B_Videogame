@@ -12,14 +12,43 @@ public class LoginManager : MonoBehaviour
     public InputField passwordInput;
     public string loginEndpoint = "http://localhost:5000/api/login"; // Update if hosted elsewhere
     public string nextSceneName;
+    static public bool loggedIn = false;
 
     [SerializeField] GameObject titlePanel;
+    [SerializeField] GameObject creditsPanel;
+
+    // Start
+    void Start()
+    {
+        // if logged in, turn off CredentialsPanel and turn on TitlePanel
+        if (loggedIn)
+        {
+            GameObject.Find("CredentialsPanel").SetActive(false);
+            titlePanel.SetActive(true);
+        }
+    }
 
     public void OnLoginButtonPressed()
     {
         string enteredUsername = usernameInput.text;
         string enteredPassword = passwordInput.text;
         StartCoroutine(AttemptLogin(enteredUsername, enteredPassword));
+    }
+
+    public void returnToTitle()
+    {
+        // Turn off CreditsPanel
+        creditsPanel.SetActive(false);
+        // Turn on TitlePanel
+        titlePanel.SetActive(true);
+    }
+
+    public void OnCreditsButtonPressed()
+    {
+        // Turn off TitlePanel
+        titlePanel.SetActive(false);
+        // Turn on CreditsPanel
+        creditsPanel.SetActive(true);
     }
 
     IEnumerator AttemptLogin(string username, string password)
@@ -49,6 +78,7 @@ public class LoginManager : MonoBehaviour
             GameObject.Find("CredentialsPanel").SetActive(false);
             // Turn on TitlePanel
             titlePanel.SetActive(true);
+            loggedIn = true;
         }
         else
         {
