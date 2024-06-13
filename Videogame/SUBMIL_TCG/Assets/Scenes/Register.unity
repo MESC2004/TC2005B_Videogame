@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmount: 10
+  buttonSound: {fileID: 8300000, guid: b86fd5e460b66884bae7209c22ea1eed, type: 3}
 --- !u!1001 &1467170482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -954,6 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAmount: 10
+  buttonSound: {fileID: 8300000, guid: b86fd5e460b66884bae7209c22ea1eed, type: 3}
 --- !u!1 &1898974105
 GameObject:
   m_ObjectHideFlags: 0
