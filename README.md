@@ -250,17 +250,12 @@ _(Note : These sections can safely be skipped if they&#39;re not relevant, or yo
             2. Giant rats
             3. Chests
 
-_(example)_
-
 ### **Game Flow**
 
 1. From the title screen, the player can login or register new credentials.
-2. From the title screen, can click the 'Play' button to access stage selection (Tutorial, Challenge).
-3. Initially, only the tutorial is available. After clearing it, challenge mode becomes available.
-4. Challenge mode rotates the decks that the AI opponent uses at random from a deck pool.
-5. The user can play challenge mode as many times as they want to increase their winrate.
-
-_(example)_
+2. From the title screen, can click the 'Play' button to access combat with their current deck.
+4. AI and player decks are randomized at the beginning of each match, as well as when the discard pile is reinstated into the deck.
+5. The user can play challenge mode as many times as they want.
 
 ## _Development_
 
