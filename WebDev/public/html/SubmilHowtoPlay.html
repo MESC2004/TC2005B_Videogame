@@ -1,74 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel=stylesheet href="..\css\SubmilHowtoPlay.css">
+    <link rel="stylesheet" href="../css/SubmilHowtoPlay.css">
     <title>SubmilHowtoPlay</title>
 </head>
+
 <body>
-    
     <header>
-
-        <h1>
-            SUBMIL
-        </h1>
-
+        <h1>SUBMIL</h1>
         <nav>
             <a href="/SubmilWeb">Home</a>
             <a href="/statistics">Statistics</a>
             <a href="">About us</a>
             <a href="https://github.com/MESC2004/TC2005B_Videogame/tree/main">GitHub</a>
         </nav>
-
     </header>
 
     <div id="content">
-        <p>
-            The game's decks are made of 23 cards. 3 of them are the identity cards, 
-            which are the ones in play at all times in the match, and the rest are a 
-            mix of attack, defense andmiscellaneous cards (such as draw cards and 
-            effect cards). Matches are intended to last around 14 turns, 7 from each 
-            player.
-        </p>
-        <h2>
-            Game Start
-        </h2>
-        <p>
-            Identity cards are placed on the board.
-        </p>
-        <h2>
-            Player Turn. The turn is divided in 4 phases:
-        </h2>
-        <h3>
-            1. Swap phase 
-        </h3>
-        <p>
-            Player is given the option to swap the front card for one of the two back cards or leave the front card in combat. An effect of swapping cards is regenerating the card's original speed value. If a card that had 3 speed and used 2 goes back to having 3 speed when swapping. This is intended to help avoid defense card spamming.
-        </p>
-        <p>
-            If the player swaps the card the card placement changes, if not, it stays the same. 
-        </p>
-        <h3>
-            2. Draw phase
-        </h3>
-        <p>
-            The player then draws 3 cards from their deck.
-        </p>
-        <h3>
-            3. Play phase
-        </h3>
-        <p>
-            The player can now play the cards in their hand. They can play as many effect cards as they want, but only one attack card and one defense card.
-        </p>
-        <h3>
-            4. End phase
-        </h3>
-        <p>
-            The player ends their turn. Stats and effects are applied to opponent cards.
+        <h1>Match Gameplay</h1>
+
+        <h3>Game Start:</h3>
+        <p>Identity cards are placed on the board.</p>
+        <p align="center">
+            <img src="../html/Images/GameEx1.jpeg" width="500" class="center">
         </p>
 
+        <h3>Player Turn:</h3>
+        <p>Player is given the option to swap the front card for one of the two back cards or leave the front card in combat. An effect of swapping cards is regenerating the card's original speed value. If a card that had 3 speed and used 2 goes back to having 3 speed when swapping. This is intended to help avoid defense card spamming.</p>
+        <p align="center">
+            <img src="../html/Images/GameEx1.jpeg" width="500" class="center">
+        </p>
+
+        <p>If the player swaps the card the card placement changes, if not, it stays the same. The player then draws 3 cards. In this case, two attack cards and one attack boost card from the deck.</p>
+        <p align="center">
+            <img src="../html/Images/GameEx3.jpeg" width="500" class="center">
+        </p>
+
+        <p>The player can use 1 action card (atk, def) per turn and as many item cards as the conditions allow in the card description. In this case, the attack card is played, reducing the front card's speed by 1.</p>
+        <p align="center">
+            <img src="../html/Images/GameEx4.jpeg" width="500" class="center">
+        </p>
+
+        <p>The card performs the action (attack) and the action card gets discarded. The opposing card loses 3 HP.</p>
+        <p align="center">
+            <img src="../html/Images/GameEx5.jpeg" width="500" class="center">
+        </p>
+
+        <p>Player turn ends, opponent's turn starts. The opponent uses the same gameloop as the player.</p>
+        <p align="center">
+            <img src="../html/Images/GameEx6.jpeg" width="600" class="center">
+        </p>
     </div>
-
 </body>
+
 </html>
