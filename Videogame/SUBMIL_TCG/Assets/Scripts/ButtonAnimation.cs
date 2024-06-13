@@ -7,17 +7,16 @@ public class ButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExit
 {
     private RectTransform rectTransform;
     private Vector3 originalPosition;
-    private AudioSource audioSource;
 
     public float moveAmount = 10f;
     private bool isPointerInside = false;
+    public AudioClip buttonSound;
 
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         originalPosition = rectTransform.anchoredPosition;
 
-        audioSource = GetComponent<AudioSource>();
         Button button = GetComponent<Button>();
         if (button != null)
         {
@@ -27,9 +26,9 @@ public class ButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     void PlaySound()
     {
-        if (audioSource != null)
+        if (AudioManager.Instance != null)
         {
-            audioSource.Play();
+            AudioManager.Instance.PlaySound(buttonSound);
         }
     }
 
@@ -41,16 +40,13 @@ public class ButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Start a coroutine to delay the exit check
         StartCoroutine(DelayedCheck(eventData));
     }
 
     private IEnumerator DelayedCheck(PointerEventData eventData)
     {
-        // Wait for the end of the frame to ensure the pointer has actually exited
         yield return new WaitForEndOfFrame();
 
-        // Check if the pointer is still inside the button area
         if (!RectTransformUtility.RectangleContainsScreenPoint(rectTransform, eventData.position, eventData.pressEventCamera))
         {
             isPointerInside = false;
