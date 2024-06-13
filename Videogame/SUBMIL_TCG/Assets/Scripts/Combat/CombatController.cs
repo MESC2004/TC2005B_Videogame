@@ -36,6 +36,8 @@ public class CombatController : MonoBehaviour
     public GameObject WonPanel;
     [SerializeField] TextMeshProUGUI CurrentAtk;
     [SerializeField] TextMeshProUGUI CurrentDef;
+    [SerializeField] TextMeshProUGUI CurrentTurn;
+    [SerializeField] TextMeshProUGUI CurrentPhase;
 
     public void prepareIdentityCards()
     {
@@ -356,6 +358,11 @@ public class CombatController : MonoBehaviour
 
         if (phase == "Swap")
         {
+            // Turn tmp to player
+            CurrentTurn.text = "Player Turn";
+            // Phase TMP to Swap
+            CurrentPhase.text = "Swap";
+
             // if top card is dead, manually swap with a card in the bottom panel, not using swap coz its bugged
             if (PlayerPanelTop.GetChild(0).GetComponent<CardScript>().cardData.HP <= 0)
             {
@@ -376,6 +383,9 @@ public class CombatController : MonoBehaviour
         }
         else if (phase == "Draw")
         {
+            // Phase TMP to Draw
+            CurrentPhase.text = "Draw";
+
             // Allow deck click
             AllowDeckClick();
             // Reset defense TMP to 0
@@ -383,6 +393,9 @@ public class CombatController : MonoBehaviour
         }
         else if (phase == "Play")
         {
+            // Phase TMP to Play
+            CurrentPhase.text = "Play";
+
             // Allow for playing of hand cards
             AllowHandClick();
             // Allow end turn button
@@ -390,6 +403,9 @@ public class CombatController : MonoBehaviour
         }
         else if (phase == "End")
         {
+            // Phase TMP to empty
+            CurrentPhase.text = "";
+
             // End of player turn
             // Disable hand clickability
             DisableHandClick();
@@ -447,18 +463,18 @@ public class CombatController : MonoBehaviour
 
     public void Lose() 
     {
-            LosePanel.SetActive(true);  // Shows Lose Screen
-            // Should avoid enemy from playing
-            TurnSequence("Swap");
-            return;
+        LosePanel.SetActive(true);  // Shows Lose Screen
+        // Should avoid enemy from playing
+        TurnSequence("Swap");
+        return;
     }
 
     public void Win()
     {
-            WonPanel.SetActive(true); // Shows Win Screen
-            // Should avoid enemy from playing
-            TurnSequence("Swap");
-            return;
+        WonPanel.SetActive(true); // Shows Win Screen
+        // Should avoid enemy from playing
+        TurnSequence("Swap");
+        return;
     }
 
     void CheckEnemyDeck() {
@@ -474,9 +490,12 @@ public class CombatController : MonoBehaviour
     }
     
     public void EnemyTurn() {
-    // For managing timings, called as a coroutine, also convenient for the transition from PlayerTurn to EnemyTurn
-    StartCoroutine(EnemyTurnRoutine());
-    }
+        // For managing timings, called as a coroutine, also convenient for the transition from PlayerTurn to EnemyTurn
+        StartCoroutine(EnemyTurnRoutine());
+
+        // Turn tmp to enemy
+        CurrentTurn.text = "Enemy Turn";
+        }
 
 private IEnumerator EnemyTurnRoutine() {
     // AI TODO
