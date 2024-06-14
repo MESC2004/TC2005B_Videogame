@@ -96,23 +96,30 @@ The possibility of using previously made artwork has also been explored to avoid
 ### **Screens**
 
 1. Title Screen
-    1. Login
-    2. Play
-    3. Options
-    4. Credits
+    a. Login
+    b. Register
 
 <p align="center">
-    <img src="Images/Menu Screen.png" width="500">
+    <img src="Images/menu_screen_final.png" width="500">
 </p>
 
-2. Level Select
-   1. Tutorial
-   2. Challenge
-4. Game
-    1. Hand
-    2. Board
+2. Register
 
-_(example)_
+<p align="center">
+    <img src="Images/register_screen.png" width="500">
+</p>
+
+4. Deck
+
+<p align="center">
+    <img src="Images/deck_screen.png" width="500">
+</p>
+
+6. Combat
+
+<p align="center">
+    <img src="Images/combat_screen.png" width="500">
+</p>
 
 ### **Controls**
 
