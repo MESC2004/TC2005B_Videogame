@@ -365,4 +365,124 @@ ORDER BY
     Matches_Won DESC
 LIMIT 3;
 
-SELECT * FROM Top_3_Players;
+-- SELECT * FROM Top_3_Players;
+
+-- Procedures
+
+DELIMITER //
+
+CREATE PROCEDURE UpdatePlayer(
+    IN p_Player_ID INT,
+    IN p_Name VARCHAR(255),
+    IN p_Password VARCHAR(255),
+    IN p_IsNPC BOOLEAN
+)
+BEGIN
+    UPDATE Player
+    SET Name = p_Name, Password = p_Password, IsNPC = p_IsNPC
+    WHERE Player_ID = p_Player_ID;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+-- Procedure to delete a user from the database
+
+CREATE PROCEDURE DeletePlayer(
+    IN p_Player_ID INT
+)
+BEGIN
+    DELETE FROM Player WHERE Player_ID = p_Player_ID;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+-- Procedure to get the size of a deck through ID
+CREATE PROCEDURE GetDeckSize(
+    IN p_Deck_ID INT,
+    OUT p_Deck_Size INT
+)
+BEGIN
+    SELECT Size INTO p_Deck_Size FROM Deck WHERE Deck_ID = p_Deck_ID;
+END //
+
+DELIMITER ;
+
+-- Triggers
+--
+-- Trigger for updating the create date of a deck
+--
+
+DELIMITER //
+
+CREATE TRIGGER UpdateDeckTimestamp
+BEFORE UPDATE ON Deck
+FOR EACH ROW
+BEGIN
+    SET NEW.Creation_Date = CURRENT_TIMESTAMP;
+END //
+
+DELIMITER ;
+
+
+--
+-- Trigger for saving a register every time a card is modified
+--
+
+DELIMITER //
+
+CREATE TRIGGER LogCardChanges
+AFTER UPDATE ON Card
+FOR EACH ROW
+BEGIN
+    INSERT INTO Card_Audit (Card_ID, Change_Date, Old_Name, New_Name, Old_Description, New_Description)
+    VALUES (OLD.Card_ID, CURRENT_TIMESTAMP, OLD.Name, NEW.Name, OLD.Description, NEW.Description);
+END //
+
+DELIMITER ;
+
+-- Trigger to log changes in deck size
+DELIMITER //
+
+CREATE TRIGGER LogDeckChanges
+AFTER UPDATE ON Deck
+FOR EACH ROW
+BEGIN
+    IF OLD.Size <> NEW.Size THEN
+        INSERT INTO Deck_Audit (Deck_ID, Change_Date, Old_Size, New_Size)
+        VALUES (NEW.Deck_ID, CURRENT_TIMESTAMP, OLD.Size, NEW.Size);
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+--
+-- Event for cleaning out matches that are over a year old
+--
+
+DELIMITER //
+
+CREATE EVENT CleanOldMatches
+ON SCHEDULE EVERY 1 MONTH
+DO
+BEGIN
+    DELETE FROM Match_ WHERE Match_Date < NOW() - INTERVAL 1 YEAR;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE EVENT CleanOldDecks
+ON SCHEDULE EVERY 1 WEEK
+DO
+BEGIN
+    DELETE FROM Deck WHERE Modification_Date < NOW() - INTERVAL 6 MONTH;
+END //
+
+DELIMITER ;

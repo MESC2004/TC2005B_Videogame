@@ -34,16 +34,19 @@ INSERT INTO Player (Deck_ID, Name, Registration_Date, Password, IsNPC) VALUES
 (1, 'Fabrizio', NOW(), 'password1', FALSE),
 (2, 'Miguel', NOW(), 'password2', FALSE),
 (2, 'Cyber', NOW(), 'password3', FALSE),
-(3, 'Dante', NOW(), 'password', FALSE),
-(4, 'Guest1', NOW(), 'password', FALSE),
-(5, 'Guest2', NOW(), 'password', FALSE);
+(2, 'Dante', NOW(), 'password', FALSE),
+(2, 'Guest1', NOW(), 'password', FALSE),
+(2, 'Guest2', NOW(), 'password', FALSE);
 
 INSERT INTO Match_ (Player1_ID, Player2_ID, Winner_ID, Total_Turns) VALUES
 (1, 2, 1, 15),
 (2, 1, 2, 15),
 (2, 1, 2, 15),
 (3, 2, 3, 18),
-(4, 3, 4, 17);
+(4, 3, 4, 17),
+(5, 3, 5, 19),
+(5, 3, 3, 18),
+(6, 1, 6, 18);
 
 INSERT INTO Stats (HP, Speed, Speed_Cost, Atk, Def, Passive) VALUES
 (20, 1, 0, 0, 0, 'Pierce Cards have 50% less effect'),
