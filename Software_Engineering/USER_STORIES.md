@@ -61,10 +61,6 @@ ${\texttt{\color{magenta}[All Sprints]}}$
     - **User Story:** As a user, I want to be able to use a mix of attack, defense and effects to beat my opponent.
     - **Acceptance Criteria:** The system must allow the user to select and apply strategies of attack, defense, and special effect in such a way that the effectively interact according to the game rules to defeat the opponent.
       
-- **Card Selection Confirmation ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
-    - **User Story:** As a user, I want to be able to press a button to confirm my choice when deciding what card to play.
-    - **Acceptance Criteria:** The user wishes to confirm their card choice when playing, the system must provide a confirmation button that, once pressed, finalizes the selection and proceeds with the play according to the game rules.
-      
 ## Controls and UI
 
 - **Game Menu Interaction ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
@@ -80,7 +76,7 @@ ${\texttt{\color{magenta}[All Sprints]}}$
       
 - **Card Values and Effects Display ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
     - **User Story:**  As a user, I want to be able to understand the card's values and effects at a glance.
-    - **Acceptance Criteria:** When tha user looks at a card, the information about the card´s values and effects should be clearly reflected in a comprehensible manner without the need for additional actions.
+    - **Acceptance Criteria:** When the user looks at a card, the information about the card´s values and effects should be clearly reflected in a comprehensible manner without the need for additional actions.
       
 - **Detailed Card Information Display ${\texttt{\color{green}[Low]}}$ ${\texttt{\color{magenta}[1-2 sprints]}}$**
     - **User Story:** As a user, I want to be able to see detailed information of a card in a match.
